@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- ====| LABELS |==== -->
+    <Style x:Key="H1" TargetType="Label">
+        <Setter Property="FontFamily" Value="InterBold"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="TextColor" Value="{StaticResource BlackBase}"/>
+    </Style>
+
+    <Style x:Key="H2" TargetType="Label">
+        <Setter Property="FontFamily" Value="InterBold"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="TextColor" Value="{StaticResource BlackBase}"/>
+    </Style>
+
+    <Style x:Key="H3" TargetType="Label">
+        <Setter Property="FontFamily" Value="InterSemiBold"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="TextColor" Value="{StaticResource BlackBase}"/>
+    </Style>
+
+    <Style x:Key="TextRegular" TargetType="Label">
+        <Setter Property="FontFamily" Value="InterRegular"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="TextColor" Value="{StaticResource BlackBase}"/>
+    </Style>
+
+    <Style x:Key="TextSecondary" TargetType="Label">
+        <Setter Property="FontFamily" Value="InterLight"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="TextColor" Value="{StaticResource GrayMidnight}"/>
+    </Style>
+
+    <Style x:Key="TextPlaceholder" TargetType="Label">
+        <Setter Property="FontFamily" Value="InterLight"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="TextColor" Value="{StaticResource GrayMedium}"/>
+    </Style>
+
+    <Style x:Key="Stats" TargetType="Label">
+        <Setter Property="FontFamily" Value="InterBold"/>
+        <Setter Property="FontSize" Value="32"/>
+        <Setter Property="TextColor" Value="{StaticResource Primary}"/>
+    </Style>
+
+    <!-- ====| BUTTONS |==== -->
+    <Style x:Key="PrimaryButton" TargetType="Button">
+        <Setter Property="FontFamily" Value="InterSemiBold"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="BackgroundColor" Value="{StaticResource Primary}"/>
+        <Setter Property="TextColor" Value="{StaticResource WhiteBase}"/>
+        <Setter Property="CornerRadius" Value="12"/>
+        <Setter Property="HeightRequest" Value="52"/>
+        <Setter Property="HorizontalOptions" Value="Fill"/>
+    </Style>
+
+    <Style x:Key="SecondaryButton" TargetType="Button">
+        <Setter Property="FontFamily" Value="InterSemiBold"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="BackgroundColor" Value="Transparent"/>
+        <Setter Property="TextColor" Value="{StaticResource Primary}"/>
+        <Setter Property="BorderColor" Value="{StaticResource Primary}"/>
+        <Setter Property="BorderWidth" Value="1.5"/>
+        <Setter Property="CornerRadius" Value="12"/>
+        <Setter Property="HeightRequest" Value="52"/>
+        <Setter Property="HorizontalOptions" Value="Fill"/>
+    </Style>
+
+    <Style x:Key="DangerButton" TargetType="Button">
+        <Setter Property="FontFamily" Value="InterSemiBold"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="BackgroundColor" Value="{StaticResource ActionDelete}"/>
+        <Setter Property="TextColor" Value="{StaticResource WhiteBase}"/>
+        <Setter Property="CornerRadius" Value="12"/>
+        <Setter Property="HeightRequest" Value="52"/>
+        <Setter Property="HorizontalOptions" Value="Fill"/>
+    </Style>
+
+        <!-- ====| INPUTS |==== -->
+    <Style x:Key="InputField" TargetType="Entry">
+        <Setter Property="FontFamily" Value="InterRegular"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="TextColor" Value="{StaticResource BlackBase}"/>
+        <Setter Property="PlaceholderColor" Value="{StaticResource GrayMedium}"/>
+        <Setter Property="BackgroundColor" Value="{StaticResource WhiteBase}"/>
+        <Setter Property="HeightRequest" Value="52"/>
+        <Setter Property="Margin" Value="0,4"/>
+    </Style>
+
+    <!-- ====| CARD BOX MODAL |==== -->
+    <Style x:Key="AuthCard" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource GrayLight}"/>
+        <Setter Property="StrokeThickness" Value="0"/>
+        <Setter Property="StrokeShape" Value="RoundRectangle 30"/>
+        <Setter Property="Padding" Value="28"/>
+        <Setter Property="Margin" Value="16,0"/>
+    </Style>
+
+    <!-- ====| LINKS |==== -->
+    <Style x:Key="LinkText" TargetType="Label">
+        <Setter Property="FontFamily" Value="InterSemiBold"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="TextColor" Value="{StaticResource Secondary}"/>
+        <Setter Property="TextDecorations" Value="Underline"/>
+    </Style>
+
+    <!-- ====| ADVERTISMENT |==== -->
+    <Style x:Key="WarningText" TargetType="Label">
+        <Setter Property="FontFamily" Value="InterRegular"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="TextColor" Value="{StaticResource StatusAdvertisement}"/>
+        <Setter Property="HorizontalTextAlignment" Value="Center"/>
+    </Style>
+
+</ResourceDictionary>

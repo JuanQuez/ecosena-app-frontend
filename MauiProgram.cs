@@ -15,7 +15,8 @@ namespace EcosenaApp
                     fonts.AddFont("Inter_18pt-Medium.ttf", "InterMedium");
                     fonts.AddFont("Inter_18pt-Regular.ttf", "InterRegular");
                     fonts.AddFont("Inter_18pt-SemiBold.ttf", "InterSemiBold");
-                    fonts.AddFont("Inter_18pt-Bold.ttf", "InterBold");
+                    fonts.AddFont("Inter_18pt-Bold", "InterBold");
+                    fonts.AddFont("Inter_18pt-ExtraBold.ttf", "InterExtraBold");
                 });
 #if DEBUG
     		builder.Logging.AddDebug();

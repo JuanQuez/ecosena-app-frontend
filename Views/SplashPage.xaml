@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcosenaApp.Views.SplashPage"
+             Title="SplashPage">
+    <Grid>
+        <!-- ====| BKG |==== -->
+        <Image Source="bkg_ecosena_splash.png"
+               Aspect="AspectFill"/>
+
+        <!-- ====| CONTENT |==== -->
+        <VerticalStackLayout
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            Spacing="10">
+
+            <Image Source="icon_logo.png"
+                   HeightRequest="107.45"
+                   WidthRequest="100"
+                   HorizontalOptions="Center"/>
+
+            <Label Text="ECOSENA"
+                   Style="{StaticResource H1}"
+                   TextColor="{StaticResource WhiteBase}"
+                   HorizontalOptions="Center"/>
+
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

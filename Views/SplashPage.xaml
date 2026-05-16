@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcosenaApp.Views.SplashPage"
+             BackgroundImageSource="bkg_ecosena_splash.png"
              Title="SplashPage">
     <Grid>
         <!-- ====| BKG |==== -->
@@ -14,7 +15,7 @@
             VerticalOptions="Center"
             Spacing="10">
 
-            <Image Source="icon_logo.png"
+            <Image Source="icon_logo.svg"
                    HeightRequest="107.45"
                    WidthRequest="100"
                    HorizontalOptions="Center"/>

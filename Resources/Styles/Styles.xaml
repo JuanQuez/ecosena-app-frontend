@@ -60,20 +60,36 @@
         <Setter Property="BackgroundColor" Value="{StaticResource Primary}"/>
         <Setter Property="TextColor" Value="{StaticResource WhiteBase}"/>
         <Setter Property="CornerRadius" Value="50"/>
-        <Setter Property="HeightRequest" Value="52"/>
+        <Setter Property="Padding" Value="30, 15" />
         <Setter Property="HorizontalOptions" Value="Fill"/>
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Brush="{StaticResource BlackBase}"
+                Offset="0,1"
+                Radius="5"
+                Opacity="0.25"/>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key="SecondaryButton" TargetType="Button">
         <Setter Property="FontFamily" Value="InterBold"/>
         <Setter Property="FontSize" Value="18"/>
-        <Setter Property="BackgroundColor" Value="Transparent"/>
+        <Setter Property="BackgroundColor" Value="{StaticResource GrayLight}"/>
         <Setter Property="TextColor" Value="{StaticResource Primary}"/>
         <Setter Property="BorderColor" Value="{StaticResource Primary}"/>
         <Setter Property="BorderWidth" Value="1.5"/>
         <Setter Property="CornerRadius" Value="50"/>
         <Setter Property="HeightRequest" Value="40"/>
         <Setter Property="HorizontalOptions" Value="Fill"/>
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Brush="{StaticResource BlackBase}"
+                Offset="0,1"
+                Radius="5"
+                Opacity="0.25"/>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key="DangerButton" TargetType="Button">
@@ -84,6 +100,14 @@
         <Setter Property="CornerRadius" Value="50"/>
         <Setter Property="HeightRequest" Value="52"/>
         <Setter Property="HorizontalOptions" Value="Fill"/>
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Brush="{StaticResource BlackBase}"
+                Offset="0,1"
+                Radius="5"
+                Opacity="0.25"/>
+            </Setter.Value>
+        </Setter>
     </Style>
 
         <!-- ====| INPUTS |==== -->
@@ -102,8 +126,15 @@
         <Setter Property="BackgroundColor" Value="{StaticResource GrayLight}"/>
         <Setter Property="StrokeThickness" Value="0"/>
         <Setter Property="StrokeShape" Value="RoundRectangle 35"/>
-        <Setter Property="Padding" Value="30, 35"/>
         <Setter Property="Margin" Value="30,20"/>
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Brush="{StaticResource BlackBase}"
+                Offset="0,1"
+                Radius="5"
+                Opacity="0.25"/>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <!-- ====| INPUT CARD |==== -->
@@ -113,6 +144,14 @@
         <Setter Property="StrokeShape" Value="RoundRectangle 20"/>
         <Setter Property="Padding" Value="16,0"/>
         <Setter Property="HeightRequest" Value="52"/>
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Brush="{StaticResource BlackBase}"
+                Offset="0,1"
+                Radius="5"
+                Opacity="0.25"/>
+            </Setter.Value>
+        </Setter>
     </Style>
     
     <!-- ====| LINKS |==== -->

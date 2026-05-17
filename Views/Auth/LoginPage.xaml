@@ -109,9 +109,12 @@
                                    Style="{StaticResource TextPlaceholder}"
                                    TextColor="{StaticResource GrayDark}"/>
                             <Label Text="Crea tu cuenta"
-                                   Style="{StaticResource LinkText}"
-                                   TextColor="{StaticResource Seaplant}"
-                                   />
+                                Style="{StaticResource LinkText}"
+                                TextColor="{StaticResource Seaplant}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnSignUpTapped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
                         </HorizontalStackLayout>
 
                         <BoxView HeightRequest="1"

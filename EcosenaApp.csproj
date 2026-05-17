@@ -52,7 +52,7 @@
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" Color="#174F42" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" TintColor="#174F42"/>
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" TintColor="#174F42" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -80,6 +80,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Views\Auth\LoginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Auth\SingUpPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\SplashPage.xaml">

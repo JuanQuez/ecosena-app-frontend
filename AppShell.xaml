@@ -4,10 +4,16 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:EcosenaApp.Views"
+    xmlns:auth="clr-namespace:EcosenaApp.Views.Auth"
     Title="EcosenaApp"
     Shell.NavBarIsVisible="False">
 
     <ShellContent
         ContentTemplate="{DataTemplate views:SplashPage}"
         Route="SplashPage" />
+
+    <ShellContent
+        ContentTemplate="{DataTemplate auth:LoginPage}"
+        Route="LoginPage"  />
+
 </Shell>

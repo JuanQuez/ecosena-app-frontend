@@ -14,6 +14,10 @@
 
     <ShellContent
         ContentTemplate="{DataTemplate auth:LoginPage}"
-        Route="LoginPage"  />
+        Route="LoginPage"/>
+
+    <ShellContent
+    ContentTemplate="{DataTemplate auth:SingUpPage}"
+    Route="SingUpPage" />
 
 </Shell>

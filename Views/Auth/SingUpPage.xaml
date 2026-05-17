@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcosenaApp.Views.Auth.SingUpPage"
+             BackgroundImageSource="bkg_ecosena_auth.png"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid>
+        <ScrollView>
+            <Grid RowDefinitions="*, Auto" VerticalOptions="Center">
+
+                <!-- ====| FORM CARD |==== -->
+                <Border Grid.Row="1" Style="{StaticResource AuthCard}">
+                    <VerticalStackLayout Spacing="20" Padding="30,35">
+
+                        <!-- ====| TITLES |==== -->
+                        <VerticalStackLayout Spacing="5" >
+                            <Label Text="Registrarse"
+                                   Style="{StaticResource H1}"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="Crea tu cuenta"
+                                   Style="{StaticResource TextRegular}"
+                                   TextColor="{StaticResource GrayMidnight}"
+                                   HorizontalOptions="Center"/>
+
+                            <!-- ====| WARNING |==== -->
+                            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="6">
+                                <Image Grid.Column="0"
+                                       Source="icon_alert.svg"
+                                       HeightRequest="16"
+                                       WidthRequest="16"
+                                       VerticalOptions="Start"/>
+                                <Label Grid.Column="1"
+           Text="Recuerda: solo aprendices y funcionarios Sena activos pueden registrarse."
+           Style="{StaticResource WarningText}"
+           HorizontalOptions="Start"/>
+                            </Grid>
+
+                        </VerticalStackLayout>
+
+                        <BoxView HeightRequest="1"
+                                 MaximumWidthRequest="246"
+                                 MinimumWidthRequest="246"
+                                 Color="{StaticResource GrayMedium}"/>
+
+                        <!-- ====| INPUTS |==== -->
+                        <Border Style="{StaticResource InputCard}">
+                            <Grid ColumnDefinitions="Auto, *">
+                                <Image Grid.Column="0"
+                                       Source="icon_document_id.svg"
+                                       HeightRequest="20"
+                                       WidthRequest="20"
+                                       VerticalOptions="Center"
+                                       Margin="0,0,10,0"/>
+                                <Entry Grid.Column="1"
+                                       Style="{StaticResource InputField}"
+                                       Placeholder="Documento de identidad"
+                                       Keyboard="Numeric"/>
+                            </Grid>
+                        </Border>
+
+                        <Border Style="{StaticResource InputCard}">
+                            <Grid ColumnDefinitions="Auto, *">
+                                <Image Grid.Column="0"
+                                       Source="icon_names_profile.svg"
+                                       HeightRequest="20"
+                                       WidthRequest="20"
+                                       VerticalOptions="Center"
+                                       Margin="0,0,10,0"/>
+                                <Entry Grid.Column="1"
+                                       Style="{StaticResource InputField}"
+                                       Placeholder="Nombre"/>
+                            </Grid>
+                        </Border>
+
+                        <Border Style="{StaticResource InputCard}">
+                            <Grid ColumnDefinitions="Auto, *">
+                                <Image Grid.Column="0"
+                                       Source="icon_names_profile.svg"
+                                       HeightRequest="20"
+                                       WidthRequest="20"
+                                       VerticalOptions="Center"
+                                       Margin="0,0,10,0"/>
+                                <Entry Grid.Column="1"
+                                       Style="{StaticResource InputField}"
+                                       Placeholder="Apellido"/>
+                            </Grid>
+                        </Border>
+
+                        <Border Style="{StaticResource InputCard}">
+                            <Grid ColumnDefinitions="Auto, *">
+                                <Image Grid.Column="0"
+                                       Source="icon_lock_pass.svg"
+                                       HeightRequest="20"
+                                       WidthRequest="20"
+                                       VerticalOptions="Center"
+                                       Margin="0,0,10,0"/>
+                                <Entry Grid.Column="1"
+                                       Style="{StaticResource InputField}"
+                                       Placeholder="Contraseña"
+                                       BackgroundColor="Transparent"
+                                       IsPassword="True"/>
+                            </Grid>
+                        </Border>
+
+                        <Border Style="{StaticResource InputCard}">
+                            <Grid ColumnDefinitions="Auto, *">
+                                <Image Grid.Column="0"
+                                       Source="icon_lock_pass.svg"
+                                       HeightRequest="20"
+                                       WidthRequest="20"
+                                       VerticalOptions="Center"
+                                       Margin="0,0,10,0"/>
+                                <Entry Grid.Column="1"
+                                       Style="{StaticResource InputField}"
+                                       Placeholder="Repite la contraseña"
+                                       BackgroundColor="Transparent"
+                                       IsPassword="True"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- ====| SUBMIT BUTTON |==== -->
+                        <Button Text="Registrarse"
+                                Style="{StaticResource PrimaryButton}"/>
+
+                        <BoxView HeightRequest="1"
+                                 MaximumWidthRequest="246"
+                                 MinimumWidthRequest="246"
+                                 Color="{StaticResource GrayMedium}"/>
+
+                        <!-- ====| LOGIN LINK |==== -->
+                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="4">
+                            <Label Text="¿Ya tienes una cuenta?"
+                                   Style="{StaticResource TextPlaceholder}"
+                                   TextColor="{StaticResource GrayDark}"/>
+                            <Label Text="Ingresa"
+                                   Style="{StaticResource LinkText}"
+                                   TextColor="{StaticResource Seaplant}"/>
+                        </HorizontalStackLayout>
+
+                    </VerticalStackLayout>
+                </Border>
+
+            </Grid>
+        </ScrollView>
+    </Grid>
+</ContentPage>

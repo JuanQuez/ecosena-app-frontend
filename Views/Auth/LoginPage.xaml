@@ -84,7 +84,11 @@
                                    Style="{StaticResource TextPlaceholder}"
                                    TextColor="{StaticResource GrayDark}"/>
                             <Label Text="Recupérala"
-                                   Style="{StaticResource LinkText}"/>
+                                Style="{StaticResource LinkText}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnForgotPassTapped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
                         </HorizontalStackLayout>
 
                         <!-- ====| SUBMIT BUTTON |==== -->

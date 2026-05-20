@@ -12,4 +12,9 @@ public partial class LoginPage : ContentPage
     {
         await Navigation.PushAsync(new SingUpPage());
     }
+
+    private async void OnForgotPassTapped(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new ForgotPassPage());
+    }
 }

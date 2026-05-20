@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcosenaApp.Views.Auth.ForgotPassPage"
+             BackgroundImageSource="bkg_ecosena_auth.png"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid>
+        <ScrollView>
+            <Grid RowDefinitions="*, Auto" VerticalOptions="Center">
+
+                <!-- ====| LOGO |==== -->
+                <VerticalStackLayout Grid.Row="0" Padding="10,10,10,20">
+                    <Border>
+                        <Border.Shadow>
+                            <Shadow Brush="#000000"
+                                Offset="0,1"
+                                Radius="5"
+                                Opacity="0.25"/>
+                        </Border.Shadow>
+                        <Image Source="icon_logo.svg"
+                               HeightRequest="86"
+                               WidthRequest="80"
+                               HorizontalOptions="Center"/>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- ====| FORM CARD |==== -->
+                <Border Grid.Row="1" Style="{StaticResource AuthCard}">
+                    <VerticalStackLayout Spacing="20" Padding="30,35">
+
+                        <!-- ====| TITLES |==== -->
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Recupera tu cuenta"
+                                   Style="{StaticResource H1}"
+                                   HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+
+                        <BoxView HeightRequest="1"
+                                 MaximumWidthRequest="246"
+                                 MinimumWidthRequest="246"
+                                 Color="{StaticResource GrayMedium}"/>
+
+                        <!-- ====| INPUTS |==== -->
+                        <Border Style="{StaticResource InputCard}">
+                            <Grid ColumnDefinitions="Auto, *">
+                                <Image Grid.Column="0"
+                                       Source="icon_document_id.svg"
+                                       HeightRequest="20"
+                                       WidthRequest="20"
+                                       VerticalOptions="Center"
+                                       Margin="0,0,10,0"/>
+                                <Entry Grid.Column="1"
+                                       Style="{StaticResource InputField}"
+                                       Placeholder="Documento de identidad"
+                                       Keyboard="Numeric"/>
+                            </Grid>
+                        </Border>
+
+                        <Border Style="{StaticResource InputCard}">
+                            <Grid ColumnDefinitions="Auto, *">
+                                <Image Grid.Column="0"
+                                       Source="icon_email.svg"
+                                       HeightRequest="20"
+                                       WidthRequest="20"
+                                       VerticalOptions="Center"
+                                       Margin="0,0,10,0"/>
+                                <Entry Grid.Column="1"
+                                       Style="{StaticResource InputField}"
+                                       Placeholder="E-Mail"
+                                       Keyboard="Email"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- ====| INFO TEXT |==== -->
+                        <Label Text="Te enviaremos un email con un link para reestablecer la contraseña"
+                               Style="{StaticResource TextRegular}"
+                               TextColor="{StaticResource GrayMidnight}"
+                               HorizontalTextAlignment="Center"/>
+
+                        <!-- ====| SUBMIT BUTTON |==== -->
+                        <Button Text="Enviar correo"
+                                Style="{StaticResource PrimaryButton}"/>
+
+                        <BoxView HeightRequest="1"
+                                 MaximumWidthRequest="246"
+                                 MinimumWidthRequest="246"
+                                 Color="{StaticResource GrayMedium}"/>
+
+                        <!-- ====| LOGIN LINK |==== -->
+                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="4">
+                            <Label Text="¿Recordaste la contraseña?"
+                                   Style="{StaticResource TextPlaceholder}"
+                                   TextColor="{StaticResource GrayDark}"/>
+                            <Label Text="Inicia sesión"
+                                   Style="{StaticResource LinkText}"
+                                   TextColor="{StaticResource Seaplant}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnLoginGoBcak"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </HorizontalStackLayout>
+
+                    </VerticalStackLayout>
+                </Border>
+
+            </Grid>
+        </ScrollView>
+    </Grid>
+</ContentPage>

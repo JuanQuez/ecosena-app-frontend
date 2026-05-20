@@ -17,7 +17,11 @@
         Route="LoginPage"/>
 
     <ShellContent
-    ContentTemplate="{DataTemplate auth:SingUpPage}"
-    Route="SingUpPage" />
+        ContentTemplate="{DataTemplate auth:SingUpPage}"
+        Route="SingUpPage" />
+
+    <ShellContent
+        ContentTemplate="{DataTemplate auth:ForgotPassPage}"
+        Route="ForgotPassPage" />
 
 </Shell>

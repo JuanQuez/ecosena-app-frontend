@@ -6,4 +6,9 @@ public partial class SingUpPage : ContentPage
 	{
 		InitializeComponent();
 	}
+
+    private async void OnLoginGoBack(object sender, EventArgs e)
+    {
+        await Navigation.PopAsync();
+    }
 }

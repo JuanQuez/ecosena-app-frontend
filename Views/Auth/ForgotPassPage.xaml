@@ -96,7 +96,7 @@
                                    Style="{StaticResource LinkText}"
                                    TextColor="{StaticResource Seaplant}">
                                 <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnLoginTapped"/>
+                                    <TapGestureRecognizer Tapped="OnLoginGoBcak"/>
                                 </Label.GestureRecognizers>
                             </Label>
                         </HorizontalStackLayout>

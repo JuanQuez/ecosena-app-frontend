@@ -133,9 +133,13 @@
                             <Label Text="¿Ya tienes una cuenta?"
                                    Style="{StaticResource TextPlaceholder}"
                                    TextColor="{StaticResource GrayDark}"/>
-                            <Label Text="Ingresa"
+                            <Label Text="Inicia sesión"
                                    Style="{StaticResource LinkText}"
-                                   TextColor="{StaticResource Seaplant}"/>
+                                   TextColor="{StaticResource Seaplant}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnLoginGoBack"/>
+                                </Label.GestureRecognizers>
+                            </Label>
                         </HorizontalStackLayout>
 
                     </VerticalStackLayout>

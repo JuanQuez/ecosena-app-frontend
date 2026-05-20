@@ -84,7 +84,7 @@
                                    Style="{StaticResource TextPlaceholder}"
                                    TextColor="{StaticResource GrayDark}"/>
                             <Label Text="Recupérala"
-                                Style="{StaticResource LinkText}">
+                                Style="{StaticResource LinkText}" TextColor="{StaticResource Seaplant}">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="OnForgotPassTapped"/>
                                 </Label.GestureRecognizers>

@@ -7,7 +7,7 @@ public partial class ForgotPassPage : ContentPage
 		InitializeComponent();
 	}
 
-    private async void OnLoginTapped(object sender, EventArgs e)
+    private async void OnLoginGoBcak(object sender, EventArgs e)
     {
         await Navigation.PopAsync();
     }

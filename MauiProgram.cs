@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using CommunityToolkit.Maui;
 
 namespace EcosenaApp
 {
@@ -17,6 +18,7 @@ namespace EcosenaApp
             });
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("Inter_18pt-Light.ttf", "InterLight");

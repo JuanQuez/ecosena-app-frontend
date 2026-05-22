@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:EcosenaApp.Views"
     xmlns:auth="clr-namespace:EcosenaApp.Views.Auth"
+    xmlns:home="clr-namespace:EcosenaApp.Views.Home"
     Title="EcosenaApp"
     Shell.NavBarIsVisible="False">
 
@@ -22,6 +23,10 @@
 
     <ShellContent
         ContentTemplate="{DataTemplate auth:ForgotPassPage}"
-        Route="ForgotPassPage" />
+        Route="ForgotPassPage" />    
+    
+    <ShellContent
+        ContentTemplate="{DataTemplate home:HomePage}"
+        Route="HomePage" />
 
 </Shell>

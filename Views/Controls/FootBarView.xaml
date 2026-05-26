@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="EcosenaApp.Views.Controls.FootBarView">
+
+    <Border Background="{StaticResource InnerShadow}"
+            StrokeShape="RoundRectangle 40"
+            Padding="18,12"
+            StrokeThickness=".1"
+            Stroke="{StaticResource WhiteBase}">
+        <Grid ColumnDefinitions="*,*,*"
+              ColumnSpacing="12">
+
+            <Border x:Name="HomeContainer"
+                    Grid.Column="0"
+                    BackgroundColor="Transparent"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 20"
+                    Padding="10,8">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnHomeTapped" />
+                </Border.GestureRecognizers>
+                <VerticalStackLayout HorizontalOptions="Center"
+                                     VerticalOptions="Center"
+                                     Spacing="4">
+                    <Image x:Name="HomeIcon"
+                           Source="icon_house.svg"
+                           WidthRequest="28"
+                           HorizontalOptions="Center">
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="{StaticResource WhiteBase}" />
+                        </Image.Behaviors>
+                    </Image>
+                    <Label x:Name="HomeLabel"
+                           Style="{StaticResource H3}"
+                           Text="Inicio"
+                           FontSize="11"
+                           HorizontalTextAlignment="Center"
+                           TextColor="{StaticResource WhiteBase}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border x:Name="ReportContainer"
+                    Grid.Column="1"
+                    BackgroundColor="Transparent"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 20"
+                    Padding="10,8">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnReportTapped" />
+                </Border.GestureRecognizers>
+                <VerticalStackLayout HorizontalOptions="Center"
+                                     VerticalOptions="Center"
+                                     Spacing="4">
+                    <Image x:Name="ReportIcon"
+                           Source="icon_symbol_report.svg"
+                           WidthRequest="28"
+                           HorizontalOptions="Center">
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="{StaticResource WhiteBase}" />
+                        </Image.Behaviors>
+                    </Image>
+                    <Label x:Name="ReportLabel"
+                           Style="{StaticResource H3}"
+                           Text="Reportar"
+                           FontSize="11"
+                           HorizontalTextAlignment="Center"
+                           TextColor="{StaticResource WhiteBase}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border x:Name="BlogContainer"
+                    Grid.Column="2"
+                    BackgroundColor="Transparent"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 20"
+                    Padding="10,8">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBlogTapped" />
+                </Border.GestureRecognizers>
+                <VerticalStackLayout HorizontalOptions="Center"
+                                     VerticalOptions="Center"
+                                     Spacing="4">
+                    <Image x:Name="BlogIcon"
+                           Source="icon_blog.svg"
+                           WidthRequest="28"
+                           HorizontalOptions="Center">
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="{StaticResource WhiteBase}" />
+                        </Image.Behaviors>
+                    </Image>
+                    <Label x:Name="BlogLabel"
+                           Style="{StaticResource H3}"
+                           Text="Blog"
+                           FontSize="11"
+                           HorizontalTextAlignment="Center"
+                           TextColor="{StaticResource WhiteBase}" />
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </Border>
+</ContentView>

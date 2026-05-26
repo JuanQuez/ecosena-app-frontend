@@ -5,284 +5,31 @@
              xmlns:controls="clr-namespace:EcosenaApp.Views.Controls"
              x:Class="EcosenaApp.Views.Home.HomePage"
              BackgroundImageSource="bkg_ecosena_sections.png"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              NavigationPage.HasNavigationBar="False">
 
     <Grid RowDefinitions="Auto, *, Auto" Margin="20, 10" RowSpacing="15">
         <!-- ====| TOPBAR |==== -->
-        <controls:TopBarView Grid.Row="0" />
+        <controls:TopBarView />
 
         <!-- ====| SCROLLABLE CONTENT |==== -->
-        <ScrollView Grid.Row="1">
-            <VerticalStackLayout Spacing="0">
+        <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never">
+            <VerticalStackLayout Spacing="20" VerticalOptions="Center">
 
                 <!-- ====| HERO BANNER |==== -->
-                <Border Margin="16,0,16,20"
-                        StrokeThickness="0"
-                        StrokeShape="RoundRectangle 20"
-                        BackgroundColor="{StaticResource WhiteBase}">
-                    <Grid ColumnDefinitions="*, Auto"
-                          HeightRequest="180">
-                        <VerticalStackLayout Grid.Column="0"
-                                             Padding="20,20,10,20"
-                                             VerticalOptions="Center"
-                                             Spacing="8">
-                            <Label x:Name="HeroTitle"
-                                   Text="¿Eres aprendiz Sena?"
-                                   Style="{StaticResource H2}"
-                                   TextColor="{StaticResource Primary}" />
-                            <Label x:Name="HeroDescription"
-                                   Text="Como aprendiz puedes registrar cualquier novedad dentro y fuera del centro."
-                                   Style="{StaticResource TextRegular}"
-                                   TextColor="{StaticResource GrayMidnight}"
-                                   LineBreakMode="WordWrap" />
-                            <Button x:Name="HeroCTA"
-                                    Text="Ingresar"
-                                    Style="{StaticResource PrimaryButton}"
-                                    HeightRequest="38"
-                                    FontSize="13"
-                                    CornerRadius="20"
-                                    HorizontalOptions="Start"
-                                    Clicked="OnHeroCTATapped" />
-                        </VerticalStackLayout>
-                        <Image Grid.Column="1"
-                               x:Name="HeroImage"
-                               Source="bkg_blog_cta.png"
-                               Aspect="AspectFill"
-                               WidthRequest="130"
-                               HeightRequest="180" />
-                    </Grid>
-                </Border>
+                <controls:HeroBannerView HeroCtaClicked="OnHeroCtaClicked" />
 
                 <!-- ====| LO MÁS RECIENTE |==== -->
-                <Grid Padding="16,0,16,12"
-                      ColumnDefinitions="*, Auto">
-                    <Label Grid.Column="0"
-                           Text="LO MÁS RECIENTE"
-                           Style="{StaticResource H2}"
-                           TextColor="{StaticResource WhiteBase}" />
-                    <HorizontalStackLayout Grid.Column="1"
-                                           VerticalOptions="Center"
-                                           Spacing="4">
-                        <Label Text="Ver todos los artículos"
-                               Style="{StaticResource TextRegular}"
-                               TextColor="{StaticResource WhiteBase}"
-                               FontSize="12" />
-                        <Label Text="›"
-                               TextColor="{StaticResource WhiteBase}"
-                               FontSize="16"
-                               VerticalOptions="Center" />
-                    </HorizontalStackLayout>
-                </Grid>
-
-                <!-- ====| RECENT ENTRY CARD |==== -->
-                <Border Margin="16,0,16,24"
-                        StrokeThickness="0"
-                        StrokeShape="RoundRectangle 16">
-                    <Grid ColumnDefinitions="*, Auto"
-                          HeightRequest="160">
-                        <VerticalStackLayout Grid.Column="0"
-                                             Padding="16"
-                                             Spacing="4"
-                                             VerticalOptions="Center">
-                            <Label Text="Blog [ubicacion]"
-                                   Style="{StaticResource TextSecondary}"
-                                   TextColor="{StaticResource GrayLight}" />
-                            <Label Text="Titulo de entrada"
-                                   Style="{StaticResource H2}"
-                                   TextColor="{StaticResource WhiteBase}" />
-                            <Label Text="fecha de publicación"
-                                   Style="{StaticResource TextSecondary}"
-                                   TextColor="{StaticResource GrayLight}" />
-                            <Border StrokeThickness="0"
-                                    StrokeShape="RoundRectangle 20"
-                                    BackgroundColor="{StaticResource WhiteBase}"
-                                    Padding="12,6"
-                                    HorizontalOptions="Start"
-                                    Margin="0,6,0,0">
-                                <HorizontalStackLayout Spacing="6">
-                                    <Label Text="Leer artículo"
-                                           Style="{StaticResource TextRegular}"
-                                           TextColor="{StaticResource Primary}"
-                                           FontSize="12" />
-                                    <Label Text="→"
-                                           TextColor="{StaticResource Primary}"
-                                           FontSize="12"
-                                           VerticalOptions="Center" />
-                                </HorizontalStackLayout>
-                            </Border>
-                        </VerticalStackLayout>
-                        <Image Grid.Column="1"
-                               Source="bkg_ecosena_auth.png"
-                               Aspect="AspectFill"
-                               WidthRequest="130"
-                               HeightRequest="160" />
-                    </Grid>
-                </Border>
+                <controls:RecentBlogView />
 
                 <!-- ====| INFORMACIÓN DE INTERÉS |==== -->
-                <Label Padding="16,0,16,12"
-                       Text="INFORMACIÓN DE INTERÉS"
-                       Style="{StaticResource H2}"
-                       TextColor="{StaticResource WhiteBase}" />
-
-                <!-- ====| CHIPS |==== -->
-                <HorizontalStackLayout Padding="16,0,16,16"
-                                       Spacing="8">
-                    <Border StrokeThickness="0"
-                            StrokeShape="RoundRectangle 20"
-                            BackgroundColor="{StaticResource Secondary}"
-                            Padding="10,8">
-                        <HorizontalStackLayout Spacing="6">
-                            <Image Source="icon_ecosena_logotype.svg"
-                                   HeightRequest="16" WidthRequest="16" />
-                            <Label Text="SENA"
-                                   Style="{StaticResource TextRegular}"
-                                   TextColor="{StaticResource WhiteBase}"
-                                   FontSize="12" />
-                        </HorizontalStackLayout>
-                    </Border>
-                    <Border StrokeThickness="0"
-                            StrokeShape="RoundRectangle 20"
-                            BackgroundColor="{StaticResource Secondary}"
-                            Padding="10,8">
-                        <HorizontalStackLayout Spacing="6">
-                            <Image Source="icon_ecosena_logotype.svg"
-                                   HeightRequest="16" WidthRequest="16" />
-                            <Label Text="SENA"
-                                   Style="{StaticResource TextRegular}"
-                                   TextColor="{StaticResource WhiteBase}"
-                                   FontSize="12" />
-                        </HorizontalStackLayout>
-                    </Border>
-                    <Border StrokeThickness="0"
-                            StrokeShape="RoundRectangle 20"
-                            BackgroundColor="{StaticResource Secondary}"
-                            Padding="10,8">
-                        <HorizontalStackLayout Spacing="6">
-                            <Image Source="icon_ecosena_logotype.svg"
-                                   HeightRequest="16" WidthRequest="16" />
-                            <Label Text="SENA"
-                                   Style="{StaticResource TextRegular}"
-                                   TextColor="{StaticResource WhiteBase}"
-                                   FontSize="12" />
-                        </HorizontalStackLayout>
-                    </Border>
-                </HorizontalStackLayout>
-
-                <!-- ====| INTEREST CARDS |==== -->
-                <VerticalStackLayout Padding="16,0,16,16" Spacing="12">
-
-                    <Border StrokeThickness="0"
-                            StrokeShape="RoundRectangle 16"
-                            BackgroundColor="{StaticResource Tertiary}"
-                            HeightRequest="90">
-                        <Grid ColumnDefinitions="Auto, *">
-                            <Image Grid.Column="0"
-                                   Source="bkg_ecosena_auth.png"
-                                   Aspect="AspectFill"
-                                   WidthRequest="100"
-                                   HeightRequest="90" />
-                            <VerticalStackLayout Grid.Column="1"
-                                                 Padding="14,12"
-                                                 Spacing="8"
-                                                 VerticalOptions="Center">
-                                <Label Text="Como navegar por la app"
-                                       Style="{StaticResource TextRegular}"
-                                       TextColor="{StaticResource WhiteBase}"
-                                       FontAttributes="Bold"
-                                       LineBreakMode="WordWrap" />
-                                <Border StrokeThickness="0"
-                                        StrokeShape="RoundRectangle 20"
-                                        BackgroundColor="{StaticResource WhiteBase}"
-                                        Padding="10,5"
-                                        HorizontalOptions="Start">
-                                    <HorizontalStackLayout Spacing="4">
-                                        <Label Text="Ver instructivo"
-                                               Style="{StaticResource TextRegular}"
-                                               TextColor="{StaticResource Primary}"
-                                               FontSize="11" />
-                                        <Label Text="→"
-                                               TextColor="{StaticResource Primary}"
-                                               FontSize="11" />
-                                    </HorizontalStackLayout>
-                                </Border>
-                            </VerticalStackLayout>
-                        </Grid>
-                    </Border>
-
-                    <Border StrokeThickness="0"
-                            StrokeShape="RoundRectangle 16"
-                            BackgroundColor="{StaticResource Tertiary}"
-                            HeightRequest="90">
-                        <Grid ColumnDefinitions="Auto, *">
-                            <Image Grid.Column="0"
-                                   Source="bkg_ecosena_auth.png"
-                                   Aspect="AspectFill"
-                                   WidthRequest="100"
-                                   HeightRequest="90" />
-                            <VerticalStackLayout Grid.Column="1"
-                                                 Padding="14,12"
-                                                 Spacing="8"
-                                                 VerticalOptions="Center">
-                                <Label Text="Nueva campaña de reciclaje"
-                                       Style="{StaticResource TextRegular}"
-                                       TextColor="{StaticResource WhiteBase}"
-                                       FontAttributes="Bold"
-                                       LineBreakMode="WordWrap" />
-                                <Border StrokeThickness="0"
-                                        StrokeShape="RoundRectangle 20"
-                                        BackgroundColor="{StaticResource WhiteBase}"
-                                        Padding="10,5"
-                                        HorizontalOptions="Start">
-                                    <HorizontalStackLayout Spacing="4">
-                                        <Label Text="Ver instructivo"
-                                               Style="{StaticResource TextRegular}"
-                                               TextColor="{StaticResource Primary}"
-                                               FontSize="11" />
-                                        <Label Text="→"
-                                               TextColor="{StaticResource Primary}"
-                                               FontSize="11" />
-                                    </HorizontalStackLayout>
-                                </Border>
-                            </VerticalStackLayout>
-                        </Grid>
-                    </Border>
-
-                </VerticalStackLayout>
+                <controls:InterestInfoView />
 
             </VerticalStackLayout>
         </ScrollView>
 
         <!-- ====| BOTTOM NAV |==== -->
-        <Border Grid.Row="2"
-                BackgroundColor="{StaticResource Secondary}"
-                StrokeThickness="0"
-                StrokeShape="RoundRectangle 30,30,0,0"
-                Padding="20,14">
-            <Grid ColumnDefinitions="*, *, *">
-                <VerticalStackLayout Grid.Column="0"
-                                     HorizontalOptions="Center"
-                                     Spacing="4">
-                    <Image Source="icon_home.svg"
-                           HeightRequest="24" WidthRequest="24"
-                           HorizontalOptions="Center" />
-                </VerticalStackLayout>
-                <VerticalStackLayout Grid.Column="1"
-                                     HorizontalOptions="Center"
-                                     Spacing="4">
-                    <Image Source="icon_report.svg"
-                           HeightRequest="24" WidthRequest="24"
-                           HorizontalOptions="Center" />
-                </VerticalStackLayout>
-                <VerticalStackLayout Grid.Column="2"
-                                     HorizontalOptions="Center"
-                                     Spacing="4">
-                    <Image Source="icon_blog.svg"
-                           HeightRequest="24" WidthRequest="24"
-                           HorizontalOptions="Center" />
-                </VerticalStackLayout>
-            </Grid>
-        </Border>
+        <controls:FootBarView Grid.Row="2" />
 
     </Grid>
 </ContentPage>

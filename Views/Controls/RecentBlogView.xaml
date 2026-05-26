@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="EcosenaApp.Views.Controls.RecentBlogView">
+
+    <Border StrokeThickness="0" StrokeShape="RoundRectangle 15">
+        <Grid RowDefinitions="Auto, *" RowSpacing="10">
+            <!-- Header -->
+            <Grid RowDefinitions="Auto" ColumnDefinitions="*, Auto">
+                <Label Grid.Column="0"
+                       Text="LO MÁS RECIENTE"
+                       Style="{StaticResource H2}"
+                       TextColor="{StaticResource WhiteBase}" />
+                <HorizontalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="4">
+                    <Label Text="Ver todos"
+                           Style="{StaticResource TextRegular}"
+                           TextColor="{StaticResource WhiteBase}"
+                           FontSize="12" />
+                    <Image Source="icon_arrow_redirect.svg"
+                           VerticalOptions="Center" />
+                </HorizontalStackLayout>
+            </Grid>
+
+            <!-- Content -->
+            <VerticalStackLayout Grid.Row="1" VerticalOptions="Fill">
+                <Border StrokeThickness="1" StrokeShape="RoundRectangle 15" BackgroundColor="{StaticResource Primary}">
+                    <Grid ColumnDefinitions="*, Auto" HeightRequest="160">
+                        <VerticalStackLayout Grid.Column="0" Padding="15, 10, 0, 10" Spacing="10">
+                            <Label Text="CTMA" Style="{StaticResource TextSecondary}" TextColor="{StaticResource GrayLight}" />
+                            <Label Text="Titulo de entrada" Style="{StaticResource H2}" TextColor="{StaticResource WhiteBase}" />
+                            <Label Text="fecha de publicación" FontSize="14" Style="{StaticResource TextSecondary}" TextColor="{StaticResource GrayLight}" />
+                            <Border Style="{StaticResource ActionChip}" Margin="0,6,0,0">
+                                <HorizontalStackLayout Spacing="10">
+                                    <Label Text="Leer artículo" Style="{StaticResource TextMedium}" TextColor="{StaticResource Primary}" FontSize="14" FontAttributes="Bold" />
+                                    <Image Source="icon_arrow_right.png" VerticalOptions="Fill">
+                                        <Image.Behaviors>
+                                            <toolkit:IconTintColorBehavior TintColor="{StaticResource Primary}" />
+                                        </Image.Behaviors>
+                                    </Image>
+                                </HorizontalStackLayout>
+                            </Border>
+                        </VerticalStackLayout>
+                        <Image Grid.Column="1" Source="bkg_blog_cta.png" Aspect="AspectFill" WidthRequest="130" VerticalOptions="Fill"/>
+                    </Grid>
+                </Border>
+            </VerticalStackLayout>
+        </Grid>
+    </Border>
+
+</ContentView>

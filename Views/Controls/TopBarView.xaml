@@ -9,14 +9,9 @@
             Padding="25,10"
             StrokeThickness=".1"
             Stroke="{StaticResource WhiteBase}"
-            StrokeShape="RoundRectangle 40">
-        <Border.Background>
-            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1.0">
-                <GradientStop Color="{StaticResource GrayMidnight}" Offset="0.0" />
-                <GradientStop Color="{StaticResource Primary}" Offset="0.25" />
-                <GradientStop Color="{StaticResource Primary}" Offset="1.0" />
-            </LinearGradientBrush>
-        </Border.Background>
+            StrokeShape="RoundRectangle 40" 
+            Background="{StaticResource InnerShadow}">
+            
 
         <Grid ColumnDefinitions="Auto, *, Auto"
               VerticalOptions="Center">
@@ -40,7 +35,6 @@
                     HorizontalOptions="End"
                     VerticalOptions="Center">
                 <Image Source="icon_profile.svg"
-                       HeightRequest="35"
                        WidthRequest="35"
                        HorizontalOptions="Center"
                        VerticalOptions="Center">

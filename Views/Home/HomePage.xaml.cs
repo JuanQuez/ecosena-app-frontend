@@ -16,37 +16,7 @@ public partial class HomePage : ContentPage
         InitializeComponent();
     }
 
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-        ConfigureHeroBanner(_userRole);
-    }
-
-    private void ConfigureHeroBanner(string role)
-    {
-        switch (role)
-        {
-            case "Aprendiz":
-                HeroTitle.Text = "¿Algo no cuadra? ¡Repórtalo!";
-                HeroDescription.Text = "Registra aquí cualquier novedad o situación que requiera atención";
-                HeroCTA.Text = "Ir a Reportar";
-                break;
-
-            case "Administrador":
-                HeroTitle.Text = "¿Algo pide acción? ¡Gestiónalo!";
-                HeroDescription.Text = "Administra lo que pasa y gestiona los reportes de forma rápida y sencilla.";
-                HeroCTA.Text = "Ir a Gestionar";
-                break;
-
-            default: // Particular
-                HeroTitle.Text = "¿Eres aprendiz Sena?";
-                HeroDescription.Text = "Como aprendiz puedes registrar cualquier novedad dentro y fuera del centro.";
-                HeroCTA.Text = "Ingresar";
-                break;
-        }
-    }
-
-    private async void OnHeroCTATapped(object sender, EventArgs e)
+    private async void OnHeroCtaClicked(object sender, EventArgs e)
     {
         // Navegación temporal según rol
         switch (_userRole)

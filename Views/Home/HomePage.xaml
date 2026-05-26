@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:EcosenaApp.Views.Controls"
+             x:Class="EcosenaApp.Views.Home.HomePage"
+             BackgroundImageSource="bkg_ecosena_sections.png"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid RowDefinitions="Auto, *, Auto" Margin="20, 10" RowSpacing="15">
+        <!-- ====| TOPBAR |==== -->
+        <controls:TopBarView />
+
+        <!-- ====| SCROLLABLE CONTENT |==== -->
+        <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never">
+            <VerticalStackLayout Spacing="20" VerticalOptions="Center">
+
+                <!-- ====| HERO BANNER |==== -->
+                <controls:HeroBannerView HeroCtaClicked="OnHeroCtaClicked" />
+
+                <!-- ====| LO MÁS RECIENTE |==== -->
+                <controls:RecentBlogView />
+
+                <!-- ====| INFORMACIÓN DE INTERÉS |==== -->
+                <controls:InterestInfoView />
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- ====| BOTTOM NAV |==== -->
+        <controls:FootBarView Grid.Row="2" />
+
+    </Grid>
+</ContentPage>

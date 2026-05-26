@@ -17,6 +17,7 @@
     <Color x:Key="Lime">#65CD9E</Color>
     <Color x:Key="Summer">#7BC586</Color>
     <Color x:Key="ActionDeleteVariant">#A53632</Color>
+    <Color x:Key="WhiteGradient">#99E0E0E0</Color>
     
     <!-- ====| NEUTRAL |==== -->
     <Color x:Key="WhiteBase">#F0F0F0</Color>
@@ -41,6 +42,18 @@
         <GradientStop Color="{StaticResource Primary}" Offset="0.0"/>
         <GradientStop Color="{StaticResource Tertiary}" Offset="0.5"/>
         <GradientStop Color="{StaticResource Secondary}" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="InnerShadow" StartPoint="0,0" EndPoint="0,1.0">
+        <GradientStop Color="{StaticResource GrayMidnight}" Offset="0.0" />
+        <GradientStop Color="{StaticResource Primary}" Offset="0.25" />
+        <GradientStop Color="{StaticResource Primary}" Offset="1.0" />
+    </LinearGradientBrush>
+    
+    <LinearGradientBrush x:Key="InnerShadowBtn" StartPoint="0,0" EndPoint="0,1.0">
+        <GradientStop Color="{StaticResource GrayMidnight}" Offset="0.0" />
+        <GradientStop Color="{StaticResource Primary}" Offset="0.1" />
+        <GradientStop Color="{StaticResource Primary}" Offset="1.0" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="DangerGradient" StartPoint="0,0" EndPoint="1,0">

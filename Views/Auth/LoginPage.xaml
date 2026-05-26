@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcosenaApp.Views.Auth.LoginPage"
@@ -14,14 +15,14 @@
                     <Border>
                         <Border.Shadow>
                             <Shadow Brush="#000000"
-                                Offset="0,1"
-                                Radius="5"                
-                                Opacity="0.25"/>
+                                    Offset="0,1"
+                                    Radius="5"
+                                    Opacity="0.25" />
                         </Border.Shadow>
                         <Image Source="icon_logo.svg"
-                            HeightRequest="86"
-                            WidthRequest="80"
-                            HorizontalOptions="Center"/>
+                               HeightRequest="86"
+                               WidthRequest="80"
+                               HorizontalOptions="Center" />
                     </Border>
                 </VerticalStackLayout>
 
@@ -33,17 +34,17 @@
                             <!-- ====| TITLES |==== -->
                             <Label Text="Iniciar sesión"
                                    Style="{StaticResource H1}"
-                               HorizontalOptions="Center"/>
+                                   HorizontalOptions="Center" />
                             <Label Text="Accede a tu cuenta"
-                               Style="{StaticResource TextRegular}"
+                                   Style="{StaticResource TextRegular}"
                                    TextColor="{StaticResource GrayMidnight}"
-                               HorizontalOptions="Center"/>
+                                   HorizontalOptions="Center" />
                         </VerticalStackLayout>
 
                         <BoxView HeightRequest="1"
                                  MaximumWidthRequest="246"
                                  MinimumWidthRequest="246"
-                                 Color="{StaticResource GrayMedium}"/>
+                                 Color="{StaticResource GrayMedium}" />
 
                         <!-- ====| INPUTS |==== -->
                         <Border Style="{StaticResource InputCard}">
@@ -53,11 +54,11 @@
                                        HeightRequest="20"
                                        WidthRequest="20"
                                        VerticalOptions="Center"
-                                       Margin="0,0,10,0"/>
+                                       Margin="0,0,10,0" />
                                 <Entry Grid.Column="1"
                                        Style="{StaticResource InputField}"
                                        Placeholder="Documento de identidad"
-                                       Keyboard="Numeric"/>
+                                       Keyboard="Numeric" />
                             </Grid>
                         </Border>
 
@@ -68,12 +69,12 @@
                                        HeightRequest="20"
                                        WidthRequest="20"
                                        VerticalOptions="Center"
-                                       Margin="0,0,10,0"/>
+                                       Margin="0,0,10,0" />
                                 <Entry Grid.Column="1"
                                        Style="{StaticResource InputField}"
                                        Placeholder="Contraseña"
                                        BackgroundColor="Transparent"
-                                       IsPassword="True"/>
+                                       IsPassword="True" />
                             </Grid>
                         </Border>
 
@@ -82,27 +83,27 @@
                                                Spacing="4">
                             <Label Text="¿Olvidaste tu contraseña?"
                                    Style="{StaticResource TextPlaceholder}"
-                                   TextColor="{StaticResource GrayDark}"/>
+                                   TextColor="{StaticResource GrayDark}" />
                             <Label Text="Recupérala"
-                                Style="{StaticResource LinkText}" TextColor="{StaticResource Seaplant}">
+                                   Style="{StaticResource LinkText}" TextColor="{StaticResource Seaplant}">
                                 <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnForgotPassTapped"/>
+                                    <TapGestureRecognizer Tapped="OnForgotPassTapped" />
                                 </Label.GestureRecognizers>
                             </Label>
                         </HorizontalStackLayout>
 
                         <!-- ====| SUBMIT BUTTON |==== -->
                         <Button Text="Ingresar"
-                                Style="{StaticResource PrimaryButton}"/>
+                                Style="{StaticResource PrimaryButton}" />
 
                         <!-- ====| REMEMBER ME |==== -->
                         <HorizontalStackLayout HorizontalOptions="Center">
-                            <CheckBox Color="{StaticResource Seaplant}"/>
+                            <CheckBox Color="{StaticResource Seaplant}" />
                             <Label Text="Recordarme"
                                    Style="{StaticResource TextMedium}"
                                    FontSize="14"
                                    TextColor="{StaticResource Seaplant}"
-                                   VerticalOptions="Center"/>
+                                   VerticalOptions="Center" />
                         </HorizontalStackLayout>
 
 
@@ -111,12 +112,12 @@
                                                Spacing="4">
                             <Label Text="¿No tienes una cuenta?"
                                    Style="{StaticResource TextPlaceholder}"
-                                   TextColor="{StaticResource GrayDark}"/>
+                                   TextColor="{StaticResource GrayDark}" />
                             <Label Text="Crea tu cuenta"
-                                Style="{StaticResource LinkText}"
-                                TextColor="{StaticResource Seaplant}">
+                                   Style="{StaticResource LinkText}"
+                                   TextColor="{StaticResource Seaplant}">
                                 <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnSignUpTapped"/>
+                                    <TapGestureRecognizer Tapped="OnSignUpTapped" />
                                 </Label.GestureRecognizers>
                             </Label>
                         </HorizontalStackLayout>
@@ -124,7 +125,7 @@
                         <BoxView HeightRequest="1"
                                  MaximumWidthRequest="246"
                                  MinimumWidthRequest="246"
-                                 Color="{StaticResource GrayMedium}"/>
+                                 Color="{StaticResource GrayMedium}" />
 
                         <!-- ====| GUEST BUTTON |==== -->
                         <Button Text="Continuar sin iniciar sesión"
@@ -133,7 +134,7 @@
                                 FontSize="14"
                                 TextColor="{StaticResource GrayMidnight}"
                                 BorderColor="{StaticResource GrayMidnight}"
-                                />
+                                Clicked="OnGuestTapped"/>
                     </VerticalStackLayout>
                 </Border>
             </Grid>

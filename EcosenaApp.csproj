@@ -89,6 +89,9 @@
 	  <MauiXaml Update="Views\Auth\SingUpPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Blog\BlogPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Controls\FootBar.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

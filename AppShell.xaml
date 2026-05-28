@@ -6,6 +6,7 @@
     xmlns:views="clr-namespace:EcosenaApp.Views"
     xmlns:auth="clr-namespace:EcosenaApp.Views.Auth"
     xmlns:home="clr-namespace:EcosenaApp.Views.Home"
+    xmlns:blog="clr-namespace:EcosenaApp.Views.Blog"
     Title="EcosenaApp"
     Shell.NavBarIsVisible="False">
 
@@ -28,5 +29,9 @@
     <ShellContent
         ContentTemplate="{DataTemplate home:HomePage}"
         Route="HomePage" />
+    
+    <ShellContent
+        ContentTemplate="{DataTemplate blog:BlogPage}"
+        Route="BlogPage" />
 
 </Shell>

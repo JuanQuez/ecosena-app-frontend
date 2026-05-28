@@ -4,8 +4,14 @@ namespace EcosenaApp.Views.Controls;
 
 public partial class FootBarView : ContentView
 {
+	private const int HomeIndex = 0;
+	private const int ReportIndex = 1;
+	private const int BlogIndex = 2;
+	private const string HomeRoute = "//HomePage";
+	private const string BlogRoute = "//BlogPage";
+
 	public static readonly BindableProperty SelectedIndexProperty = BindableProperty.Create(
-		nameof(SelectedIndex), typeof(int), typeof(FootBarView), 0, propertyChanged: OnSelectedIndexChanged);
+		nameof(SelectedIndex), typeof(int), typeof(FootBarView), HomeIndex, propertyChanged: OnSelectedIndexChanged);
 
 	public int SelectedIndex
 	{
@@ -18,7 +24,32 @@ public partial class FootBarView : ContentView
 	public FootBarView()
 	{
 		InitializeComponent();
-		UpdateSelection(SelectedIndex);
+		Loaded += OnLoaded;
+		Unloaded += OnUnloaded;
+		SyncSelectionWithCurrentRoute();
+	}
+
+	private void OnLoaded(object? sender, EventArgs e)
+	{
+		if (Shell.Current is not null)
+		{
+			Shell.Current.Navigated += OnShellNavigated;
+		}
+
+		SyncSelectionWithCurrentRoute();
+	}
+
+	private void OnUnloaded(object? sender, EventArgs e)
+	{
+		if (Shell.Current is not null)
+		{
+			Shell.Current.Navigated -= OnShellNavigated;
+		}
+	}
+
+	private void OnShellNavigated(object? sender, ShellNavigatedEventArgs e)
+	{
+		SyncSelectionWithCurrentRoute();
 	}
 
 	private static void OnSelectedIndexChanged(BindableObject bindable, object oldValue, object newValue)
@@ -28,17 +59,56 @@ public partial class FootBarView : ContentView
 		control.SelectedIndexChanged?.Invoke(control, (int)newValue);
 	}
 
-	private void OnHomeTapped(object sender, TappedEventArgs e) => SelectedIndex = 0;
+	private void OnHomeTapped(object sender, TappedEventArgs e) => NavigateTo(HomeIndex, HomeRoute);
 
-	private void OnReportTapped(object sender, TappedEventArgs e) => SelectedIndex = 1;
+	private void OnReportTapped(object sender, TappedEventArgs e) => NavigateTo(ReportIndex, null);
 
-	private void OnBlogTapped(object sender, TappedEventArgs e) => SelectedIndex = 2;
+	private void OnBlogTapped(object sender, TappedEventArgs e) => NavigateTo(BlogIndex, BlogRoute);
+
+	private async void NavigateTo(int index, string? route)
+	{
+		if (SelectedIndex != index)
+		{
+			SelectedIndex = index;
+		}
+
+		if (!string.IsNullOrWhiteSpace(route) && Shell.Current is not null)
+		{
+			await Shell.Current.GoToAsync(route);
+		}
+	}
+
+	private void SyncSelectionWithCurrentRoute()
+	{
+		var route = Shell.Current?.CurrentState.Location.ToString() ?? string.Empty;
+		var targetIndex = GetIndexForRoute(route);
+
+		if (targetIndex >= 0 && SelectedIndex != targetIndex)
+		{
+			SelectedIndex = targetIndex;
+		}
+	}
+
+	private static int GetIndexForRoute(string route)
+	{
+		if (route.Contains("BlogPage", StringComparison.OrdinalIgnoreCase))
+		{
+			return BlogIndex;
+		}
+
+		if (route.Contains("HomePage", StringComparison.OrdinalIgnoreCase))
+		{
+			return HomeIndex;
+		}
+
+		return -1;
+	}
 
 	private void UpdateSelection(int selectedIndex)
 	{
-		SetItemState(HomeContainer, HomeIcon, HomeLabel, selectedIndex == 0);
-		SetItemState(ReportContainer, ReportIcon, ReportLabel, selectedIndex == 1);
-		SetItemState(BlogContainer, BlogIcon, BlogLabel, selectedIndex == 2);
+		SetItemState(HomeContainer, HomeIcon, HomeLabel, selectedIndex == HomeIndex);
+		SetItemState(ReportContainer, ReportIcon, ReportLabel, selectedIndex == ReportIndex);
+		SetItemState(BlogContainer, BlogIcon, BlogLabel, selectedIndex == BlogIndex);
 	}
 
 	private static void SetItemState(Border container, Image icon, Label label, bool isActive)

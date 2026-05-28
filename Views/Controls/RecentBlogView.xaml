@@ -19,6 +19,9 @@
                            FontSize="12" />
                     <Image Source="icon_arrow_redirect.svg"
                            VerticalOptions="Center" />
+                    <HorizontalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnViewAllTapped" />
+                    </HorizontalStackLayout.GestureRecognizers>
                 </HorizontalStackLayout>
             </Grid>
 

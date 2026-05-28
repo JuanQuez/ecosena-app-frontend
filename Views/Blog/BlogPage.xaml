@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcosenaApp.Views.Blog.BlogPage"
+             xmlns:controls="clr-namespace:EcosenaApp.Views.Controls"
+             Title="BlogPage"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundImageSource="bkg_ecosena_sections.png">
+
+    <Grid RowDefinitions="Auto, *, Auto" Margin="20, 10" RowSpacing="15">
+        <!-- ====| TOPBAR |==== -->
+        <controls:TopBarView />
+        
+        
+
+        <!-- ====| BOTTOM NAV |==== -->
+        <controls:FootBarView Grid.Row="2" />
+
+    </Grid>
+
+</ContentPage>

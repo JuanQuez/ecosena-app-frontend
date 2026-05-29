@@ -59,22 +59,26 @@ public partial class FootBarView : ContentView
 		control.SelectedIndexChanged?.Invoke(control, (int)newValue);
 	}
 
-	private void OnHomeTapped(object sender, TappedEventArgs e) => NavigateTo(HomeIndex, HomeRoute);
+	private void OnHomeTapped(object sender, TappedEventArgs e)
+	{
+		NavigateTo(HomeIndex);
+	}
 
-	private void OnReportTapped(object sender, TappedEventArgs e) => NavigateTo(ReportIndex, null);
+	private void OnReportTapped(object sender, TappedEventArgs e)
+	{
+		NavigateTo(ReportIndex);
+	}
 
-	private void OnBlogTapped(object sender, TappedEventArgs e) => NavigateTo(BlogIndex, BlogRoute);
+	private void OnBlogTapped(object sender, TappedEventArgs e)
+	{
+		NavigateTo(BlogIndex);
+	}
 
-	private async void NavigateTo(int index, string? route)
+	private void NavigateTo(int index)
 	{
 		if (SelectedIndex != index)
 		{
 			SelectedIndex = index;
-		}
-
-		if (!string.IsNullOrWhiteSpace(route) && Shell.Current is not null)
-		{
-			await Shell.Current.GoToAsync(route);
 		}
 	}
 

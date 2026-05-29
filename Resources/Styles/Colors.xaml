@@ -18,6 +18,7 @@
     <Color x:Key="Summer">#7BC586</Color>
     <Color x:Key="ActionDeleteVariant">#A53632</Color>
     <Color x:Key="WhiteGradient">#99E0E0E0</Color>
+    <Color x:Key="WhiteBlur">#33F0F0F0</Color>
     
     <!-- ====| NEUTRAL |==== -->
     <Color x:Key="WhiteBase">#F0F0F0</Color>

@@ -9,9 +9,14 @@ namespace EcosenaApp.Views.Controls
             InitializeComponent();
         }
 
-        private async void OnViewAllTapped(object sender, TappedEventArgs e)
+        private void OnViewAllTapped(object sender, TappedEventArgs e)
         {
-            await Shell.Current.GoToAsync("//BlogPage");
+            // Find the MainFootBar in the parent HostPage and update selection
+            var page = Application.Current?.MainPage as Shell;
+            if (page?.CurrentPage is Views.Host.HostPage hostPage)
+            {
+                hostPage.ShowSection("Blog");
+            }
         }
     }
 }

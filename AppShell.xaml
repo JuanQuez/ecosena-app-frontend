@@ -7,6 +7,7 @@
     xmlns:auth="clr-namespace:EcosenaApp.Views.Auth"
     xmlns:home="clr-namespace:EcosenaApp.Views.Home"
     xmlns:blog="clr-namespace:EcosenaApp.Views.Blog"
+    xmlns:host="clr-namespace:EcosenaApp.Views.Host"
     Title="EcosenaApp"
     Shell.NavBarIsVisible="False">
 
@@ -27,11 +28,7 @@
         Route="ForgotPassPage" />    
     
     <ShellContent
-        ContentTemplate="{DataTemplate home:HomePage}"
-        Route="HomePage" />
-    
-    <ShellContent
-        ContentTemplate="{DataTemplate blog:BlogPage}"
-        Route="BlogPage" />
+        ContentTemplate="{DataTemplate host:HostPage}"
+        Route="HostPage" />
 
 </Shell>

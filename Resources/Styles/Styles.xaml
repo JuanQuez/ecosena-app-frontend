@@ -111,17 +111,17 @@
     </Style>
 
         <!-- ====| INPUTS |==== -->
-    <Style x:Key="InputField" TargetType="Entry">
-        <Setter Property="FontFamily" Value="InterRegular"/>
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="TextColor" Value="{StaticResource BlackBase}"/>
-        <Setter Property="PlaceholderColor" Value="{StaticResource GrayMedium}"/>
-        <Setter Property="BackgroundColor" Value="{StaticResource WhiteBase}"/>
-        <Setter Property="HeightRequest" Value="52"/>
-        <Setter Property="Margin" Value="0"/>
-    </Style>
+        <Style x:Key="InputField" TargetType="Entry">
+            <Setter Property="FontFamily" Value="InterRegular"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="TextColor" Value="{StaticResource BlackBase}"/>
+            <Setter Property="PlaceholderColor" Value="{StaticResource GrayMedium}"/>
+            <Setter Property="BackgroundColor" Value="{StaticResource WhiteBase}"/>
 
-    <!-- ====| CARD BOX MODAL |==== -->
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+
+        <!-- ====| CARD BOX MODAL |==== -->
     <Style x:Key="AuthCard" TargetType="Border">
         <Setter Property="BackgroundColor" Value="{StaticResource GrayLight}"/>
         <Setter Property="StrokeThickness" Value="0"/>
@@ -181,11 +181,10 @@
 
     <!-- ====| BLOG PAGE STYLES |==== -->
     <Style x:Key="PostCardBorder" TargetType="Border">
-        <Setter Property="BackgroundColor" Value="{StaticResource Tertiary}"/>
-        <Setter Property="Margin" Value="16,0,16,16"/>
-        <Setter Property="Padding" Value="0"/>
+        <Setter Property="BackgroundColor" Value="{StaticResource GrayLight}"/>
+        <Setter Property="HeightRequest" Value="200"/>
         <Setter Property="StrokeThickness" Value="0"/>
-        <Setter Property="Stroke" Value="Transparent"/>
+        <Setter Property="StrokeShape" Value="RoundRectangle 30"/>
         <Setter Property="Shadow">
             <Setter.Value>
                 <Shadow Brush="{StaticResource BlackBase}"
@@ -203,29 +202,29 @@
     </Style>
 
     <Style x:Key="PostTitleLabel" TargetType="Label">
-        <Setter Property="FontFamily" Value="InterBold"/>
-        <Setter Property="FontSize" Value="16"/>
-        <Setter Property="TextColor" Value="{StaticResource WhiteBase}"/>
+        <Setter Property="FontFamily" Value="InterExtraBold"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="TextColor" Value="{StaticResource GrayDark}"/>
         <Setter Property="LineBreakMode" Value="TailTruncation"/>
     </Style>
 
     <Style x:Key="PostDescLabel" TargetType="Label">
         <Setter Property="FontFamily" Value="InterLight"/>
         <Setter Property="FontSize" Value="13"/>
-        <Setter Property="TextColor" Value="{StaticResource GrayLight}"/>
+        <Setter Property="TextColor" Value="{StaticResource GrayDark}"/>
         <Setter Property="LineBreakMode" Value="TailTruncation"/>
     </Style>
 
     <Style x:Key="DateLabel" TargetType="Label">
         <Setter Property="FontFamily" Value="InterLight"/>
         <Setter Property="FontSize" Value="11"/>
-        <Setter Property="TextColor" Value="{StaticResource GrayMedium}"/>
+        <Setter Property="TextColor" Value="{StaticResource GrayDark}"/>
     </Style>
 
     <Style x:Key="AuthorLabel" TargetType="Label">
         <Setter Property="FontFamily" Value="InterRegular"/>
         <Setter Property="FontSize" Value="12"/>
-        <Setter Property="TextColor" Value="{StaticResource GrayLight}"/>
+        <Setter Property="TextColor" Value="{StaticResource GrayDark}"/>
     </Style>
 
     <!-- ====| LINKS |==== -->

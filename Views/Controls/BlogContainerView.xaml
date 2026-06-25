@@ -57,6 +57,9 @@
 
 
                     <Border Style="{StaticResource PostCardBorder}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnPostTapped" NumberOfTapsRequired="1"/>
+                        </Border.GestureRecognizers>
                         <Grid ColumnDefinitions="145,*">
                             <!-- Image Left -->
                             <Image Source="bkg_blog_cta.png" Aspect="AspectFill"/>

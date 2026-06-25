@@ -113,6 +113,7 @@
         <!-- ====| INPUTS |==== -->
         <Style x:Key="InputField" TargetType="Entry">
             <Setter Property="FontFamily" Value="InterRegular"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="TextColor" Value="{StaticResource BlackBase}"/>
             <Setter Property="PlaceholderColor" Value="{StaticResource GrayMedium}"/>
@@ -144,6 +145,7 @@
         <Setter Property="StrokeShape" Value="RoundRectangle 20"/>
         <Setter Property="Padding" Value="16,0"/>
         <Setter Property="HeightRequest" Value="52"/>
+        <Setter Property="VerticalOptions" Value="Center"/>
         <Setter Property="Shadow">
             <Setter.Value>
                 <Shadow Brush="{StaticResource BlackBase}"

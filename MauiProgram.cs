@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
+using EcosenaApp.Services.Auth;
 
 namespace EcosenaApp
 {
@@ -28,6 +29,10 @@ namespace EcosenaApp
                     fonts.AddFont("Inter_18pt-Bold", "InterBold");
                     fonts.AddFont("Inter_18pt-ExtraBold.ttf", "InterExtraBold");
                 });
+
+            // Register services
+            builder.Services.AddSingleton<IAuthService, AuthService>();
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
@@ -36,3 +41,4 @@ namespace EcosenaApp
         }
     }
 }
+

@@ -39,8 +39,11 @@
                        HorizontalOptions="Center"
                        VerticalOptions="Center">
                     <Image.Behaviors>
-                        <toolkit:IconTintColorBehavior TintColor="White" />
+                        <toolkit:IconTintColorBehavior TintColor="{StaticResource WhiteBase}" />
                     </Image.Behaviors>
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnProfileTapped"/>
+                    </Image.GestureRecognizers>
                 </Image>
             </Border>
         </Grid>

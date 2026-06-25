@@ -14,7 +14,7 @@
 
         <!-- ====| SCROLLABLE CONTENT |==== -->
         <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never">
-            <VerticalStackLayout Spacing="20" VerticalOptions="Center">
+            <VerticalStackLayout Spacing="20" VerticalOptions="Center" >
 
                 <!-- ====| HERO BANNER |==== -->
                 <controls:HeroBannerView HeroCtaClicked="OnHeroCtaClicked" />

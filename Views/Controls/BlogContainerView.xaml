@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="EcosenaApp.Views.Controls.BlogContainerView">
+
+    <Grid RowDefinitions="Auto,Auto,*" VerticalOptions="Center" Margin="0, 10" RowSpacing="20">
+
+        <!-- ====| HEADER CARD (Fixed) |==== -->
+        <Border Grid.Row="0"
+                BackgroundColor="{StaticResource WhiteBlur}"
+                Padding="20"
+                StrokeThickness="0">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="15"/>
+            </Border.StrokeShape>
+            <Label Text="Blog Educativo"
+                   TextColor="{StaticResource WhiteBase}"
+                   Style="{StaticResource H2}"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center"
+                   LineBreakMode="WordWrap"/>
+        </Border>
+
+        <!-- ====| SEARCH BAR (Fixed) |==== -->
+        <Border Grid.Row="1"
+                BackgroundColor="{StaticResource WhiteBlur}"
+                Padding="15, 5"
+                StrokeThickness="0">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="15"/>
+            </Border.StrokeShape>
+            <Grid ColumnDefinitions="*,Auto" VerticalOptions="Center">
+                <Entry Grid.Column="0"
+                       Style="{StaticResource InputField}"
+                       Placeholder="Buscar..."
+                       PlaceholderColor="{StaticResource GrayLight}"
+                       TextColor="{StaticResource WhiteBase}"
+                       BackgroundColor="Transparent"
+                       VerticalOptions="Center"/>
+                <Image Grid.Column="1"
+                       Source="icon_search.png"
+                       WidthRequest="24"
+                       VerticalOptions="Center"
+                       Margin="0,0,12,0"/>
+            </Grid>
+        </Border>
+
+        <!-- ====| BLOG POST CARDS (Scrollable) |==== -->
+        <Border Grid.Row="2"
+                StrokeThickness="0">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="30"/>
+            </Border.StrokeShape>
+            <ScrollView VerticalScrollBarVisibility="Never">
+                <VerticalStackLayout Spacing="20">
+
+
+                    <Border Style="{StaticResource PostCardBorder}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnPostTapped" NumberOfTapsRequired="1"/>
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="145,*">
+                            <!-- Image Left -->
+                            <Image Source="bkg_blog_cta.png" Aspect="AspectFill"/>
+                            <!-- Content Right -->
+                            <Grid Grid.Column="1" RowDefinitions="Auto,Auto,Auto,*,Auto" Padding="12,14,12,12">
+                                <Label Grid.Row="0" Text="ctma" Style="{StaticResource TagLabel}" TextColor="{StaticResource GrayDark}"/>
+                                <Label Grid.Row="1" Text="Post title" Style="{StaticResource PostTitleLabel}"/>
+                                <Label Grid.Row="2" Text="Short description about post" Style="{StaticResource PostDescLabel}"/>
+                                <Grid Grid.Row="4" ColumnDefinitions="*,Auto" VerticalOptions="End">
+                                    <Label Grid.Column="0" Text="date" VerticalTextAlignment="Center" Style="{StaticResource DateLabel}"/>
+                                    <HorizontalStackLayout Grid.Column="1" Spacing="6" VerticalOptions="Center" HorizontalOptions="Center">
+                                        <Border StrokeThickness="0" HeightRequest="28" Background="White" WidthRequest="28">
+                                            <Border.StrokeShape>
+                                                <Ellipse/>
+                                            </Border.StrokeShape>
+                                            <Image Source="avatar_autor.png" Aspect="AspectFill"/>
+                                        </Border>
+                                        <Label Text="autor" Style="{StaticResource AuthorLabel}" VerticalTextAlignment="Center"/>
+                                    </HorizontalStackLayout>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Border>
+
+    </Grid>
+
+</ContentView>

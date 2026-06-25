@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:EcosenaApp.Views.Controls"
+             x:Class="EcosenaApp.Views.Host.HostPage"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundImageSource="bkg_ecosena_sections.png">
+    
+    <Grid RowDefinitions="Auto, *, Auto" Margin="20, 10">
+        <!-- Persistent TopBar -->
+        <controls:TopBarView Grid.Row="0" />
+
+        <!-- Dynamic content region -->
+        <ContentView x:Name="ContentRegion" Grid.Row="1" />
+
+        <!-- Persistent Footer -->
+        <controls:FootBarView x:Name="MainFootBar" Grid.Row="2" />
+    </Grid>
+
+</ContentPage>

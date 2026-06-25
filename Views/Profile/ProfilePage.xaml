@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcosenaApp.Views.Profile.ProfilePage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource Primary}">
+
+    <Grid RowDefinitions="Auto,*" Padding="0">
+
+        <!-- ====| HEADER |==== -->
+        <Grid Grid.Row="0" 
+              ColumnDefinitions="Auto,*,Auto" 
+              Padding="20,16,20,24"
+              VerticalOptions="Start">
+
+            <ImageButton Grid.Column="0"
+                         Source="icon_goback.svg"
+                         BackgroundColor="Transparent"
+                         HeightRequest="32"
+                         WidthRequest="32"
+                         Clicked="OnBackClicked"
+                         HorizontalOptions="Start"/>
+
+            <Label Grid.Column="1"
+                   Text="Perfil"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Style="{StaticResource H1}"
+                   TextColor="{StaticResource WhiteBase}"/>
+        </Grid>
+
+        <!-- ====| CONTENT |==== -->
+        <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never">
+            <VerticalStackLayout Spacing="20" Padding="20,0,20,32">
+
+                <!-- ====| AVATAR |==== -->
+                <Border HorizontalOptions="Center"
+                        StrokeThickness="6"
+                        StrokeShape="{RoundRectangle CornerRadius=80}"
+                        Stroke="{StaticResource Fantasy}"
+                        HeightRequest="160"
+                        WidthRequest="160">
+                    <Border StrokeThickness="0" Padding="0">
+                        <Border.StrokeShape>
+                            <Ellipse/>
+                        </Border.StrokeShape>
+                        <Image x:Name="AvatarImage"
+                               Source="icon_profile.svg"
+                               Aspect="AspectFill"
+                               BackgroundColor="{StaticResource GrayLight}"/>
+                    </Border>
+                </Border>
+
+                <!-- ====| USER INFO CARD |==== -->
+                <Border BackgroundColor="{StaticResource WhiteBase}"
+                        StrokeThickness="0"
+                        Padding="20,16"
+                        HorizontalOptions="Fill">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20"/>
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                        <Label x:Name="NombreLabel"
+                               Text="Jeff Epstein"
+                               HorizontalTextAlignment="Center"
+                               Style="{StaticResource H2}"
+                               TextColor="{StaticResource Primary}"/>
+
+                        <Label x:Name="ProgramaLabel"
+                               Text="[programa formacion]"
+                               HorizontalTextAlignment="Center"
+                               Style="{StaticResource TextMedium}"
+                               TextColor="{StaticResource GrayMidnight}"/>
+
+                        <Label x:Name="FichaLabel"
+                               Text="[ficha]"
+                               HorizontalTextAlignment="Center"
+                               Style="{StaticResource TextRegular}"
+                               TextColor="{StaticResource GrayDark}"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- ====| OPTIONS CARD |==== -->
+                <Border BackgroundColor="{StaticResource WhiteBase}"
+                        StrokeThickness="0"
+                        Padding="0"
+                        HorizontalOptions="Fill">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20"/>
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout Spacing="0">
+                        <!-- Editar perfil -->
+                        <Grid ColumnDefinitions="Auto,*,Auto" 
+                              Padding="20,16" 
+                              ColumnSpacing="12">
+                            <Image Grid.Column="0"
+                                   Source="icon_edit_profile.svg"
+                                   HeightRequest="24"
+                                   WidthRequest="24"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Column="1"
+                                   Text="Editar perfil"
+                                   VerticalOptions="Center"
+                                   Style="{StaticResource TextMedium}"
+                                   TextColor="{StaticResource BlackBase}"/>
+                            <Label Grid.Column="2"
+                                   Text=">"
+                                   VerticalOptions="Center"
+                                   FontSize="16"
+                                   TextColor="{StaticResource GrayMedium}"/>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnEditProfileTapped"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                        <BoxView HeightRequest="1" Color="{StaticResource GrayLight}" Margin="20,0"/>
+
+                        <!-- Notificaciones -->
+                        <Grid ColumnDefinitions="Auto,*,Auto" 
+                              Padding="20,16" 
+                              ColumnSpacing="12">
+                            <Image Grid.Column="0"
+                                   Source="icon_notification.svg"
+                                   HeightRequest="24"
+                                   WidthRequest="24"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Column="1"
+                                   Text="Notificaciones"
+                                   VerticalOptions="Center"
+                                   Style="{StaticResource TextMedium}"
+                                   TextColor="{StaticResource BlackBase}"/>
+                            <Label Grid.Column="2"
+                                   Text=">"
+                                   VerticalOptions="Center"
+                                   FontSize="16"
+                                   TextColor="{StaticResource GrayMedium}"/>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnNotificationsTapped"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                        <BoxView HeightRequest="1" Color="{StaticResource GrayLight}" Margin="20,0"/>
+
+                        <!-- Privacidad -->
+                        <Grid ColumnDefinitions="Auto,*,Auto" 
+                              Padding="20,16" 
+                              ColumnSpacing="12">
+                            <Image Grid.Column="0"
+                                   Source="icon_privacy.svg"
+                                   HeightRequest="24"
+                                   WidthRequest="24"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Column="1"
+                                   Text="Privacidad"
+                                   VerticalOptions="Center"
+                                   Style="{StaticResource TextMedium}"
+                                   TextColor="{StaticResource BlackBase}"/>
+                            <Label Grid.Column="2"
+                                   Text=">"
+                                   VerticalOptions="Center"
+                                   FontSize="16"
+                                   TextColor="{StaticResource GrayMedium}"/>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnPrivacyTapped"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                        <BoxView HeightRequest="1" Color="{StaticResource GrayLight}" Margin="20,0"/>
+
+                        <!-- Reportar un problema -->
+                        <Grid ColumnDefinitions="Auto,*,Auto" 
+                              Padding="20,16" 
+                              ColumnSpacing="12">
+                            <Image Grid.Column="0"
+                                   Source="icon_flag.svg"
+                                   HeightRequest="24"
+                                   WidthRequest="24"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Column="1"
+                                   Text="Reportar un problema"
+                                   VerticalOptions="Center"
+                                   Style="{StaticResource TextMedium}"
+                                   TextColor="{StaticResource BlackBase}"/>
+                            <Label Grid.Column="2"
+                                   Text=">"
+                                   VerticalOptions="Center"
+                                   FontSize="16"
+                                   TextColor="{StaticResource GrayMedium}"/>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnReportProblemTapped"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                        <BoxView HeightRequest="1" Color="{StaticResource GrayLight}" Margin="20,0"/>
+
+                        <!-- Términos y condiciones -->
+                        <Grid ColumnDefinitions="Auto,*,Auto" 
+                              Padding="20,16" 
+                              ColumnSpacing="12">
+                            <Image Grid.Column="0"
+                                   Source="icon_terms_conditions.svg"
+                                   HeightRequest="24"
+                                   WidthRequest="24"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Column="1"
+                                   Text="Términos y condiciones"
+                                   VerticalOptions="Center"
+                                   Style="{StaticResource TextMedium}"
+                                   TextColor="{StaticResource BlackBase}"/>
+                            <Label Grid.Column="2"
+                                   Text=">"
+                                   VerticalOptions="Center"
+                                   FontSize="16"
+                                   TextColor="{StaticResource GrayMedium}"/>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnTermsConditionsTapped"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                        <BoxView HeightRequest="1" Color="{StaticResource GrayLight}" Margin="20,0"/>
+
+                        <!-- Cerrar sesión -->
+                        <Grid ColumnDefinitions="Auto,*,Auto" 
+                              Padding="20,16" 
+                              ColumnSpacing="12">
+                            <Image Grid.Column="0"
+                                   Source="icon_logout.svg"
+                                   HeightRequest="24"
+                                   WidthRequest="24"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Column="1"
+                                   Text="Cerrar sesión"
+                                   VerticalOptions="Center"
+                                   Style="{StaticResource TextMedium}"
+                                   TextColor="{StaticResource ActionDelete}"/>
+                            <Label Grid.Column="2"
+                                   Text=">"
+                                   VerticalOptions="Center"
+                                   FontSize="16"
+                                   TextColor="{StaticResource GrayMedium}"/>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnLogoutTapped"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+
+</ContentPage>

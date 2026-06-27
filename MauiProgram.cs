@@ -1,6 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
 using EcosenaApp.Services.Auth;
+using EcosenaApp.Services.Profile;
+using EcosenaApp.ViewModels.Auth;
+using EcosenaApp.ViewModels.Profile;
 
 namespace EcosenaApp
 {
@@ -17,6 +20,7 @@ namespace EcosenaApp
                     Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
 #endif
             });
+
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
@@ -32,6 +36,12 @@ namespace EcosenaApp
 
             // Register services
             builder.Services.AddSingleton<IAuthService, AuthService>();
+            builder.Services.AddSingleton<IProfileService, ProfileService>();
+
+            // ViewModels
+            builder.Services.AddTransient<LoginViewModel>();
+            builder.Services.AddTransient<SignUpViewModel>();
+            builder.Services.AddTransient<ProfileViewModel>();
 
 #if DEBUG
             builder.Logging.AddDebug();
@@ -41,4 +51,3 @@ namespace EcosenaApp
         }
     }
 }
-

@@ -8,8 +8,8 @@
     <Grid RowDefinitions="Auto,*" Padding="0">
 
         <!-- ====| HEADER |==== -->
-        <Grid Grid.Row="0" 
-              ColumnDefinitions="Auto,*,Auto" 
+        <Grid Grid.Row="0"
+              ColumnDefinitions="Auto,*,Auto"
               Padding="20,16,20,24"
               VerticalOptions="Start">
 
@@ -44,8 +44,7 @@
                         <Border.StrokeShape>
                             <Ellipse/>
                         </Border.StrokeShape>
-                        <Image x:Name="AvatarImage"
-                               Source="icon_profile.svg"
+                        <Image Source="{Binding FotoPerfil}"
                                Aspect="AspectFill"
                                BackgroundColor="{StaticResource GrayLight}"/>
                     </Border>
@@ -61,20 +60,23 @@
                     </Border.StrokeShape>
 
                     <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
-                        <Label x:Name="NombreLabel"
-                               Text="Jeff Epstein"
+
+                        <ActivityIndicator IsRunning="{Binding IsBusy}"
+                                           IsVisible="{Binding IsBusy}"
+                                           Color="{StaticResource Primary}"
+                                           HorizontalOptions="Center"/>
+
+                        <Label Text="{Binding Nombre}"
                                HorizontalTextAlignment="Center"
                                Style="{StaticResource H2}"
                                TextColor="{StaticResource Primary}"/>
 
-                        <Label x:Name="ProgramaLabel"
-                               Text="[programa formacion]"
+                        <Label Text="{Binding Programa}"
                                HorizontalTextAlignment="Center"
                                Style="{StaticResource TextMedium}"
                                TextColor="{StaticResource GrayMidnight}"/>
 
-                        <Label x:Name="FichaLabel"
-                               Text="[ficha]"
+                        <Label Text="{Binding Ficha}"
                                HorizontalTextAlignment="Center"
                                Style="{StaticResource TextRegular}"
                                TextColor="{StaticResource GrayDark}"/>
@@ -92,8 +94,8 @@
 
                     <VerticalStackLayout Spacing="0">
                         <!-- Editar perfil -->
-                        <Grid ColumnDefinitions="Auto,*,Auto" 
-                              Padding="20,16" 
+                        <Grid ColumnDefinitions="Auto,*,Auto"
+                              Padding="20,16"
                               ColumnSpacing="12">
                             <Image Grid.Column="0"
                                    Source="icon_edit_profile.svg"
@@ -117,8 +119,8 @@
                         <BoxView HeightRequest="1" Color="{StaticResource GrayLight}" Margin="20,0"/>
 
                         <!-- Notificaciones -->
-                        <Grid ColumnDefinitions="Auto,*,Auto" 
-                              Padding="20,16" 
+                        <Grid ColumnDefinitions="Auto,*,Auto"
+                              Padding="20,16"
                               ColumnSpacing="12">
                             <Image Grid.Column="0"
                                    Source="icon_notification.svg"
@@ -142,8 +144,8 @@
                         <BoxView HeightRequest="1" Color="{StaticResource GrayLight}" Margin="20,0"/>
 
                         <!-- Privacidad -->
-                        <Grid ColumnDefinitions="Auto,*,Auto" 
-                              Padding="20,16" 
+                        <Grid ColumnDefinitions="Auto,*,Auto"
+                              Padding="20,16"
                               ColumnSpacing="12">
                             <Image Grid.Column="0"
                                    Source="icon_privacy.svg"
@@ -167,8 +169,8 @@
                         <BoxView HeightRequest="1" Color="{StaticResource GrayLight}" Margin="20,0"/>
 
                         <!-- Reportar un problema -->
-                        <Grid ColumnDefinitions="Auto,*,Auto" 
-                              Padding="20,16" 
+                        <Grid ColumnDefinitions="Auto,*,Auto"
+                              Padding="20,16"
                               ColumnSpacing="12">
                             <Image Grid.Column="0"
                                    Source="icon_flag.svg"
@@ -192,8 +194,8 @@
                         <BoxView HeightRequest="1" Color="{StaticResource GrayLight}" Margin="20,0"/>
 
                         <!-- Términos y condiciones -->
-                        <Grid ColumnDefinitions="Auto,*,Auto" 
-                              Padding="20,16" 
+                        <Grid ColumnDefinitions="Auto,*,Auto"
+                              Padding="20,16"
                               ColumnSpacing="12">
                             <Image Grid.Column="0"
                                    Source="icon_terms_conditions.svg"
@@ -217,8 +219,8 @@
                         <BoxView HeightRequest="1" Color="{StaticResource GrayLight}" Margin="20,0"/>
 
                         <!-- Cerrar sesión -->
-                        <Grid ColumnDefinitions="Auto,*,Auto" 
-                              Padding="20,16" 
+                        <Grid ColumnDefinitions="Auto,*,Auto"
+                              Padding="20,16"
                               ColumnSpacing="12">
                             <Image Grid.Column="0"
                                    Source="icon_logout.svg"

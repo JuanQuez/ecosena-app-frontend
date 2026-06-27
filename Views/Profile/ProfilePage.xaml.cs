@@ -1,20 +1,32 @@
-using EcosenaApp.Services.Auth;
+using EcosenaApp.ViewModels.Profile;
 
 namespace EcosenaApp.Views.Profile;
 
 public partial class ProfilePage : ContentPage
 {
-    private readonly IAuthService _authService;
-
     public ProfilePage()
     {
         InitializeComponent();
-        _authService = IPlatformApplication.Current?.Services.GetService<IAuthService>()!;
+        BindingContext = IPlatformApplication.Current?.Services.GetService<ProfileViewModel>();
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        if (BindingContext is ProfileViewModel vm)
+            vm.LoadProfileCommand.Execute(null);
     }
 
     private async void OnBackClicked(object sender, EventArgs e)
     {
         await Navigation.PopAsync();
+    }
+
+    private async void OnLogoutTapped(object sender, EventArgs e)
+    {
+        bool confirm = await DisplayAlert("Confirmar", "¿Estás seguro de que deseas cerrar sesión?", "Sí", "No");
+        if (confirm && BindingContext is ProfileViewModel vm)
+            vm.LogoutCommand.Execute(null);
     }
 
     private async void OnEditProfileTapped(object sender, EventArgs e)
@@ -40,16 +52,5 @@ public partial class ProfilePage : ContentPage
     private async void OnTermsConditionsTapped(object sender, EventArgs e)
     {
         await DisplayAlert("Info", "Ir a términos y condiciones", "OK");
-    }
-
-    private async void OnLogoutTapped(object sender, EventArgs e)
-    {
-        bool confirm = await DisplayAlert("Confirmar", "¿Estás seguro de que deseas cerrar sesión?", "Sí", "No");
-
-        if (confirm)
-        {
-            await _authService.LogoutAsync();
-            await Shell.Current.GoToAsync("//LoginPage");
-        }
     }
 }

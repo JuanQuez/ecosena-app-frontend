@@ -55,11 +55,11 @@
                                        WidthRequest="20"
                                        VerticalOptions="Center"
                                        Margin="0,0,10,0" />
-                                <Entry x:Name="DocumentoEntry"
-                                       Grid.Column="1"
+                                <Entry Grid.Column="1"
                                        Style="{StaticResource InputField}"
                                        Placeholder="Documento de identidad"
-                                       Keyboard="Numeric"/>
+                                       Keyboard="Numeric"
+                                       Text="{Binding Documento}"/>
                             </Grid>
                         </Border>
 
@@ -71,12 +71,12 @@
                                        WidthRequest="20"
                                        VerticalOptions="Center"
                                        Margin="0,0,10,0" />
-                                <Entry x:Name="ContraseñaEntry"
-                                       Grid.Column="1"
+                                <Entry Grid.Column="1"
                                        Style="{StaticResource InputField}"
                                        Placeholder="Contraseña"
                                        BackgroundColor="Transparent"
-                                       IsPassword="True" />
+                                       IsPassword="True"
+                                       Text="{Binding Contraseña}" />
                             </Grid>
                         </Border>
 
@@ -97,7 +97,12 @@
                         <!-- ====| SUBMIT BUTTON |==== -->
                         <Button Text="Ingresar"
                                 Style="{StaticResource PrimaryButton}"
-                                Clicked="OnLoginClicked" />
+                                Command="{Binding LoginCommand}" />
+
+                        <ActivityIndicator IsRunning="{Binding IsBusy}"
+                                           IsVisible="{Binding IsBusy}"
+                                           Color="{StaticResource Primary}"
+                                           HorizontalOptions="Center" />
 
                         <!-- ====| REMEMBER ME |==== -->
                         <HorizontalStackLayout HorizontalOptions="Center">
@@ -108,7 +113,6 @@
                                    TextColor="{StaticResource Seaplant}"
                                    VerticalOptions="Center" />
                         </HorizontalStackLayout>
-
 
                         <!-- ====| SIGN UP |==== -->
                         <HorizontalStackLayout HorizontalOptions="Center"

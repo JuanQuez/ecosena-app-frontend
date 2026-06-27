@@ -6,6 +6,21 @@
 # dotenv files
 .env
 
+# db endpoints Dtos
+Data/
+
+# claude agent File
+CLAUDE.md
+
+# skills
+skills-lock.json
+
+# claude agent working directory
+.agents/
+
+# github workflows (empty, add when CI/CD is configured)
+.github/
+
 # User-specific files
 *.rsuser
 *.suo

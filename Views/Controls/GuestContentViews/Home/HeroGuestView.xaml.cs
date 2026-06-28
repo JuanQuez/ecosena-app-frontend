@@ -1,15 +1,15 @@
 namespace EcosenaApp.Views.Controls;
 
-public partial class HeroBannerView : ContentView
+public partial class HeroGuestView : ContentView
 {
     public static readonly BindableProperty HeroTitleTextProperty = BindableProperty.Create(
-        nameof(HeroTitleText), typeof(string), typeof(HeroBannerView), "¿Eres aprendiz Sena?");
+        nameof(HeroTitleText), typeof(string), typeof(HeroGuestView), "¿Eres aprendiz Sena?");
 
     public static readonly BindableProperty HeroDescriptionTextProperty = BindableProperty.Create(
-        nameof(HeroDescriptionText), typeof(string), typeof(HeroBannerView), "Como aprendiz puedes registrar cualquier novedad dentro y fuera del centro.");
+        nameof(HeroDescriptionText), typeof(string), typeof(HeroGuestView), "Como aprendiz puedes registrar cualquier novedad dentro y fuera del centro.");
 
     public static readonly BindableProperty HeroCtaTextProperty = BindableProperty.Create(
-        nameof(HeroCtaText), typeof(string), typeof(HeroBannerView), "Ingresar");
+        nameof(HeroCtaText), typeof(string), typeof(HeroGuestView), "Ingresar");
 
     public string HeroTitleText
     {
@@ -31,7 +31,7 @@ public partial class HeroBannerView : ContentView
 
     public event EventHandler? HeroCtaClicked;
 
-    public HeroBannerView()
+    public HeroGuestView()
     {
         InitializeComponent();
     }

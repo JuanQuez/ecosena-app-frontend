@@ -17,7 +17,7 @@
             <VerticalStackLayout Spacing="20" VerticalOptions="Center" >
 
                 <!-- ====| HERO BANNER |==== -->
-                <controls:HeroBannerView HeroCtaClicked="OnHeroCtaClicked" />
+                <controls:HeroGuestView HeroCtaClicked="OnHeroCtaClicked" />
 
                 <!-- ====| LO MÁS RECIENTE |==== -->
                 <controls:RecentBlogView />

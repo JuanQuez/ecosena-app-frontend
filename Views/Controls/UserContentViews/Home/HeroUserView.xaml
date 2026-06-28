@@ -2,19 +2,20 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Name="Root"
-             x:Class="EcosenaApp.Views.Controls.HeroBannerView">
+             x:Class="EcosenaApp.Views.Controls.HeroUserView">
 
     <Border StrokeThickness="0"
-            StrokeShape="RoundRectangle 15">
+            StrokeShape="RoundRectangle 15"
+            VerticalOptions="Start">
         <Grid ColumnDefinitions="*, Auto"
               HeightRequest="180">
 
-            <Image Source="bkg_reports_cta.png"
+            <Image Source="bkg_reports_cta_user.png"
                    Aspect="AspectFill"
                    Grid.ColumnSpan="2"
                    HorizontalOptions="Fill"
                    VerticalOptions="Fill"
-                   TranslationX="50"
+                   TranslationX="70"
                    TranslationY="25"
                    Scale="1.26" />
 

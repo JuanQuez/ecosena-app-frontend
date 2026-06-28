@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Name="Root"
+             x:Class="EcosenaApp.Views.Controls.HeroAdminView">
+
+    <Border StrokeThickness="0"
+            StrokeShape="RoundRectangle 15"
+            VerticalOptions="Start">
+        <Grid ColumnDefinitions="*, Auto"
+              HeightRequest="180">
+
+            <Image Source="bkg_reports_admin.png"
+                   Aspect="AspectFill"
+                   Grid.ColumnSpan="2"
+                   HorizontalOptions="Fill"
+                   VerticalOptions="Fill"
+                   TranslationX="100"
+                   TranslationY="25"
+                   Scale="1.26" />
+
+            <VerticalStackLayout Grid.Column="0"
+                                 Padding="20,20,130,20"
+                                 VerticalOptions="Fill"
+                                 Spacing="8"
+                                 Background="{StaticResource WhiteGradient}">
+                <Label Text="{Binding HeroTitleText, Source={x:Reference Root}}"
+                       Style="{StaticResource H2}"
+                       TextColor="{StaticResource BlackBase}" />
+                <Label Text="{Binding HeroDescriptionText, Source={x:Reference Root}}"
+                       Style="{StaticResource TextRegular}"
+                       TextColor="{StaticResource BlackBase}"
+                       LineBreakMode="WordWrap" />
+                <Button Text="{Binding HeroCtaText, Source={x:Reference Root}}"
+                        Padding="30,8"
+                        Style="{StaticResource PrimaryButton}"
+                        FontSize="14"
+                        HorizontalOptions="Start"
+                        Clicked="OnHeroCTATapped" />
+            </VerticalStackLayout>
+        </Grid>
+    </Border>
+</ContentView>

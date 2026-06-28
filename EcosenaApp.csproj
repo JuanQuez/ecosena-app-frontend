@@ -76,6 +76,41 @@
 	  <Folder Include="Resources\Splash\" />
 	  <Folder Include="ViewModels\" />
 	  <Folder Include="Services\Interfaces\" />
+	  <Folder Include="Views\Controls\AdminContentViews\Blog\" />
+	  <Folder Include="Views\Controls\AdminContentViews\Home\" />
+	  <Folder Include="Views\Controls\AdminContentViews\Reports\" />
+	  <Folder Include="Views\Controls\UserContentViews\Home\" />
+	  <Folder Include="Views\Controls\UserContentViews\Reports\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Views\Controls\GuestContentViews\Home\HeroGuestView.xaml.cs">
+	    <DependentUpon>HeroGuestView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Controls\UserContentViews\Home\HeroUserView.xaml.cs">
+	    <DependentUpon>HeroUserView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Controls\AdminContentViews\Home\HeroAdminView.xaml.cs">
+	    <DependentUpon>HeroAdminView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Controls\AdminContentViews\Blog\CreateBlogEntryAdminView.xaml.cs">
+	    <DependentUpon>CreateBlogEntryAdminView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Controls\AdminContentViews\Blog\EditBlogEntryAdminView.xaml.cs">
+	    <DependentUpon>EditBlogEntryAdminView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Controls\AdminContentViews\Reports\ReportsAdminView.xaml.cs">
+	    <DependentUpon>ReportsAdminView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Controls\AdminContentViews\Reports\ReportManagementAdminView.xaml.cs">
+	    <DependentUpon>ReportManagementAdminView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Controls\UserContentViews\Reports\ReportsUserView.xaml.cs">
+	    <DependentUpon>ReportsUserView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Controls\UserContentViews\Reports\ReportFormUserView.xaml.cs">
+	    <DependentUpon>ReportFormUserView.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>

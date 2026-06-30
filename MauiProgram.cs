@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
 using EcosenaApp.Services.Auth;
+using EcosenaApp.Services.Blog;
 using EcosenaApp.Services.Profile;
 using EcosenaApp.Services.Session;
 using EcosenaApp.ViewModels.Auth;
@@ -37,6 +38,7 @@ namespace EcosenaApp
 
             // Register services
             builder.Services.AddSingleton<IAuthService, AuthService>();
+            builder.Services.AddSingleton<IBlogService, BlogService>();
             builder.Services.AddSingleton<IProfileService, ProfileService>();
             builder.Services.AddSingleton<IUserSession, UserSession>();
 

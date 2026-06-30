@@ -5,6 +5,7 @@ using EcosenaApp.Services.Blog;
 using EcosenaApp.Services.Profile;
 using EcosenaApp.Services.Session;
 using EcosenaApp.ViewModels.Auth;
+using EcosenaApp.ViewModels.Blog;
 using EcosenaApp.ViewModels.Profile;
 
 namespace EcosenaApp
@@ -46,6 +47,7 @@ namespace EcosenaApp
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<SignUpViewModel>();
             builder.Services.AddTransient<ProfileViewModel>();
+            builder.Services.AddTransient<CreateBlogEntryViewModel>();
 
 #if DEBUG
             builder.Logging.AddDebug();

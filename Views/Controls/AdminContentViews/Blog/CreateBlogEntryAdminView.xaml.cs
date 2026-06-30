@@ -3,7 +3,6 @@ namespace EcosenaApp.Views.Controls;
 public partial class CreateBlogEntryAdminView : ContentView
 {
     public event EventHandler? PublicarEntradaClicked;
-    public event EventHandler? GuardarBorradorClicked;
     public event EventHandler? CancelarClicked;
     public event EventHandler? AbrirPortadaClicked;
 
@@ -41,11 +40,6 @@ public partial class CreateBlogEntryAdminView : ContentView
     private void OnPublicarTapped(object sender, EventArgs e)
     {
         PublicarEntradaClicked?.Invoke(this, EventArgs.Empty);
-    }
-
-    private void OnGuardarBorradorTapped(object sender, EventArgs e)
-    {
-        GuardarBorradorClicked?.Invoke(this, EventArgs.Empty);
     }
 
     private void OnCancelarTapped(object sender, EventArgs e)

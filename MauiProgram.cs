@@ -49,6 +49,7 @@ namespace EcosenaApp
             builder.Services.AddTransient<ProfileViewModel>();
             builder.Services.AddTransient<CreateBlogEntryViewModel>();
             builder.Services.AddTransient<EditBlogEntryViewModel>();
+            builder.Services.AddTransient<BlogEntryViewModel>();
 
 #if DEBUG
             builder.Logging.AddDebug();

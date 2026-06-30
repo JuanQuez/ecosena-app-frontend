@@ -1,23 +1,37 @@
-using Microsoft.Maui.Controls;
+using EcosenaApp.Models.Blog;
+using EcosenaApp.ViewModels.Blog;
 
 namespace EcosenaApp.Views.Controls
 {
     public partial class BlogContainerView : ContentView
     {
+        private readonly BlogViewModel? _viewModel;
+
         public BlogContainerView()
         {
             InitializeComponent();
+
+            _viewModel = IPlatformApplication.Current?.Services.GetService<BlogViewModel>();
+            BindingContext = _viewModel;
+            NuevaEntradaButton.IsVisible = _viewModel?.IsAdmin ?? false;
+            EntradasCollection.ItemsSource = _viewModel?.Entradas;
+
+            if (_viewModel != null)
+                _viewModel.LoadEntradasCommand.Execute(null);
         }
 
-        private async void OnPostTapped(object sender, EventArgs e)
+        private async void OnEntradaSelected(object sender, SelectionChangedEventArgs e)
         {
-            // Open sample entry page
-            var title = "[TITULO DE ENTRADA]";
-            var body = "BULLY is Ye's highly anticipated 12th studio album, and it's been one of the most delayed projects in recent memory — pushed back multiple times throughout 2025. He's now signed with independent music company Gamma for the release, and the album is currently slated for March 20, 2026. Sonically, Rolling Stone described it as drawing from the feel of 808s & Heartbreak and My Beautiful Dark Twisted Fantasy. Features include Peso Pluma, Playboy Carti, and Ty Dolla Sign.";
-            var author = "Juan Skere";
-            var image = "bkg_blog_cta.png";
+            if (e.CurrentSelection.FirstOrDefault() is BlogListResDto entrada)
+            {
+                EntradasCollection.SelectedItem = null;
+                await Navigation.PushAsync(new Views.Blog.BlogEntryPage(entrada.Id));
+            }
+        }
 
-            await Navigation.PushAsync(new Views.Blog.BlogEntryPage(title, body, author, image));
+        private async void OnNuevaEntradaTapped(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new Views.Blog.CreateBlogEntryPage());
         }
     }
 }

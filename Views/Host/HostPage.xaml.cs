@@ -68,7 +68,7 @@ public partial class HostPage : ContentPage
 
         return key switch
         {
-            "Home" => new HomeContainerView(),
+            "Home" => CreateHomeView(),
             "Blog" => new BlogContainerView(),
             "Report" => role switch
             {
@@ -79,6 +79,13 @@ public partial class HostPage : ContentPage
             },
             _ => new ContentView(),
         };
+    }
+
+    private View CreateHomeView()
+    {
+        var view = new HomeContainerView();
+        view.ReportarRequested += (s, e) => ShowSection("Report");
+        return view;
     }
 
     private static View BuildPenalizadoView()

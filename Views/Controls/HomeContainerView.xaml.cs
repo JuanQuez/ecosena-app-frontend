@@ -1,31 +1,52 @@
-using Microsoft.Maui.Controls;
+using EcosenaApp.Services.Session;
 
 namespace EcosenaApp.Views.Controls
 {
     public partial class HomeContainerView : ContentView
     {
+        public event EventHandler? ReportarRequested;
+
         public HomeContainerView()
         {
             InitializeComponent();
+            BuildHero();
         }
 
-        private async void OnHeroCtaClicked(object sender, EventArgs e)
+        private void BuildHero()
         {
-            // Navegación temporal según rol
-            var userRole = "Particular"; // Mock temporal
+            var session = IPlatformApplication.Current?.Services.GetService<IUserSession>();
+            var role = session?.Role ?? "Invitado";
 
-            switch (userRole)
+            View hero = role switch
             {
-                case "Aprendiz":
-                    // await Shell.Current.GoToAsync("//ReportPage");
-                    break;
-                case "Administrador":
-                    // await Shell.Current.GoToAsync("//ManagePage");
-                    break;
-                default:
-                    await Shell.Current.GoToAsync("//LoginPage");
-                    break;
-            }
+                "Administrador" => CreateAdminHero(),
+                "Aprendiz" => CreateUserHero(),
+                "Penalizado" => CreateUserHero(),
+                _ => CreateGuestHero(),
+            };
+
+            HeroSlot.Content = hero;
+        }
+
+        private View CreateAdminHero()
+        {
+            var hero = new HeroAdminView();
+            hero.HeroCtaClicked += (s, e) => ReportarRequested?.Invoke(this, EventArgs.Empty);
+            return hero;
+        }
+
+        private View CreateUserHero()
+        {
+            var hero = new HeroUserView();
+            hero.HeroCtaClicked += (s, e) => ReportarRequested?.Invoke(this, EventArgs.Empty);
+            return hero;
+        }
+
+        private View CreateGuestHero()
+        {
+            var hero = new HeroGuestView();
+            hero.HeroCtaClicked += async (s, e) => await Shell.Current.GoToAsync("//LoginPage");
+            return hero;
         }
     }
 }

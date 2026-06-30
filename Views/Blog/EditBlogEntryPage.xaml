@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:EcosenaApp.Views.Controls"
+    x:Class="EcosenaApp.Views.Blog.EditBlogEntryPage"
+    Shell.NavBarIsVisible="False"
+    BackgroundImageSource="bkg_ecosena_sections.png">
+
+    <Grid RowDefinitions="Auto,*" Margin="20,10" RowSpacing="20">
+
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto" VerticalOptions="Start">
+            <ImageButton Source="icon_go_back_section.svg"
+                         WidthRequest="45"
+                         Clicked="OnCancelarTapped"
+                         HorizontalOptions="Start"/>
+            <Label Grid.Column="1"
+                   Text="Editar entrada"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   VerticalTextAlignment="Center"
+                   HorizontalTextAlignment="Center"
+                   Style="{StaticResource H1}"
+                   TextColor="{StaticResource WhiteBase}"/>
+        </Grid>
+
+        <controls:EditBlogEntryAdminView Grid.Row="1"
+                                          x:Name="EditView"
+                                          ActualizarEntradaClicked="OnGuardarTapped"
+                                          CambiarPortadaClicked="OnCambiarPortadaTapped"
+                                          CancelarClicked="OnCancelarTapped"/>
+
+    </Grid>
+
+</ContentPage>

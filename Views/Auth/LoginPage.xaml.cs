@@ -1,3 +1,4 @@
+using EcosenaApp.Services.Session;
 using EcosenaApp.ViewModels.Auth;
 
 namespace EcosenaApp.Views.Auth;
@@ -22,6 +23,8 @@ public partial class LoginPage : ContentPage
 
 	private async void OnGuestTapped(object sender, EventArgs e)
 	{
+		var session = IPlatformApplication.Current?.Services.GetService<IUserSession>();
+		session?.SetGuest();
 		await Shell.Current.GoToAsync("//HostPage");
 	}
 }

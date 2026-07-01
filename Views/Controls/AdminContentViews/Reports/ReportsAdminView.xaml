@@ -30,7 +30,7 @@
                            TextColor="{StaticResource GrayMidnight}"
                            LineBreakMode="WordWrap"/>
                     <Label x:Name="StatTotalLabel"
-                           Text="50"
+                           Text="0"
                            FontFamily="InterSemiBold"
                            FontSize="32"
                            TextColor="{StaticResource GrayDark}"/>
@@ -52,7 +52,7 @@
                            FontSize="12"
                            TextColor="{StaticResource GrayMidnight}"/>
                     <Label x:Name="StatPendingLabel"
-                           Text="10"
+                           Text="0"
                            FontFamily="InterSemiBold"
                            FontSize="32"
                            TextColor="{StaticResource GrayDark}"/>
@@ -74,7 +74,7 @@
                            FontSize="12"
                            TextColor="{StaticResource GrayMidnight}"/>
                     <Label x:Name="StatInProgressLabel"
-                           Text="20"
+                           Text="0"
                            FontFamily="InterSemiBold"
                            FontSize="32"
                            TextColor="{StaticResource GrayDark}"/>
@@ -96,7 +96,7 @@
                            FontSize="12"
                            TextColor="{StaticResource GrayMidnight}"/>
                     <Label x:Name="StatSolvedLabel"
-                           Text="30"
+                           Text="0"
                            FontFamily="InterSemiBold"
                            FontSize="32"
                            TextColor="{StaticResource GrayDark}"/>

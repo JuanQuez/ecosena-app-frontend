@@ -16,10 +16,24 @@ public partial class ReportsAdminView : ContentView
         ReportesCollection.ItemsSource = _viewModel?.Reportes;
 
         if (_viewModel != null)
+        {
+            _viewModel.PropertyChanged += OnViewModelPropertyChanged;
             _viewModel.LoadCommand.Execute(null);
+        }
     }
 
     public void Refresh() => _viewModel?.LoadCommand.Execute(null);
+
+    private void OnViewModelPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName != nameof(ReportsAdminViewModel.Estadisticas) || _viewModel?.Estadisticas is not StatsReportDto stats)
+            return;
+
+        StatTotalLabel.Text = stats.ReportesHechosMes.ToString();
+        StatPendingLabel.Text = stats.ReportesPendientes.ToString();
+        StatInProgressLabel.Text = stats.ReportesEnProgreso.ToString();
+        StatSolvedLabel.Text = stats.ReportesResueltosMes.ToString();
+    }
 
     private async void OnReporteSelected(object sender, SelectionChangedEventArgs e)
     {

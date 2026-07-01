@@ -9,6 +9,7 @@ public class ReportService : IReportService
 {
     private readonly IAuthService _authService;
     private const string BaseUrl = "https://ecosena-api.onrender.com/api/Report";
+    private const string StatsUrl = "https://ecosena-api.onrender.com/Estadisticas";
 
     public ReportService(IAuthService authService)
     {
@@ -36,6 +37,26 @@ public class ReportService : IReportService
         {
             System.Diagnostics.Debug.WriteLine($"ReportService.GetListAsync error: {ex.Message}");
             return new List<ReportListResDto>();
+        }
+    }
+
+    public async Task<StatsReportDto?> GetEstadisticasAsync()
+    {
+        try
+        {
+            using var client = await CreateClientAsync();
+            var response = await client.GetAsync(StatsUrl);
+            if (!response.IsSuccessStatusCode)
+                return null;
+
+            var json = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<StatsReportDto>(json,
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"ReportService.GetEstadisticasAsync error: {ex.Message}");
+            return null;
         }
     }
 

@@ -16,6 +16,9 @@ public partial class ReportsAdminViewModel : ObservableObject
     [ObservableProperty]
     private bool isBusy;
 
+    [ObservableProperty]
+    private StatsReportDto? estadisticas;
+
     public ReportsAdminViewModel(IReportService reportService)
     {
         _reportService = reportService;
@@ -36,9 +39,17 @@ public partial class ReportsAdminViewModel : ObservableObject
         {
             await Toast.Make("No se pudieron cargar los reportes.").Show();
         }
-        finally
+
+        try
         {
-            IsBusy = false;
+            Estadisticas = await _reportService.GetEstadisticasAsync();
         }
+        catch (Exception)
+        {
+            // Las estadísticas son secundarias a la lista de reportes: si fallan, no se
+            // bloquea la vista con un segundo toast, los labels simplemente quedan en su último valor.
+        }
+
+        IsBusy = false;
     }
 }

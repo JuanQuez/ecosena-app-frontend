@@ -2,6 +2,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:models="clr-namespace:EcosenaApp.Models.Report"
              x:Class="EcosenaApp.Views.Controls.ReportsAdminView">
 
     <Grid RowDefinitions="Auto, Auto, *" RowSpacing="10">
@@ -141,363 +142,40 @@
         </Border>
 
         <!-- Lista de reportes -->
-        <ScrollView Grid.Row="2">
-            <VerticalStackLayout Spacing="10">
-
-                <!-- Grupo: 20 de Marzo de 2026 -->
-                <Border StrokeThickness="0"
-                        StrokeShape="RoundRectangle 5"
-                        BackgroundColor="{StaticResource WhiteBlur}"
-                        Padding="5">
-                    <Grid ColumnDefinitions="*, Auto">
-                        <Label Grid.Column="0"
-                               Text="20 de Marzo de 2026"
-                               FontFamily="InterBold"
-                               FontSize="18"
-                               TextColor="{StaticResource GrayLight}"
-                               VerticalOptions="Center"/>
-                        <Image Grid.Column="1"
-                               Source="icon_arrow_down.svg"
-                               WidthRequest="15" HeightRequest="11"
-                               VerticalOptions="Center">
-                            <Image.Behaviors>
-                                <toolkit:IconTintColorBehavior TintColor="{StaticResource GrayLight}"/>
-                            </Image.Behaviors>
-                        </Image>
-                    </Grid>
-                </Border>
-
-                <!-- Tarjeta: En proceso #1 -->
-                <Border BackgroundColor="{StaticResource GrayLight}"
-                        StrokeThickness="0"
-                        StrokeShape="RoundRectangle 8">
-                    <Border.Shadow>
-                        <Shadow Brush="{StaticResource BlackBase}" Offset="0,1" Radius="5" Opacity="0.25"/>
-                    </Border.Shadow>
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnReporteTapped"/>
-                    </Border.GestureRecognizers>
-                    <Grid ColumnDefinitions="8, Auto, *, Auto">
-                        <BoxView Grid.Column="0" BackgroundColor="{StaticResource StatusUnderReview}" VerticalOptions="Fill"/>
-                        <Border Grid.Column="1"
-                                StrokeThickness="0"
-                                StrokeShape="RoundRectangle 5"
-                                BackgroundColor="{StaticResource WhiteBase}"
-                                Margin="10,8,0,8">
-                            <Border.Shadow>
-                                <Shadow Brush="{StaticResource BlackBase}" Offset="0,0" Radius="2" Opacity="0.25"/>
-                            </Border.Shadow>
-                            <VerticalStackLayout WidthRequest="50">
-                                <BoxView BackgroundColor="{StaticResource StatusUnderReview}" HeightRequest="10" HorizontalOptions="Fill"/>
-                                <VerticalStackLayout Padding="5,3" Spacing="1" HorizontalOptions="Center">
-                                    <Label Text="Marzo" FontFamily="InterLight" FontSize="8" TextColor="{StaticResource GrayDark}" HorizontalTextAlignment="Center"/>
-                                    <Label Text="20" FontFamily="InterBold" FontSize="16" TextColor="{StaticResource GrayDark}" HorizontalTextAlignment="Center"/>
-                                    <Label Text="2026" FontFamily="InterLight" FontSize="8" TextColor="{StaticResource GrayDark}" HorizontalTextAlignment="Center"/>
-                                </VerticalStackLayout>
+        <CollectionView Grid.Row="2"
+                         x:Name="ReportesCollection"
+                         SelectionMode="Single"
+                         SelectionChanged="OnReporteSelected">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:ReportListResDto">
+                    <Border BackgroundColor="{StaticResource GrayLight}"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 8">
+                        <Grid ColumnDefinitions="8, *, Auto" Padding="10">
+                            <BoxView Grid.Column="0" BackgroundColor="{StaticResource StatusUnderReview}"/>
+                            <VerticalStackLayout Grid.Column="1" Spacing="3">
+                                <Label Text="{Binding Ubicacion}"
+                                       FontFamily="InterRegular"
+                                       FontSize="16"
+                                       TextColor="{StaticResource GrayDark}"/>
+                                <Label Text="{Binding FechaEmision, StringFormat='{0:d MMM yyyy}'}"
+                                       FontFamily="InterRegular"
+                                       FontSize="12"
+                                       TextColor="{StaticResource GrayMidnight}"/>
                             </VerticalStackLayout>
-                        </Border>
-                        <VerticalStackLayout Grid.Column="2" Padding="8,10" VerticalOptions="Center" Spacing="3">
-                            <Label Text="Salida del Aula A-101"
-                                   FontFamily="InterRegular"
-                                   FontSize="16"
-                                   TextColor="{StaticResource GrayDark}"/>
-                            <Label Text="20 de Marzo de 2026"
-                                   FontFamily="InterRegular"
-                                   FontSize="8"
-                                   TextColor="{StaticResource GrayMidnight}"/>
-                        </VerticalStackLayout>
-                        <Image Grid.Column="3"
-                               Source="icon_detail_blue.svg"
-                               WidthRequest="24" HeightRequest="24"
-                               Margin="0,0,8,0"
-                               VerticalOptions="Center">
-                            <Image.Behaviors>
-                                <toolkit:IconTintColorBehavior TintColor="{StaticResource StatusUnderReview}"/>
-                            </Image.Behaviors>
-                        </Image>
-                    </Grid>
-                </Border>
-
-                <!-- Tarjeta: En proceso #2 -->
-                <Border BackgroundColor="{StaticResource GrayLight}"
-                        StrokeThickness="0"
-                        StrokeShape="RoundRectangle 8">
-                    <Border.Shadow>
-                        <Shadow Brush="{StaticResource BlackBase}" Offset="0,1" Radius="5" Opacity="0.25"/>
-                    </Border.Shadow>
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnReporteTapped"/>
-                    </Border.GestureRecognizers>
-                    <Grid ColumnDefinitions="8, Auto, *, Auto">
-                        <BoxView Grid.Column="0" BackgroundColor="{StaticResource StatusUnderReview}" VerticalOptions="Fill"/>
-                        <Border Grid.Column="1"
-                                StrokeThickness="0"
-                                StrokeShape="RoundRectangle 5"
-                                BackgroundColor="{StaticResource WhiteBase}"
-                                Margin="10,8,0,8">
-                            <Border.Shadow>
-                                <Shadow Brush="{StaticResource BlackBase}" Offset="0,0" Radius="2" Opacity="0.25"/>
-                            </Border.Shadow>
-                            <VerticalStackLayout WidthRequest="50">
-                                <BoxView BackgroundColor="{StaticResource StatusUnderReview}" HeightRequest="10" HorizontalOptions="Fill"/>
-                                <VerticalStackLayout Padding="5,3" Spacing="1" HorizontalOptions="Center">
-                                    <Label Text="Marzo" FontFamily="InterLight" FontSize="8" TextColor="{StaticResource GrayDark}" HorizontalTextAlignment="Center"/>
-                                    <Label Text="20" FontFamily="InterBold" FontSize="16" TextColor="{StaticResource GrayDark}" HorizontalTextAlignment="Center"/>
-                                    <Label Text="2026" FontFamily="InterLight" FontSize="8" TextColor="{StaticResource GrayDark}" HorizontalTextAlignment="Center"/>
-                                </VerticalStackLayout>
-                            </VerticalStackLayout>
-                        </Border>
-                        <VerticalStackLayout Grid.Column="2" Padding="8,10" VerticalOptions="Center" Spacing="3">
-                            <Label Text="Salida del Aula A-101"
-                                   FontFamily="InterRegular"
-                                   FontSize="16"
-                                   TextColor="{StaticResource GrayDark}"/>
-                            <Label Text="20 de Marzo de 2026"
-                                   FontFamily="InterRegular"
-                                   FontSize="8"
-                                   TextColor="{StaticResource GrayMidnight}"/>
-                        </VerticalStackLayout>
-                        <Image Grid.Column="3"
-                               Source="icon_detail_blue.svg"
-                               WidthRequest="24" HeightRequest="24"
-                               Margin="0,0,8,0"
-                               VerticalOptions="Center">
-                            <Image.Behaviors>
-                                <toolkit:IconTintColorBehavior TintColor="{StaticResource StatusUnderReview}"/>
-                            </Image.Behaviors>
-                        </Image>
-                    </Grid>
-                </Border>
-
-                <!-- Tarjeta: En proceso #3 -->
-                <Border BackgroundColor="{StaticResource GrayLight}"
-                        StrokeThickness="0"
-                        StrokeShape="RoundRectangle 8">
-                    <Border.Shadow>
-                        <Shadow Brush="{StaticResource BlackBase}" Offset="0,1" Radius="5" Opacity="0.25"/>
-                    </Border.Shadow>
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnReporteTapped"/>
-                    </Border.GestureRecognizers>
-                    <Grid ColumnDefinitions="8, Auto, *, Auto">
-                        <BoxView Grid.Column="0" BackgroundColor="{StaticResource StatusUnderReview}" VerticalOptions="Fill"/>
-                        <Border Grid.Column="1"
-                                StrokeThickness="0"
-                                StrokeShape="RoundRectangle 5"
-                                BackgroundColor="{StaticResource WhiteBase}"
-                                Margin="10,8,0,8">
-                            <Border.Shadow>
-                                <Shadow Brush="{StaticResource BlackBase}" Offset="0,0" Radius="2" Opacity="0.25"/>
-                            </Border.Shadow>
-                            <VerticalStackLayout WidthRequest="50">
-                                <BoxView BackgroundColor="{StaticResource StatusUnderReview}" HeightRequest="10" HorizontalOptions="Fill"/>
-                                <VerticalStackLayout Padding="5,3" Spacing="1" HorizontalOptions="Center">
-                                    <Label Text="Marzo" FontFamily="InterLight" FontSize="8" TextColor="{StaticResource GrayDark}" HorizontalTextAlignment="Center"/>
-                                    <Label Text="20" FontFamily="InterBold" FontSize="16" TextColor="{StaticResource GrayDark}" HorizontalTextAlignment="Center"/>
-                                    <Label Text="2026" FontFamily="InterLight" FontSize="8" TextColor="{StaticResource GrayDark}" HorizontalTextAlignment="Center"/>
-                                </VerticalStackLayout>
-                            </VerticalStackLayout>
-                        </Border>
-                        <VerticalStackLayout Grid.Column="2" Padding="8,10" VerticalOptions="Center" Spacing="3">
-                            <Label Text="Salida del Aula A-101"
-                                   FontFamily="InterRegular"
-                                   FontSize="16"
-                                   TextColor="{StaticResource GrayDark}"/>
-                            <Label Text="20 de Marzo de 2026"
-                                   FontFamily="InterRegular"
-                                   FontSize="8"
-                                   TextColor="{StaticResource GrayMidnight}"/>
-                        </VerticalStackLayout>
-                        <Image Grid.Column="3"
-                               Source="icon_detail_blue.svg"
-                               WidthRequest="24" HeightRequest="24"
-                               Margin="0,0,8,0"
-                               VerticalOptions="Center">
-                            <Image.Behaviors>
-                                <toolkit:IconTintColorBehavior TintColor="{StaticResource StatusUnderReview}"/>
-                            </Image.Behaviors>
-                        </Image>
-                    </Grid>
-                </Border>
-
-                <!-- Grupo: 19 de Marzo de 2026 -->
-                <Border StrokeThickness="0"
-                        StrokeShape="RoundRectangle 5"
-                        BackgroundColor="{StaticResource WhiteBlur}"
-                        Padding="5">
-                    <Grid ColumnDefinitions="*, Auto">
-                        <Label Grid.Column="0"
-                               Text="19 de Marzo de 2026"
-                               FontFamily="InterBold"
-                               FontSize="18"
-                               TextColor="{StaticResource GrayLight}"
-                               VerticalOptions="Center"/>
-                        <Image Grid.Column="1"
-                               Source="icon_arrow_down.svg"
-                               WidthRequest="15" HeightRequest="11"
-                               VerticalOptions="Center">
-                            <Image.Behaviors>
-                                <toolkit:IconTintColorBehavior TintColor="{StaticResource GrayLight}"/>
-                            </Image.Behaviors>
-                        </Image>
-                    </Grid>
-                </Border>
-
-                <!-- Tarjeta: Pendiente #1 -->
-                <Border BackgroundColor="{StaticResource GrayLight}"
-                        StrokeThickness="0"
-                        StrokeShape="RoundRectangle 8">
-                    <Border.Shadow>
-                        <Shadow Brush="{StaticResource BlackBase}" Offset="0,1" Radius="5" Opacity="0.25"/>
-                    </Border.Shadow>
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnReporteTapped"/>
-                    </Border.GestureRecognizers>
-                    <Grid ColumnDefinitions="8, Auto, *, Auto">
-                        <BoxView Grid.Column="0" BackgroundColor="{StaticResource StatusPending}" VerticalOptions="Fill"/>
-                        <Border Grid.Column="1"
-                                StrokeThickness="0"
-                                StrokeShape="RoundRectangle 5"
-                                BackgroundColor="{StaticResource WhiteBase}"
-                                Margin="10,8,0,8">
-                            <Border.Shadow>
-                                <Shadow Brush="{StaticResource BlackBase}" Offset="0,0" Radius="2" Opacity="0.25"/>
-                            </Border.Shadow>
-                            <VerticalStackLayout WidthRequest="50">
-                                <BoxView BackgroundColor="{StaticResource StatusPending}" HeightRequest="10" HorizontalOptions="Fill"/>
-                                <VerticalStackLayout Padding="5,3" Spacing="1" HorizontalOptions="Center">
-                                    <Label Text="Marzo" FontFamily="InterLight" FontSize="8" TextColor="{StaticResource GrayDark}" HorizontalTextAlignment="Center"/>
-                                    <Label Text="19" FontFamily="InterBold" FontSize="16" TextColor="{StaticResource GrayDark}" HorizontalTextAlignment="Center"/>
-                                    <Label Text="2026" FontFamily="InterLight" FontSize="8" TextColor="{StaticResource GrayDark}" HorizontalTextAlignment="Center"/>
-                                </VerticalStackLayout>
-                            </VerticalStackLayout>
-                        </Border>
-                        <VerticalStackLayout Grid.Column="2" Padding="8,10" VerticalOptions="Center" Spacing="3">
-                            <Label Text="Salida del Aula A-101"
-                                   FontFamily="InterRegular"
-                                   FontSize="16"
-                                   TextColor="{StaticResource GrayDark}"/>
-                            <Label Text="19 de Marzo de 2026"
-                                   FontFamily="InterRegular"
-                                   FontSize="8"
-                                   TextColor="{StaticResource GrayMidnight}"/>
-                        </VerticalStackLayout>
-                        <Image Grid.Column="3"
-                               Source="icon_detail_yellow.svg"
-                               WidthRequest="24" HeightRequest="24"
-                               Margin="0,0,8,0"
-                               VerticalOptions="Center">
-                            <Image.Behaviors>
-                                <toolkit:IconTintColorBehavior TintColor="{StaticResource StatusPending}"/>
-                            </Image.Behaviors>
-                        </Image>
-                    </Grid>
-                </Border>
-
-                <!-- Tarjeta: Pendiente #2 -->
-                <Border BackgroundColor="{StaticResource GrayLight}"
-                        StrokeThickness="0"
-                        StrokeShape="RoundRectangle 8">
-                    <Border.Shadow>
-                        <Shadow Brush="{StaticResource BlackBase}" Offset="0,1" Radius="5" Opacity="0.25"/>
-                    </Border.Shadow>
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnReporteTapped"/>
-                    </Border.GestureRecognizers>
-                    <Grid ColumnDefinitions="8, Auto, *, Auto">
-                        <BoxView Grid.Column="0" BackgroundColor="{StaticResource StatusPending}" VerticalOptions="Fill"/>
-                        <Border Grid.Column="1"
-                                StrokeThickness="0"
-                                StrokeShape="RoundRectangle 5"
-                                BackgroundColor="{StaticResource WhiteBase}"
-                                Margin="10,8,0,8">
-                            <Border.Shadow>
-                                <Shadow Brush="{StaticResource BlackBase}" Offset="0,0" Radius="2" Opacity="0.25"/>
-                            </Border.Shadow>
-                            <VerticalStackLayout WidthRequest="50">
-                                <BoxView BackgroundColor="{StaticResource StatusPending}" HeightRequest="10" HorizontalOptions="Fill"/>
-                                <VerticalStackLayout Padding="5,3" Spacing="1" HorizontalOptions="Center">
-                                    <Label Text="Marzo" FontFamily="InterLight" FontSize="8" TextColor="{StaticResource GrayDark}" HorizontalTextAlignment="Center"/>
-                                    <Label Text="19" FontFamily="InterBold" FontSize="16" TextColor="{StaticResource GrayDark}" HorizontalTextAlignment="Center"/>
-                                    <Label Text="2026" FontFamily="InterLight" FontSize="8" TextColor="{StaticResource GrayDark}" HorizontalTextAlignment="Center"/>
-                                </VerticalStackLayout>
-                            </VerticalStackLayout>
-                        </Border>
-                        <VerticalStackLayout Grid.Column="2" Padding="8,10" VerticalOptions="Center" Spacing="3">
-                            <Label Text="Salida del Aula A-101"
-                                   FontFamily="InterRegular"
-                                   FontSize="16"
-                                   TextColor="{StaticResource GrayDark}"/>
-                            <Label Text="19 de Marzo de 2026"
-                                   FontFamily="InterRegular"
-                                   FontSize="8"
-                                   TextColor="{StaticResource GrayMidnight}"/>
-                        </VerticalStackLayout>
-                        <Image Grid.Column="3"
-                               Source="icon_detail_yellow.svg"
-                               WidthRequest="24" HeightRequest="24"
-                               Margin="0,0,8,0"
-                               VerticalOptions="Center">
-                            <Image.Behaviors>
-                                <toolkit:IconTintColorBehavior TintColor="{StaticResource StatusPending}"/>
-                            </Image.Behaviors>
-                        </Image>
-                    </Grid>
-                </Border>
-
-                <!-- Tarjeta: Pendiente #3 -->
-                <Border BackgroundColor="{StaticResource GrayLight}"
-                        StrokeThickness="0"
-                        StrokeShape="RoundRectangle 8">
-                    <Border.Shadow>
-                        <Shadow Brush="{StaticResource BlackBase}" Offset="0,1" Radius="5" Opacity="0.25"/>
-                    </Border.Shadow>
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnReporteTapped"/>
-                    </Border.GestureRecognizers>
-                    <Grid ColumnDefinitions="8, Auto, *, Auto">
-                        <BoxView Grid.Column="0" BackgroundColor="{StaticResource StatusPending}" VerticalOptions="Fill"/>
-                        <Border Grid.Column="1"
-                                StrokeThickness="0"
-                                StrokeShape="RoundRectangle 5"
-                                BackgroundColor="{StaticResource WhiteBase}"
-                                Margin="10,8,0,8">
-                            <Border.Shadow>
-                                <Shadow Brush="{StaticResource BlackBase}" Offset="0,0" Radius="2" Opacity="0.25"/>
-                            </Border.Shadow>
-                            <VerticalStackLayout WidthRequest="50">
-                                <BoxView BackgroundColor="{StaticResource StatusPending}" HeightRequest="10" HorizontalOptions="Fill"/>
-                                <VerticalStackLayout Padding="5,3" Spacing="1" HorizontalOptions="Center">
-                                    <Label Text="Marzo" FontFamily="InterLight" FontSize="8" TextColor="{StaticResource GrayDark}" HorizontalTextAlignment="Center"/>
-                                    <Label Text="19" FontFamily="InterBold" FontSize="16" TextColor="{StaticResource GrayDark}" HorizontalTextAlignment="Center"/>
-                                    <Label Text="2026" FontFamily="InterLight" FontSize="8" TextColor="{StaticResource GrayDark}" HorizontalTextAlignment="Center"/>
-                                </VerticalStackLayout>
-                            </VerticalStackLayout>
-                        </Border>
-                        <VerticalStackLayout Grid.Column="2" Padding="8,10" VerticalOptions="Center" Spacing="3">
-                            <Label Text="Salida del Aula A-101"
-                                   FontFamily="InterRegular"
-                                   FontSize="16"
-                                   TextColor="{StaticResource GrayDark}"/>
-                            <Label Text="19 de Marzo de 2026"
-                                   FontFamily="InterRegular"
-                                   FontSize="8"
-                                   TextColor="{StaticResource GrayMidnight}"/>
-                        </VerticalStackLayout>
-                        <Image Grid.Column="3"
-                               Source="icon_detail_yellow.svg"
-                               WidthRequest="24" HeightRequest="24"
-                               Margin="0,0,8,0"
-                               VerticalOptions="Center">
-                            <Image.Behaviors>
-                                <toolkit:IconTintColorBehavior TintColor="{StaticResource StatusPending}"/>
-                            </Image.Behaviors>
-                        </Image>
-                    </Grid>
-                </Border>
-
-            </VerticalStackLayout>
-        </ScrollView>
+                            <Label Grid.Column="2" Text="{Binding Estado}"
+                                   FontFamily="InterBold"
+                                   FontSize="12"
+                                   VerticalOptions="Center"
+                                   TextColor="{StaticResource Primary}"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
     </Grid>
 </ContentView>

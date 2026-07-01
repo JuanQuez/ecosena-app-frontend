@@ -57,6 +57,7 @@ namespace EcosenaApp
             builder.Services.AddTransient<ReportsUserViewModel>();
             builder.Services.AddTransient<ReportFormViewModel>();
             builder.Services.AddTransient<ReportManagementViewModel>();
+            builder.Services.AddTransient<ReportsAdminViewModel>();
 
 #if DEBUG
             builder.Logging.AddDebug();

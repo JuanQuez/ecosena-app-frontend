@@ -111,7 +111,7 @@
                 Style="{StaticResource SecondaryButton}"
                 HeightRequest="44"
                 Command="{Binding ExportarExcelCommand}"
-                IsEnabled="{Binding IsNotBusy}"/>
+                IsEnabled="{Binding IsNotExporting}"/>
 
         <!-- Header "Gestión de reportes" -->
         <Border Grid.Row="2"

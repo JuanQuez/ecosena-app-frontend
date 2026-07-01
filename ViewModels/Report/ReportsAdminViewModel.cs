@@ -14,14 +14,17 @@ public partial class ReportsAdminViewModel : ObservableObject
     public ObservableCollection<ReportListResDto> Reportes { get; } = new();
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(IsNotBusy))]
-    [NotifyCanExecuteChangedFor(nameof(ExportarExcelCommand))]
     private bool isBusy;
 
     [ObservableProperty]
     private StatsReportDto? estadisticas;
 
-    public bool IsNotBusy => !IsBusy;
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsNotExporting))]
+    [NotifyCanExecuteChangedFor(nameof(ExportarExcelCommand))]
+    private bool isExporting;
+
+    public bool IsNotExporting => !IsExporting;
 
     public ReportsAdminViewModel(IReportService reportService)
     {
@@ -62,10 +65,10 @@ public partial class ReportsAdminViewModel : ObservableObject
         }
     }
 
-    [RelayCommand(CanExecute = nameof(IsNotBusy))]
+    [RelayCommand(CanExecute = nameof(IsNotExporting))]
     private async Task ExportarExcelAsync()
     {
-        IsBusy = true;
+        IsExporting = true;
         try
         {
             var resultado = await _reportService.ExportarExcelAsync();
@@ -91,7 +94,7 @@ public partial class ReportsAdminViewModel : ObservableObject
         }
         finally
         {
-            IsBusy = false;
+            IsExporting = false;
         }
     }
 }

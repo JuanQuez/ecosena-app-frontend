@@ -20,6 +20,8 @@ namespace EcosenaApp.Views.Controls
                 _viewModel.LoadEntradasCommand.Execute(null);
         }
 
+        public void Refresh() => _viewModel?.LoadEntradasCommand.Execute(null);
+
         private async void OnEntradaSelected(object sender, SelectionChangedEventArgs e)
         {
             if (e.CurrentSelection.FirstOrDefault() is BlogListResDto entrada)

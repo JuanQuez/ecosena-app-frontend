@@ -57,6 +57,7 @@ public partial class CreateBlogEntryViewModel : ObservableObject
         }
 
         IsBusy = true;
+        var fotoAdjunta = PortadaStream != null;
         try
         {
             var entrada = await _blogService.PostEntradaAsync(Titulo, Contenido, PortadaStream, PortadaFileName);
@@ -65,6 +66,12 @@ public partial class CreateBlogEntryViewModel : ObservableObject
         }
         finally
         {
+            if (fotoAdjunta)
+            {
+                PortadaStream = null;
+                PortadaFileName = null;
+                PortadaPreview = null;
+            }
             IsBusy = false;
         }
     }

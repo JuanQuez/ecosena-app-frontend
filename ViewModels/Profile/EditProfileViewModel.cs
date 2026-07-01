@@ -94,6 +94,7 @@ public partial class EditProfileViewModel : ObservableObject
         }
 
         IsBusy = true;
+        var fotoAdjunta = FotoStream != null;
         try
         {
             var contraseña = string.IsNullOrEmpty(NuevaContraseña) ? null : NuevaContraseña;
@@ -102,16 +103,16 @@ public partial class EditProfileViewModel : ObservableObject
             Guardado = await _profileService.UpdateProfileAsync(
                 Email, DateOnly.FromDateTime(FechaNacimiento), contraseña, confirmacion, FotoStream, FotoFileName);
 
-            if (Guardado)
-            {
-                FotoStream = null;
-                FotoFileName = null;
-            }
-
             await Toast.Make(Guardado ? "Perfil actualizado." : "No se pudo actualizar el perfil.").Show();
         }
         finally
         {
+            if (fotoAdjunta)
+            {
+                FotoStream = null;
+                FotoFileName = null;
+                FotoPreview = null;
+            }
             IsBusy = false;
         }
     }

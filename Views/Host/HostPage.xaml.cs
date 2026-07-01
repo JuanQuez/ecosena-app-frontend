@@ -41,6 +41,7 @@ public partial class HostPage : ContentPage
         if (_cache.TryGetValue(key, out var view))
         {
             ContentRegion.Content = view;
+            RefreshIfSupported(view);
         }
         else
         {
@@ -109,6 +110,19 @@ public partial class HostPage : ContentPage
                 }
             }
         };
+    }
+
+    private static void RefreshIfSupported(View view)
+    {
+        switch (view)
+        {
+            case BlogContainerView blogView:
+                blogView.Refresh();
+                break;
+            case ReportsAdminView reportsAdminView:
+                reportsAdminView.Refresh();
+                break;
+        }
     }
 
     public bool TryGoBack()

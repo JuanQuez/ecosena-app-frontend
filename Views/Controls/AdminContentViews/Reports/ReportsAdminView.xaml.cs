@@ -19,6 +19,8 @@ public partial class ReportsAdminView : ContentView
             _viewModel.LoadCommand.Execute(null);
     }
 
+    public void Refresh() => _viewModel?.LoadCommand.Execute(null);
+
     private async void OnReporteSelected(object sender, SelectionChangedEventArgs e)
     {
         if (e.CurrentSelection.FirstOrDefault() is ReportListResDto reporte)

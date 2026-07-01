@@ -82,6 +82,7 @@ public partial class EditBlogEntryViewModel : ObservableObject
         }
 
         IsBusy = true;
+        var fotoAdjunta = PortadaStream != null;
         try
         {
             Guardado = await _blogService.PutEntradaAsync(EntradaId, Titulo, Contenido, PortadaStream, PortadaFileName);
@@ -89,6 +90,12 @@ public partial class EditBlogEntryViewModel : ObservableObject
         }
         finally
         {
+            if (fotoAdjunta)
+            {
+                PortadaStream = null;
+                PortadaFileName = null;
+                PortadaPreview = null;
+            }
             IsBusy = false;
         }
     }

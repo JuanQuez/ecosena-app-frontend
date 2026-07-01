@@ -78,6 +78,7 @@ public partial class ReportFormViewModel : ObservableObject
         }
 
         IsBusy = true;
+        var fotoAdjunta = FotoStream != null;
         try
         {
             var idAmbiente = Ambientes[AmbienteIndex].Id;
@@ -87,6 +88,12 @@ public partial class ReportFormViewModel : ObservableObject
         }
         finally
         {
+            if (fotoAdjunta)
+            {
+                FotoStream = null;
+                FotoFileName = null;
+                FotoPreview = null;
+            }
             IsBusy = false;
         }
     }

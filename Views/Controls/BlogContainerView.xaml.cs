@@ -27,7 +27,11 @@ namespace EcosenaApp.Views.Controls
             if (e.CurrentSelection.FirstOrDefault() is BlogListResDto entrada)
             {
                 EntradasCollection.SelectedItem = null;
-                await Navigation.PushAsync(new Views.Blog.BlogEntryPage(entrada.Id));
+                // Se envuelve en un NavigationPage propio para aislar el push/pop de BlogEntryPage/EditBlogEntryPage
+                // de la pila de Shell (ver TopBarView.OnProfileTapped para el mismo patrón y su justificación).
+                var entradaPage = new Views.Blog.BlogEntryPage(entrada.Id);
+                NavigationPage.SetHasNavigationBar(entradaPage, false);
+                await Navigation.PushAsync(new NavigationPage(entradaPage));
             }
         }
 

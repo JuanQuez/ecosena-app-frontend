@@ -36,7 +36,9 @@ public partial class BlogEntryPage : ContentPage
 
     private async void OnBackClicked(object sender, EventArgs e)
     {
-        await Navigation.PopAsync();
+        // BlogEntryPage es la raíz de su propio NavigationPage (ver BlogContainerView.OnEntradaSelected);
+        // hay que sacar ese NavigationPage completo de la pila de Shell, no la página local.
+        await Shell.Current.Navigation.PopAsync();
     }
 
     private async void OnEditarClicked(object sender, EventArgs e)
@@ -58,6 +60,6 @@ public partial class BlogEntryPage : ContentPage
 
         await _viewModel.DeleteEntradaCommand.ExecuteAsync(null);
         if (_viewModel.Eliminado)
-            await Navigation.PopAsync();
+            await Shell.Current.Navigation.PopAsync();
     }
 }

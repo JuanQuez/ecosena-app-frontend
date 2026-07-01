@@ -19,7 +19,9 @@ public partial class ProfilePage : ContentPage
 
     private async void OnBackClicked(object sender, EventArgs e)
     {
-        await Navigation.PopAsync();
+        // ProfilePage es la raíz de su propio NavigationPage (ver TopBarView.OnProfileTapped);
+        // hay que sacar ese NavigationPage completo de la pila de Shell, no la página local.
+        await Shell.Current.Navigation.PopAsync();
     }
 
     private async void OnLogoutTapped(object sender, EventArgs e)

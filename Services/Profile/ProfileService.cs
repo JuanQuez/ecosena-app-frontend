@@ -1,32 +1,24 @@
 using EcosenaApp.Models.Profile;
-using EcosenaApp.Services.Auth;
-using System.Net.Http.Headers;
+using EcosenaApp.Services.Http;
 using System.Text.Json;
 
 namespace EcosenaApp.Services.Profile;
 
 public class ProfileService : IProfileService
 {
-    private readonly IAuthService _authService;
+    private readonly IHttpClientFactory _httpClientFactory;
     private const string Url = "https://ecosena-api.onrender.com/api/Profile";
 
-    public ProfileService(IAuthService authService)
+    public ProfileService(IHttpClientFactory httpClientFactory)
     {
-        _authService = authService;
+        _httpClientFactory = httpClientFactory;
     }
 
     public async Task<ProfileResDto?> GetProfileAsync()
     {
         try
         {
-            var token = await _authService.GetTokenAsync();
-            if (string.IsNullOrEmpty(token))
-                return null;
-
-            using var client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue("Bearer", token);
-
+            var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
             var response = await client.GetAsync(Url);
             if (!response.IsSuccessStatusCode)
                 return null;
@@ -47,13 +39,7 @@ public class ProfileService : IProfileService
     {
         try
         {
-            var token = await _authService.GetTokenAsync();
-            if (string.IsNullOrEmpty(token))
-                return false;
-
-            using var client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue("Bearer", token);
+            var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
 
             var query = $"Email={Uri.EscapeDataString(email)}";
             if (fechaNacimiento.HasValue)

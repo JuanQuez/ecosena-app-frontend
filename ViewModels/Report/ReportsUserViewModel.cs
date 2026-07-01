@@ -10,6 +10,8 @@ namespace EcosenaApp.ViewModels.Report;
 public partial class ReportsUserViewModel : ObservableObject
 {
     private readonly IReportService _reportService;
+    private readonly Dictionary<int, EstadoReporte> _ultimosEstados = new();
+    private bool _primeraCarga = true;
 
     public ObservableCollection<ReportListResDto> MisReportes { get; } = new();
 
@@ -34,6 +36,8 @@ public partial class ReportsUserViewModel : ObservableObject
             MisReportes.Clear();
             foreach (var reporte in reportes)
                 MisReportes.Add(reporte);
+
+            await NotificarCambiosDeEstadoAsync(reportes);
         }
         catch (Exception)
         {
@@ -43,6 +47,24 @@ public partial class ReportsUserViewModel : ObservableObject
         {
             IsBusy = false;
         }
+    }
+
+    private async Task NotificarCambiosDeEstadoAsync(List<ReportListResDto> reportes)
+    {
+        if (!_primeraCarga)
+        {
+            foreach (var reporte in reportes)
+            {
+                if (_ultimosEstados.TryGetValue(reporte.Id, out var estadoAnterior) && estadoAnterior != reporte.Estado)
+                    await Toast.Make($"Tu reporte en {reporte.Ubicacion} cambió a {reporte.Estado}").Show();
+            }
+        }
+
+        _ultimosEstados.Clear();
+        foreach (var reporte in reportes)
+            _ultimosEstados[reporte.Id] = reporte.Estado;
+
+        _primeraCarga = false;
     }
 
     // Nombre distinto a la propiedad MostrarFormulario: [ObservableProperty] ya genera

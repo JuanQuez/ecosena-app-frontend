@@ -1,4 +1,5 @@
 using EcosenaApp.Models.Auth;
+using EcosenaApp.Services.Http;
 using System.Text;
 using System.Text.Json;
 
@@ -6,13 +7,13 @@ namespace EcosenaApp.Services.Auth;
 
 public class AuthService : IAuthService
 {
-    private readonly HttpClient _httpClient;
+    private readonly IHttpClientFactory _httpClientFactory;
     private const string TokenKey = "auth_token";
     private const string BaseUrl = "https://ecosena-api.onrender.com/api/Auth";
 
-    public AuthService()
+    public AuthService(IHttpClientFactory httpClientFactory)
     {
-        _httpClient = new HttpClient();
+        _httpClientFactory = httpClientFactory;
     }
 
     public async Task<LoginResDto?> LoginAsync(string documento, string contraseña)
@@ -28,7 +29,8 @@ public class AuthService : IAuthService
             var json = JsonSerializer.Serialize(request);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PostAsync($"{BaseUrl}/login", content);
+            var client = _httpClientFactory.CreateClient(HttpClientNames.Anonymous);
+            var response = await client.PostAsync($"{BaseUrl}/login", content);
             var responseContent = await response.Content.ReadAsStringAsync();
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
@@ -67,7 +69,8 @@ public class AuthService : IAuthService
             var json = JsonSerializer.Serialize(request);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PostAsync($"{BaseUrl}/register", content);
+            var client = _httpClientFactory.CreateClient(HttpClientNames.Anonymous);
+            var response = await client.PostAsync($"{BaseUrl}/register", content);
 
             return response.IsSuccessStatusCode;
         }

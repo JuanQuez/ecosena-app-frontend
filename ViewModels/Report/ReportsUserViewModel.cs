@@ -56,7 +56,7 @@ public partial class ReportsUserViewModel : ObservableObject
             foreach (var reporte in reportes)
             {
                 if (_ultimosEstados.TryGetValue(reporte.Id, out var estadoAnterior) && estadoAnterior != reporte.Estado)
-                    await Toast.Make($"Tu reporte en {reporte.Ubicacion} cambió a {reporte.Estado}").Show();
+                    await Toast.Make($"Tu reporte en {reporte.Ubicacion} cambió a {EstadoLegible(reporte.Estado)}").Show();
             }
         }
 
@@ -66,6 +66,14 @@ public partial class ReportsUserViewModel : ObservableObject
 
         _primeraCarga = false;
     }
+
+    private static string EstadoLegible(EstadoReporte estado) => estado switch
+    {
+        EstadoReporte.Pendiente => "Pendiente",
+        EstadoReporte.EnProgreso => "En progreso",
+        EstadoReporte.Resuelto => "Resuelto",
+        _ => estado.ToString(),
+    };
 
     // Nombre distinto a la propiedad MostrarFormulario: [ObservableProperty] ya genera
     // un miembro público "MostrarFormulario", y un método con el mismo nombre colisiona (CS0102).

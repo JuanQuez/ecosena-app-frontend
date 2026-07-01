@@ -122,6 +122,9 @@ public partial class HostPage : ContentPage
             case ReportsAdminView reportsAdminView:
                 reportsAdminView.Refresh();
                 break;
+            case ReportsUserView reportsUserView:
+                reportsUserView.Refresh();
+                break;
             case HomeContainerView homeView:
                 homeView.Refresh();
                 break;

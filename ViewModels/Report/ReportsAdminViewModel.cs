@@ -30,26 +30,31 @@ public partial class ReportsAdminViewModel : ObservableObject
         IsBusy = true;
         try
         {
-            var reportes = await _reportService.GetAllReportsAsync();
-            Reportes.Clear();
-            foreach (var reporte in reportes)
-                Reportes.Add(reporte);
-        }
-        catch (Exception)
-        {
-            await Toast.Make("No se pudieron cargar los reportes.").Show();
-        }
+            try
+            {
+                var reportes = await _reportService.GetAllReportsAsync();
+                Reportes.Clear();
+                foreach (var reporte in reportes)
+                    Reportes.Add(reporte);
+            }
+            catch (Exception)
+            {
+                await Toast.Make("No se pudieron cargar los reportes.").Show();
+            }
 
-        try
-        {
-            Estadisticas = await _reportService.GetEstadisticasAsync();
+            try
+            {
+                Estadisticas = await _reportService.GetEstadisticasAsync();
+            }
+            catch (Exception)
+            {
+                // Las estadísticas son secundarias a la lista de reportes: si fallan, no se
+                // bloquea la vista con un segundo toast, los labels simplemente quedan en su último valor.
+            }
         }
-        catch (Exception)
+        finally
         {
-            // Las estadísticas son secundarias a la lista de reportes: si fallan, no se
-            // bloquea la vista con un segundo toast, los labels simplemente quedan en su último valor.
+            IsBusy = false;
         }
-
-        IsBusy = false;
     }
 }

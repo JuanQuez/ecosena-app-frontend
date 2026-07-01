@@ -89,4 +89,6 @@ public partial class ReportsUserView : ContentView
         if (_formViewModel.FotoPreview != null)
             FormSection.SetFotoPreview(_formViewModel.FotoPreview);
     }
+
+    public void Refresh() => _viewModel?.LoadCommand.Execute(null);
 }

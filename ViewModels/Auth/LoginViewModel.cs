@@ -79,7 +79,12 @@ public partial class LoginViewModel : ObservableObject
                 await Shell.Current.GoToAsync("//HostPage");
             }
             else
-                await Toast.Make("Documento o contraseña incorrectos.").Show();
+            {
+                var mensaje = !string.IsNullOrWhiteSpace(result?.Message)
+                    ? result!.Message!
+                    : "Documento o contraseña incorrectos.";
+                await Toast.Make(mensaje).Show();
+            }
         }
         catch (Exception)
         {

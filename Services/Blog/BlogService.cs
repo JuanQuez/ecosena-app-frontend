@@ -20,17 +20,22 @@ public class BlogService : IBlogService
         try
         {
             using var client = await CreateClientAsync();
-            var url = string.IsNullOrWhiteSpace(titulo)
-                ? BaseUrl
-                : $"{BaseUrl}?titulo={Uri.EscapeDataString(titulo)}";
-
-            var response = await client.GetAsync(url);
+            var response = await client.GetAsync(BaseUrl);
             if (!response.IsSuccessStatusCode)
                 return new List<BlogListResDto>();
 
             var json = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<List<BlogListResDto>>(json,
+            var entradas = JsonSerializer.Deserialize<List<BlogListResDto>>(json,
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new List<BlogListResDto>();
+
+            if (string.IsNullOrWhiteSpace(titulo))
+                return entradas;
+
+            // El backend ignora el query param "titulo" (no lo implementa pese a documentarlo);
+            // se filtra en el cliente para que la búsqueda funcione igual.
+            return entradas
+                .Where(e => e.Titulo.Contains(titulo, StringComparison.OrdinalIgnoreCase))
+                .ToList();
         }
         catch (Exception ex)
         {

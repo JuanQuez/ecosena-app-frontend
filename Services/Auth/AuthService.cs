@@ -29,20 +29,29 @@ public class AuthService : IAuthService
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await _httpClient.PostAsync($"{BaseUrl}/login", content);
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
             if (response.IsSuccessStatusCode)
             {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                var result = JsonSerializer.Deserialize<LoginResDto>(responseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                var result = JsonSerializer.Deserialize<LoginResDto>(responseContent, options);
 
                 if (result?.Jwt != null)
                 {
                     await SaveTokenAsync(result.Jwt);
                     return result;
                 }
+
+                return null;
             }
 
-            return null;
+            // El backend devuelve 423 (bloqueado) o 400 (credenciales) con distintos
+            // subconjuntos de campos; se deserializa igual y se marca IsLocked por status code
+            // porque ese campo no viene en el cuerpo de error.
+            var error = JsonSerializer.Deserialize<LoginResDto>(responseContent, options);
+            if (error != null)
+                error.IsLocked = response.StatusCode == System.Net.HttpStatusCode.Locked;
+            return error;
         }
         catch (Exception ex)
         {

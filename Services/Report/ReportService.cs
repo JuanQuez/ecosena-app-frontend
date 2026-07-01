@@ -10,6 +10,7 @@ public class ReportService : IReportService
     private readonly IAuthService _authService;
     private const string BaseUrl = "https://ecosena-api.onrender.com/api/Report";
     private const string StatsUrl = "https://ecosena-api.onrender.com/Estadisticas";
+    private const string ExcelUrl = "https://ecosena-api.onrender.com/ReportsExcel";
 
     public ReportService(IAuthService authService)
     {
@@ -56,6 +57,28 @@ public class ReportService : IReportService
         catch (Exception ex)
         {
             System.Diagnostics.Debug.WriteLine($"ReportService.GetEstadisticasAsync error: {ex.Message}");
+            return null;
+        }
+    }
+
+    public async Task<(byte[] Bytes, string FileName)?> ExportarExcelAsync()
+    {
+        try
+        {
+            using var client = await CreateClientAsync();
+            var response = await client.GetAsync(ExcelUrl);
+            if (!response.IsSuccessStatusCode)
+                return null;
+
+            var bytes = await response.Content.ReadAsByteArrayAsync();
+            var fileName = response.Content.Headers.ContentDisposition?.FileName?.Trim('"')
+                ?? $"reportes_{DateTime.Now:yyyy_MM}.xlsx";
+
+            return (bytes, fileName);
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"ReportService.ExportarExcelAsync error: {ex.Message}");
             return null;
         }
     }

@@ -15,210 +15,95 @@
 
             <Grid RowDefinitions="*, Auto" >
 
-                <!-- Contenido sin scroll -->
-                <VerticalStackLayout Grid.Row="0"
-                                     Spacing="20"
-                                     Padding="20,12,20,0"
-                                     VerticalOptions="Center">
+                <ScrollView Grid.Row="0">
+                    <VerticalStackLayout Spacing="16"
+                                         Padding="20,12,20,12">
 
-                    <Label x:Name="TituloLabel"
-                           Text="[Titulo del reporte]"
-                           FontFamily="InterExtraBold"
-                           FontSize="20"
-                           TextColor="{StaticResource GrayDark}"
-                           LineBreakMode="WordWrap"/>
-
-                    <Grid ColumnDefinitions="Auto, *" ColumnSpacing="8">
-                        <Image Grid.Column="0"
-                               Source="icon_calendar.svg"
-                               WidthRequest="20" HeightRequest="20"
-                               VerticalOptions="Center">
-                            <Image.Behaviors>
-                                <toolkit:IconTintColorBehavior TintColor="{StaticResource GrayDark}"/>
-                            </Image.Behaviors>
-                        </Image>
-                        <Label Grid.Column="1"
-                               x:Name="FechaLabel"
-                               Text="20 de Marzo de 2026"
-                               FontFamily="InterRegular"
-                               FontSize="15"
+                        <Label x:Name="TituloLabel"
+                               FontFamily="InterExtraBold"
+                               FontSize="20"
                                TextColor="{StaticResource GrayDark}"
-                               VerticalOptions="Center"/>
-                    </Grid>
+                               LineBreakMode="WordWrap"/>
 
-                    <VerticalStackLayout Spacing="4">
-                        <Label Text="Ubicación:"
-                               FontFamily="InterBold"
-                               FontSize="18"
-                               TextColor="{StaticResource GrayDark}"/>
-                        <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
-                            <Image Grid.Column="0"
-                                   Source="icon_location.svg"
-                                   WidthRequest="18" HeightRequest="22"
-                                   VerticalOptions="Center">
-                                <Image.Behaviors>
-                                    <toolkit:IconTintColorBehavior TintColor="{StaticResource GrayDark}"/>
-                                </Image.Behaviors>
-                            </Image>
-                            <Label Grid.Column="1"
-                                   x:Name="UbicacionLabel"
-                                   Text="Salida del Aula 101-A"
+                        <Border StrokeThickness="0" Padding="0" HeightRequest="160">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="12"/>
+                            </Border.StrokeShape>
+                            <Image x:Name="FotoImage" Aspect="AspectFill"/>
+                        </Border>
+
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="Descripción:"
+                                   FontFamily="InterBold"
+                                   FontSize="18"
+                                   TextColor="{StaticResource GrayDark}"/>
+                            <Label x:Name="DescripcionLabel"
                                    FontFamily="InterRegular"
                                    FontSize="15"
                                    TextColor="{StaticResource GrayDark}"
-                                   VerticalOptions="Center"/>
-                        </Grid>
-                    </VerticalStackLayout>
+                                   LineBreakMode="WordWrap"
+                                   HorizontalTextAlignment="Justify"/>
+                        </VerticalStackLayout>
 
-                    <VerticalStackLayout Spacing="4">
-                        <Label Text="Descripción:"
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="Emisor del reporte:"
+                                   FontFamily="InterBold"
+                                   FontSize="18"
+                                   TextColor="{StaticResource GrayDark}"/>
+                            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="8">
+                                <Image Grid.Column="0"
+                                       Source="icon_profile.svg"
+                                       WidthRequest="30" HeightRequest="30"
+                                       VerticalOptions="Center">
+                                    <Image.Behaviors>
+                                        <toolkit:IconTintColorBehavior TintColor="{StaticResource Primary}"/>
+                                    </Image.Behaviors>
+                                </Image>
+                                <Label Grid.Column="1"
+                                       x:Name="EmisorLabel"
+                                       FontFamily="InterRegular"
+                                       FontSize="15"
+                                       TextColor="{StaticResource GrayDark}"
+                                       VerticalOptions="Center"/>
+                            </Grid>
+                        </VerticalStackLayout>
+
+                        <Label Text="Estado del reporte:"
                                FontFamily="InterBold"
                                FontSize="18"
                                TextColor="{StaticResource GrayDark}"/>
-                        <Label x:Name="DescripcionLabel"
-                               Text="A la salida del Aula 101-A hay una gran cantidad de escombros y/o basura acumulada desde hace cinco días que impide el paso al ambiente de formación."
-                               FontFamily="InterRegular"
-                               FontSize="15"
-                               TextColor="{StaticResource GrayDark}"
-                               LineBreakMode="WordWrap"
-                               HorizontalTextAlignment="Justify"/>
-                    </VerticalStackLayout>
 
-                    <VerticalStackLayout Spacing="4">
-                        <Label Text="Emisor del reporte:"
-                               FontFamily="InterBold"
-                               FontSize="18"
-                               TextColor="{StaticResource GrayDark}"/>
-                        <Grid ColumnDefinitions="Auto, *" ColumnSpacing="8">
-                            <Image Grid.Column="0"
-                                   Source="icon_profile.svg"
-                                   WidthRequest="30" HeightRequest="30"
-                                   VerticalOptions="Center">
-                                <Image.Behaviors>
-                                    <toolkit:IconTintColorBehavior TintColor="{StaticResource Primary}"/>
-                                </Image.Behaviors>
-                            </Image>
-                            <Label Grid.Column="1"
-                                   x:Name="EmisorLabel"
-                                   Text="Alejandro Álvarez Guevara"
-                                   FontFamily="InterRegular"
-                                   FontSize="15"
-                                   TextColor="{StaticResource GrayDark}"
-                                   VerticalOptions="Center"/>
-                        </Grid>
-                    </VerticalStackLayout>
-
-                    <Label Text="Estado del reporte:"
-                           FontFamily="InterBold"
-                           FontSize="18"
-                           TextColor="{StaticResource GrayDark}"/>
-
-                    <VerticalStackLayout Spacing="0">
-
-                        <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10" Padding="0,3">
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnEnRevisionTapped"/>
-                            </Grid.GestureRecognizers>
-                            <Border Grid.Column="0"
-                                    x:Name="IndicadorEnRevision"
-                                    WidthRequest="28" HeightRequest="28"
-                                    StrokeShape="Ellipse"
-                                    StrokeThickness="2.5"
-                                    Stroke="{StaticResource StatusSolved}"
-                                    BackgroundColor="Transparent">
-                                <BoxView x:Name="DotEnRevision"
-                                         WidthRequest="10" HeightRequest="10"
-                                         CornerRadius="5"
-                                         BackgroundColor="Transparent"
-                                         HorizontalOptions="Center"
-                                         VerticalOptions="Center"/>
-                            </Border>
-                            <Label Grid.Column="1"
-                                   x:Name="TextoEnRevision"
-                                   Text="Resuelto"
-                                   FontFamily="InterLight"
-                                   FontSize="15"
-                                   TextColor="{StaticResource GrayDark}"
-                                   VerticalOptions="Center"/>
-                        </Grid>
-
-                        <BoxView WidthRequest="2" HeightRequest="8"
-                                 BackgroundColor="{StaticResource GrayMedium}"
-                                 HorizontalOptions="Start"
-                                 Margin="13,0,0,0"/>
-
-                        <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10" Padding="0,3">
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnEnProgresoTapped"/>
-                            </Grid.GestureRecognizers>
-                            <Border Grid.Column="0"
-                                    x:Name="IndicadorEnProgreso"
-                                    WidthRequest="28" HeightRequest="28"
-                                    StrokeShape="Ellipse"
-                                    StrokeThickness="2.5"
-                                    Stroke="{StaticResource StatusUnderReview}"
-                                    BackgroundColor="{StaticResource StatusUnderReview}">
-                                <BoxView x:Name="DotEnProgreso"
-                                         WidthRequest="10" HeightRequest="10"
-                                         CornerRadius="5"
-                                         BackgroundColor="White"
-                                         HorizontalOptions="Center"
-                                         VerticalOptions="Center"/>
-                            </Border>
-                            <Label Grid.Column="1"
-                                   x:Name="TextoEnProgreso"
-                                   Text="En progreso"
-                                   FontFamily="InterLight"
-                                   FontSize="15"
-                                   TextColor="{StaticResource GrayDark}"
-                                   VerticalOptions="Center"/>
-                        </Grid>
-
-                        <BoxView WidthRequest="2" HeightRequest="8"
-                                 BackgroundColor="{StaticResource GrayMedium}"
-                                 HorizontalOptions="Start"
-                                 Margin="13,0,0,0"/>
-
-                        <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10" Padding="0,3">
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnPendienteTapped"/>
-                            </Grid.GestureRecognizers>
-                            <Border Grid.Column="0"
-                                    x:Name="IndicadorPendiente"
-                                    WidthRequest="28" HeightRequest="28"
-                                    StrokeShape="Ellipse"
-                                    StrokeThickness="2.5"
-                                    Stroke="{StaticResource StatusPending}"
-                                    BackgroundColor="Transparent">
-                                <BoxView x:Name="DotPendiente"
-                                         WidthRequest="10" HeightRequest="10"
-                                         CornerRadius="5"
-                                         BackgroundColor="Transparent"
-                                         HorizontalOptions="Center"
-                                         VerticalOptions="Center"/>
-                            </Border>
-                            <Label Grid.Column="1"
-                                   x:Name="TextoPendiente"
+                        <Border x:Name="EstadoBadge"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 20"
+                                BackgroundColor="{StaticResource StatusPending}"
+                                Padding="16,8"
+                                HorizontalOptions="Start">
+                            <Label x:Name="EstadoLabel"
                                    Text="Pendiente"
-                                   FontFamily="InterLight"
+                                   FontFamily="InterBold"
                                    FontSize="15"
-                                   TextColor="{StaticResource GrayDark}"
-                                   VerticalOptions="Center"/>
-                        </Grid>
+                                   TextColor="{StaticResource WhiteBase}"/>
+                        </Border>
 
                     </VerticalStackLayout>
-
-                </VerticalStackLayout>
+                </ScrollView>
 
                 <!-- Botones de acción -->
                 <VerticalStackLayout Grid.Row="1"
                                      Spacing="8"
                                      Padding="20,8,20,14">
-                    <Button Text="Actualizar estado"
+                    <Button x:Name="AvanzarEstadoButton"
+                            Text="Avanzar estado"
                             Style="{StaticResource PrimaryButton}"
                             Padding="0"
                             HeightRequest="44"
                             Clicked="OnActualizarEstadoTapped"/>
+                    <Button Text="Penalizar emisor"
+                            Style="{StaticResource DangerButton}"
+                            Padding="0"
+                            HeightRequest="44"
+                            Clicked="OnPenalizarTapped"/>
                     <Button Text="Volver"
                             FontFamily="InterExtraBold"
                             FontSize="18"

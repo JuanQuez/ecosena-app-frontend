@@ -131,4 +131,9 @@ public partial class FootBarView : ContentView
 			tintBehavior.TintColor = isActive ? activeText : inactiveText;
 		}
 	}
+
+	public void SetReportTabVisible(bool visible)
+	{
+		ReportContainer.IsVisible = visible;
+	}
 }

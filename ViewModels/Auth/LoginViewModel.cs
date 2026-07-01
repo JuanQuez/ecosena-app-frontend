@@ -2,12 +2,14 @@ using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using EcosenaApp.Services.Auth;
+using EcosenaApp.Services.Session;
 
 namespace EcosenaApp.ViewModels.Auth;
 
 public partial class LoginViewModel : ObservableObject
 {
     private readonly IAuthService _authService;
+    private readonly IUserSession _userSession;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsNotBusy))]
@@ -29,9 +31,10 @@ public partial class LoginViewModel : ObservableObject
     private const string PrefDocumento = "saved_documento";
     private const string KeyPassword = "saved_password";
 
-    public LoginViewModel(IAuthService authService)
+    public LoginViewModel(IAuthService authService, IUserSession userSession)
     {
         _authService = authService;
+        _userSession = userSession;
         _ = LoadSavedCredentialsAsync();
     }
 
@@ -59,6 +62,8 @@ public partial class LoginViewModel : ObservableObject
             var result = await _authService.LoginAsync(Documento, Contraseña);
             if (result?.Jwt != null)
             {
+                _userSession.SetFromToken(result.Jwt);
+
                 if (RememberMe)
                 {
                     Preferences.Set(PrefRememberMe, true);
@@ -74,7 +79,12 @@ public partial class LoginViewModel : ObservableObject
                 await Shell.Current.GoToAsync("//HostPage");
             }
             else
-                await Toast.Make("Documento o contraseña incorrectos.").Show();
+            {
+                var mensaje = !string.IsNullOrWhiteSpace(result?.Message)
+                    ? result!.Message!
+                    : "Documento o contraseña incorrectos.";
+                await Toast.Make(mensaje).Show();
+            }
         }
         catch (Exception)
         {

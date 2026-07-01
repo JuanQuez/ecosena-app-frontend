@@ -41,4 +41,37 @@ public class ProfileService : IProfileService
             return null;
         }
     }
+
+    public async Task<bool> UpdateProfileAsync(string email, DateOnly? fechaNacimiento,
+        string? contraseña, string? confirmacion, Stream? foto, string? fileName)
+    {
+        try
+        {
+            var token = await _authService.GetTokenAsync();
+            if (string.IsNullOrEmpty(token))
+                return false;
+
+            using var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", token);
+
+            var query = $"Email={Uri.EscapeDataString(email)}";
+            if (fechaNacimiento.HasValue)
+                query += $"&FechaNacimiento={fechaNacimiento.Value:yyyy-MM-dd}";
+            if (!string.IsNullOrEmpty(contraseña))
+                query += $"&Contraseña={Uri.EscapeDataString(contraseña)}&ConfirmacionContraseña={Uri.EscapeDataString(confirmacion ?? string.Empty)}";
+
+            using var content = new MultipartFormDataContent();
+            if (foto != null)
+                content.Add(new StreamContent(foto), "FotoPerfil", fileName ?? "foto.jpg");
+
+            var response = await client.PutAsync($"{Url}?{query}", content);
+            return response.IsSuccessStatusCode;
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"ProfileService.UpdateProfileAsync error: {ex.Message}");
+            return false;
+        }
+    }
 }

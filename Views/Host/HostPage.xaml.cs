@@ -1,3 +1,4 @@
+using EcosenaApp.Services.Session;
 using EcosenaApp.Views.Controls;
 
 namespace EcosenaApp.Views.Host;
@@ -6,10 +7,14 @@ public partial class HostPage : ContentPage
 {
     private readonly Dictionary<string, View> _cache = new();
     private readonly Stack<string> _history = new();
+    private readonly IUserSession? _userSession;
 
     public HostPage()
     {
         InitializeComponent();
+
+        _userSession = IPlatformApplication.Current?.Services.GetService<IUserSession>();
+        MainFootBar.SetReportTabVisible(_userSession?.Role != "Invitado");
 
         // Wire up the footer selection
         MainFootBar.SelectedIndexChanged += OnFooterSelectionChanged;
@@ -36,6 +41,7 @@ public partial class HostPage : ContentPage
         if (_cache.TryGetValue(key, out var view))
         {
             ContentRegion.Content = view;
+            RefreshIfSupported(view);
         }
         else
         {
@@ -59,13 +65,64 @@ public partial class HostPage : ContentPage
 
     private View CreateViewForKey(string key)
     {
+        var role = _userSession?.Role ?? "Invitado";
+
         return key switch
         {
-            "Home" => new HomeContainerView(),
+            "Home" => CreateHomeView(),
             "Blog" => new BlogContainerView(),
-            "Report" => new ContentView(),
+            "Report" => role switch
+            {
+                "Administrador" => new ReportsAdminView(),
+                "Aprendiz" => new ReportsUserView(),
+                "Penalizado" => BuildPenalizadoView(),
+                _ => new ContentView(),
+            },
             _ => new ContentView(),
         };
+    }
+
+    private View CreateHomeView()
+    {
+        var view = new HomeContainerView();
+        view.ReportarRequested += (s, e) => ShowSection("Report");
+        return view;
+    }
+
+    private static View BuildPenalizadoView()
+    {
+        return new ContentView
+        {
+            Content = new VerticalStackLayout
+            {
+                VerticalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.Center,
+                Padding = 30,
+                Children =
+                {
+                    new Label
+                    {
+                        Text = "Tu acceso a reportes está restringido.",
+                        Style = (Style)Application.Current!.Resources["H3"],
+                        HorizontalTextAlignment = TextAlignment.Center,
+                        TextColor = (Color)Application.Current!.Resources["GrayDark"]
+                    }
+                }
+            }
+        };
+    }
+
+    private static void RefreshIfSupported(View view)
+    {
+        switch (view)
+        {
+            case BlogContainerView blogView:
+                blogView.Refresh();
+                break;
+            case ReportsAdminView reportsAdminView:
+                reportsAdminView.Refresh();
+                break;
+        }
     }
 
     public bool TryGoBack()

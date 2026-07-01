@@ -8,7 +8,7 @@
 
     <Grid RowDefinitions="Auto,*" Margin="20,10" RowSpacing="30">
 
-        <!-- Top bar with back button and centered title -->
+        <!-- Top bar with back button, title, admin actions -->
         <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto" VerticalOptions="Start">
             <ImageButton Source="icon_go_back_section.svg"
                          WidthRequest="45"
@@ -23,6 +23,19 @@
                    HorizontalTextAlignment="Center"
                    Style="{StaticResource H1}"
                    TextColor="{StaticResource WhiteBase}"/>
+
+            <HorizontalStackLayout x:Name="AdminActions"
+                                    Grid.Column="2"
+                                    Spacing="10"
+                                    IsVisible="False"
+                                    HorizontalOptions="End">
+                <ImageButton Source="icon_edit_entry.svg"
+                             WidthRequest="32"
+                             Clicked="OnEditarClicked"/>
+                <ImageButton Source="icon_delete_entry.svg"
+                             WidthRequest="32"
+                             Clicked="OnEliminarClicked"/>
+            </HorizontalStackLayout>
         </Grid>
 
         <!-- Content area (fills rest of screen) -->
@@ -32,7 +45,7 @@
                 <!-- Card container (rounded) -->
                 <Border Background="{StaticResource WhiteBase}"
                         StrokeThickness="0"
-                        Padding="30, 20"                      
+                        Padding="30, 20"
                         VerticalOptions="Fill"
                         >
                     <Border.StrokeShape>
@@ -43,7 +56,6 @@
 
                         <!-- Title -->
                         <Label x:Name="TitleLabel"
-                               Text="[TITULO DE ENTRADA]"
                                HorizontalTextAlignment="Center"
                                Style="{StaticResource H2}"
                                TextColor="{StaticResource BlackBase}"/>
@@ -57,7 +69,6 @@
                                 <RoundRectangle CornerRadius="12"/>
                             </Border.StrokeShape>
                             <Image x:Name="MainImage"
-                                   Source="bkg_blog_cta.png"
                                    Aspect="AspectFill"
                                    HeightRequest="220"
                                    HorizontalOptions="Fill"/>

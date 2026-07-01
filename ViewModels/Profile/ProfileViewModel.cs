@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using EcosenaApp.Services.Auth;
 using EcosenaApp.Services.Profile;
+using EcosenaApp.Services.Session;
 
 namespace EcosenaApp.ViewModels.Profile;
 
@@ -10,6 +11,7 @@ public partial class ProfileViewModel : ObservableObject
 {
     private readonly IAuthService _authService;
     private readonly IProfileService _profileService;
+    private readonly IUserSession _userSession;
 
     [ObservableProperty]
     private bool isBusy;
@@ -32,10 +34,11 @@ public partial class ProfileViewModel : ObservableObject
     [ObservableProperty]
     private ImageSource fotoPerfil = ImageSource.FromFile("icon_profile.svg");
 
-    public ProfileViewModel(IAuthService authService, IProfileService profileService)
+    public ProfileViewModel(IAuthService authService, IProfileService profileService, IUserSession userSession)
     {
         _authService = authService;
         _profileService = profileService;
+        _userSession = userSession;
     }
 
     [RelayCommand]
@@ -75,6 +78,7 @@ public partial class ProfileViewModel : ObservableObject
     private async Task LogoutAsync()
     {
         await _authService.LogoutAsync();
+        _userSession.Clear();
         await Shell.Current.GoToAsync("//LoginPage");
     }
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:EcosenaApp.Views.Controls"
+    x:Class="EcosenaApp.Views.Report.ReportManagementPage"
+    Shell.NavBarIsVisible="False"
+    BackgroundImageSource="bkg_ecosena_sections.png">
+
+    <controls:ReportManagementAdminView x:Name="ManagementView"
+                                         ActualizarEstadoClicked="OnActualizarEstadoTapped"
+                                         PenalizarClicked="OnPenalizarTapped"
+                                         VolverClicked="OnVolverTapped"
+                                         Margin="20,10"/>
+
+</ContentPage>

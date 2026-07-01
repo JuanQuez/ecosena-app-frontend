@@ -8,6 +8,7 @@ using EcosenaApp.Services.Session;
 using EcosenaApp.ViewModels.Auth;
 using EcosenaApp.ViewModels.Blog;
 using EcosenaApp.ViewModels.Profile;
+using EcosenaApp.ViewModels.Report;
 
 namespace EcosenaApp
 {
@@ -53,6 +54,8 @@ namespace EcosenaApp
             builder.Services.AddTransient<CreateBlogEntryViewModel>();
             builder.Services.AddTransient<EditBlogEntryViewModel>();
             builder.Services.AddTransient<BlogEntryViewModel>();
+            builder.Services.AddTransient<ReportsUserViewModel>();
+            builder.Services.AddTransient<ReportFormViewModel>();
 
 #if DEBUG
             builder.Logging.AddDebug();

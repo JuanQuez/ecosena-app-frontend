@@ -8,28 +8,31 @@
             StrokeShape="RoundRectangle 15">
 
         <Grid>
-            <!-- Fondo: HeightRequest="1" evita inflar layout; VerticalOptions="Fill" lo estira al alto real -->
             <Image Source="bkg_report_form.png"
                    Aspect="AspectFill"
                    HorizontalOptions="Fill"
-                   VerticalOptions="Fill"
-                   />
+                   VerticalOptions="Fill"/>
 
             <Grid RowDefinitions="*, Auto">
 
-                <!-- Formulario sin scroll -->
                 <VerticalStackLayout Grid.Row="0"
-                                     Spacing="20"
+                                     Spacing="16"
                                      Padding="16,12,16,6"
                                      VerticalOptions="Center">
 
-                    <!-- Título -->
                     <Label Text="Crear Reporte"
                            FontFamily="InterExtraBold"
                            FontSize="20"
                            TextColor="{StaticResource GrayDark}"
                            LineBreakMode="WordWrap"/>
-                    
+
+                    <Label x:Name="SancionLabel"
+                           Text="Tu acceso a reportes está restringido."
+                           FontFamily="InterBold"
+                           FontSize="14"
+                           TextColor="{StaticResource StatusPending}"
+                           IsVisible="False"/>
+
                     <Border StrokeThickness="0"
                             StrokeShape="RoundRectangle 8"
                             BackgroundColor="{StaticResource WhiteBase}"
@@ -38,24 +41,25 @@
                         <Border.Shadow>
                             <Shadow Brush="{StaticResource BlackBase}" Offset="0,1" Radius="5" Opacity="0.25"/>
                         </Border.Shadow>
-                        <Entry Placeholder="Titulo del reporte..."
+                        <Entry x:Name="TituloEntry"
+                               Placeholder="Titulo del reporte..."
                                Style="{StaticResource InputField}"
                                FontSize="16"/>
                     </Border>
 
-                    <!-- Descripción -->
                     <Border StrokeThickness="0"
                             Stroke="Transparent"
                             StrokeShape="RoundRectangle 8"
                             BackgroundColor="{StaticResource WhiteBase}"
-                            HeightRequest="180"
+                            HeightRequest="140"
                             Padding="12,8">
                         <Border.Shadow>
                             <Shadow Brush="{StaticResource BlackBase}" Offset="0,1" Radius="5" Opacity="0.25"/>
                         </Border.Shadow>
-                        <Editor Placeholder="Descripción..."
+                        <Editor x:Name="DescripcionEditor"
+                                Placeholder="Descripción..."
                                 FontFamily="InterRegular"
-                                HeightRequest="170"
+                                HeightRequest="130"
                                 FontSize="15"
                                 TextColor="{StaticResource BlackBase}"
                                 PlaceholderColor="{StaticResource GrayMedium}"
@@ -63,7 +67,6 @@
                                 VerticalOptions="Start"/>
                     </Border>
 
-                    <!-- Evidencia fotográfica -->
                     <VerticalStackLayout Spacing="6">
                         <Label Text="Evidencia fotográfica:"
                                FontFamily="InterBold"
@@ -76,10 +79,12 @@
                                     StrokeShape="RoundRectangle 8"
                                     BackgroundColor="{StaticResource WhiteBase}"
                                     WidthRequest="60" HeightRequest="60">
-                                <Image Source="icon_gallery_report.svg"
+                                <Image x:Name="FotoPreviewImage"
+                                       Source="icon_gallery_report.svg"
                                        WidthRequest="28" HeightRequest="28"
                                        HorizontalOptions="Center"
-                                       VerticalOptions="Center">
+                                       VerticalOptions="Center"
+                                       Aspect="AspectFill">
                                     <Image.Behaviors>
                                         <toolkit:IconTintColorBehavior TintColor="{StaticResource GrayMidnight}"/>
                                     </Image.Behaviors>
@@ -110,7 +115,6 @@
                         </HorizontalStackLayout>
                     </VerticalStackLayout>
 
-                    <!-- Ubicación -->
                     <Border StrokeThickness="0"
                             StrokeShape="RoundRectangle 8"
                             BackgroundColor="{StaticResource WhiteBase}"
@@ -128,14 +132,15 @@
                                     <toolkit:IconTintColorBehavior TintColor="{StaticResource Primary}"/>
                                 </Image.Behaviors>
                             </Image>
-                            <Entry Grid.Column="1"
-                                   Placeholder="Ubicación..."
-                                   Style="{StaticResource InputField}"
-                                   FontSize="15"/>
+                            <Picker Grid.Column="1"
+                                    x:Name="AmbientePicker"
+                                    Title="Selecciona un ambiente"
+                                    FontSize="15"
+                                    TextColor="{StaticResource BlackBase}"
+                                    BackgroundColor="Transparent"/>
                         </Grid>
                     </Border>
 
-                    <!-- Fecha del reporte -->
                     <HorizontalStackLayout Spacing="8">
                         <Image Source="icon_calendar.svg"
                                WidthRequest="20" HeightRequest="20"
@@ -145,7 +150,6 @@
                             </Image.Behaviors>
                         </Image>
                         <Label x:Name="FechaLabel"
-                               Text="20 de Marzo de 2026, 14:36"
                                FontFamily="InterRegular"
                                FontSize="14"
                                TextColor="{StaticResource GrayDark}"
@@ -154,11 +158,11 @@
 
                 </VerticalStackLayout>
 
-                <!-- Botones de acción -->
                 <VerticalStackLayout Grid.Row="1"
                                      Spacing="8"
                                      Padding="16,8,16,14">
-                    <Button Text="Generar reporte"
+                    <Button x:Name="GenerarReporteButton"
+                            Text="Generar reporte"
                             Style="{StaticResource PrimaryButton}"
                             Padding="0"
                             HeightRequest="44"

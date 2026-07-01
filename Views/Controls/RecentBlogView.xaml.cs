@@ -56,5 +56,7 @@ namespace EcosenaApp.Views.Controls
                 hostPage.ShowSection("Blog");
             }
         }
+
+        public void Refresh() => _ = LoadRecienteAsync();
     }
 }

@@ -11,7 +11,7 @@
             <ContentView x:Name="HeroSlot" />
 
             <!-- ====| LO MÁS RECIENTE |==== -->
-            <controls:RecentBlogView />
+            <controls:RecentBlogView x:Name="RecentBlogPanel" />
 
             <!-- ====| INFORMACIÓN DE INTERÉS |==== -->
             <controls:InterestInfoView />

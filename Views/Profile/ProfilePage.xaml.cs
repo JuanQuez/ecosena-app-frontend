@@ -31,7 +31,7 @@ public partial class ProfilePage : ContentPage
 
     private async void OnEditProfileTapped(object sender, EventArgs e)
     {
-        await DisplayAlert("Info", "Ir a editar perfil", "OK");
+        await Navigation.PushAsync(new EditProfilePage());
     }
 
     private async void OnNotificationsTapped(object sender, EventArgs e)

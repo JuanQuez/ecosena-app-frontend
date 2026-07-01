@@ -50,6 +50,7 @@ namespace EcosenaApp
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<SignUpViewModel>();
             builder.Services.AddTransient<ProfileViewModel>();
+            builder.Services.AddTransient<EditProfileViewModel>();
             builder.Services.AddTransient<BlogViewModel>();
             builder.Services.AddTransient<CreateBlogEntryViewModel>();
             builder.Services.AddTransient<EditBlogEntryViewModel>();

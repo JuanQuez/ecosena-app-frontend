@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcosenaApp.Views.Profile.EditProfilePage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource Primary}">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <Grid Grid.Row="0"
+              ColumnDefinitions="Auto,*,Auto"
+              Padding="20,16,20,24"
+              VerticalOptions="Start">
+            <ImageButton Grid.Column="0"
+                         Source="icon_goback.svg"
+                         BackgroundColor="Transparent"
+                         HeightRequest="32"
+                         WidthRequest="32"
+                         Clicked="OnBackClicked"
+                         HorizontalOptions="Start"/>
+            <Label Grid.Column="1"
+                   Text="Editar perfil"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Style="{StaticResource H1}"
+                   TextColor="{StaticResource WhiteBase}"/>
+        </Grid>
+
+        <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never">
+            <VerticalStackLayout Spacing="20" Padding="20,0,20,32">
+
+                <Border HorizontalOptions="Center"
+                        StrokeThickness="6"
+                        StrokeShape="{RoundRectangle CornerRadius=80}"
+                        Stroke="{StaticResource Fantasy}"
+                        HeightRequest="140"
+                        WidthRequest="140">
+                    <Border StrokeThickness="0" Padding="0">
+                        <Border.StrokeShape>
+                            <Ellipse/>
+                        </Border.StrokeShape>
+                        <Image Source="{Binding FotoPreview}"
+                               Aspect="AspectFill"
+                               BackgroundColor="{StaticResource GrayLight}">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnPickFotoTapped"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Border>
+                </Border>
+
+                <Border BackgroundColor="{StaticResource WhiteBase}"
+                        StrokeThickness="0"
+                        Padding="20,16"
+                        HorizontalOptions="Fill">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20"/>
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="16">
+
+                        <ActivityIndicator IsRunning="{Binding IsBusy}"
+                                           IsVisible="{Binding IsBusy}"
+                                           Color="{StaticResource Primary}"
+                                           HorizontalOptions="Center"/>
+
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="Email" Style="{StaticResource TextMedium}" TextColor="{StaticResource GrayDark}"/>
+                            <Entry Text="{Binding Email}" Style="{StaticResource InputField}" Keyboard="Email" TextColor="{StaticResource BlackBase}"/>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="Fecha de nacimiento" Style="{StaticResource TextMedium}" TextColor="{StaticResource GrayDark}"/>
+                            <DatePicker Date="{Binding FechaNacimiento}" TextColor="{StaticResource BlackBase}"/>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="Nueva contraseña (opcional)" Style="{StaticResource TextMedium}" TextColor="{StaticResource GrayDark}"/>
+                            <Entry Text="{Binding NuevaContraseña}" Style="{StaticResource InputField}" IsPassword="True" TextColor="{StaticResource BlackBase}"/>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="Confirmar contraseña" Style="{StaticResource TextMedium}" TextColor="{StaticResource GrayDark}"/>
+                            <Entry Text="{Binding ConfirmacionContraseña}" Style="{StaticResource InputField}" IsPassword="True" TextColor="{StaticResource BlackBase}"/>
+                        </VerticalStackLayout>
+
+                        <Button Text="Guardar cambios"
+                                Style="{StaticResource PrimaryButton}"
+                                Command="{Binding GuardarCommand}"/>
+
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+
+</ContentPage>

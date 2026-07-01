@@ -2,6 +2,7 @@ using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
 using EcosenaApp.Services.Auth;
 using EcosenaApp.Services.Blog;
+using EcosenaApp.Services.Http;
 using EcosenaApp.Services.Profile;
 using EcosenaApp.Services.Recovery;
 using EcosenaApp.Services.Report;
@@ -39,6 +40,13 @@ namespace EcosenaApp
                     fonts.AddFont("Inter_18pt-Bold", "InterBold");
                     fonts.AddFont("Inter_18pt-ExtraBold.ttf", "InterExtraBold");
                 });
+
+            // HTTP clients: clientes nombrados respaldados por IHttpClientFactory, en reemplazo
+            // del patrón "new HttpClient()" que cada servicio manejaba por su cuenta.
+            builder.Services.AddTransient<AuthorizationMessageHandler>();
+            builder.Services.AddHttpClient(HttpClientNames.Authenticated)
+                .AddHttpMessageHandler<AuthorizationMessageHandler>();
+            builder.Services.AddHttpClient(HttpClientNames.Anonymous);
 
             // Register services
             builder.Services.AddSingleton<IAuthService, AuthService>();

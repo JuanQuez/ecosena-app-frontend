@@ -1,20 +1,19 @@
 using EcosenaApp.Models.Report;
-using EcosenaApp.Services.Auth;
-using System.Net.Http.Headers;
+using EcosenaApp.Services.Http;
 using System.Text.Json;
 
 namespace EcosenaApp.Services.Report;
 
 public class ReportService : IReportService
 {
-    private readonly IAuthService _authService;
+    private readonly IHttpClientFactory _httpClientFactory;
     private const string BaseUrl = "https://ecosena-api.onrender.com/api/Report";
     private const string StatsUrl = "https://ecosena-api.onrender.com/Estadisticas";
     private const string ExcelUrl = "https://ecosena-api.onrender.com/ReportsExcel";
 
-    public ReportService(IAuthService authService)
+    public ReportService(IHttpClientFactory httpClientFactory)
     {
-        _authService = authService;
+        _httpClientFactory = httpClientFactory;
     }
 
     public Task<List<ReportListResDto>> GetAllReportsAsync() => GetListAsync($"{BaseUrl}/AllReports");
@@ -25,7 +24,7 @@ public class ReportService : IReportService
     {
         try
         {
-            using var client = await CreateClientAsync();
+            var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
             var response = await client.GetAsync(url);
             if (!response.IsSuccessStatusCode)
                 return new List<ReportListResDto>();
@@ -45,7 +44,7 @@ public class ReportService : IReportService
     {
         try
         {
-            using var client = await CreateClientAsync();
+            var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
             var response = await client.GetAsync(StatsUrl);
             if (!response.IsSuccessStatusCode)
                 return null;
@@ -65,7 +64,7 @@ public class ReportService : IReportService
     {
         try
         {
-            using var client = await CreateClientAsync();
+            var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
             var response = await client.GetAsync(ExcelUrl);
             if (!response.IsSuccessStatusCode)
                 return null;
@@ -87,7 +86,7 @@ public class ReportService : IReportService
     {
         try
         {
-            using var client = await CreateClientAsync();
+            var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
             var response = await client.GetAsync($"{BaseUrl}/{id}");
             if (!response.IsSuccessStatusCode)
                 return null;
@@ -107,7 +106,7 @@ public class ReportService : IReportService
     {
         try
         {
-            using var client = await CreateClientAsync();
+            var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
             var url = $"{BaseUrl}?Titulo={Uri.EscapeDataString(titulo)}&Descripcion={Uri.EscapeDataString(descripcion)}&IdAmbiente={idAmbiente}";
 
             using var content = new MultipartFormDataContent();
@@ -133,7 +132,7 @@ public class ReportService : IReportService
     {
         try
         {
-            using var client = await CreateClientAsync();
+            var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
             var response = await client.PutAsync($"{BaseUrl}/{id}", null);
             return response.IsSuccessStatusCode;
         }
@@ -148,7 +147,7 @@ public class ReportService : IReportService
     {
         try
         {
-            using var client = await CreateClientAsync();
+            var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
             var response = await client.DeleteAsync($"{BaseUrl}/{reporteId}/penalizar");
             return response.IsSuccessStatusCode;
         }
@@ -157,14 +156,5 @@ public class ReportService : IReportService
             System.Diagnostics.Debug.WriteLine($"ReportService.PenalizarAsync error: {ex.Message}");
             return false;
         }
-    }
-
-    private async Task<HttpClient> CreateClientAsync()
-    {
-        var client = new HttpClient();
-        var token = await _authService.GetTokenAsync();
-        if (!string.IsNullOrEmpty(token))
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        return client;
     }
 }

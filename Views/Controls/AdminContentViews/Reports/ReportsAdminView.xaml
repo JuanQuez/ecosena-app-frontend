@@ -5,7 +5,7 @@
              xmlns:models="clr-namespace:EcosenaApp.Models.Report"
              x:Class="EcosenaApp.Views.Controls.ReportsAdminView">
 
-    <Grid RowDefinitions="Auto, Auto, Auto, *" RowSpacing="10">
+    <Grid RowDefinitions="Auto, Auto, Auto, *" RowSpacing="10" Margin="0, 10">
 
         <!-- Estadísticas 2x2 -->
         <Grid Grid.Row="0"

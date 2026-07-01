@@ -1,62 +1,46 @@
-namespace EcosenaApp.Views.Controls;
+using EcosenaApp.Models.Report;
 
-public enum EstadoReporte { EnRevision, EnProgreso, Pendiente }
+namespace EcosenaApp.Views.Controls;
 
 public partial class ReportManagementAdminView : ContentView
 {
-    public event EventHandler<EstadoReporte>? ActualizarEstadoClicked;
+    public event EventHandler? ActualizarEstadoClicked;
+    public event EventHandler? PenalizarClicked;
     public event EventHandler? VolverClicked;
-
-    private EstadoReporte _estadoSeleccionado = EstadoReporte.EnProgreso;
 
     public ReportManagementAdminView()
     {
         InitializeComponent();
-        ActualizarIndicadores();
     }
 
-    private void OnEnRevisionTapped(object sender, TappedEventArgs e)
+    public void MostrarReporte(ReportResDto reporte)
     {
-        _estadoSeleccionado = EstadoReporte.EnRevision;
-        ActualizarIndicadores();
-    }
+        TituloLabel.Text = reporte.Titulo;
+        DescripcionLabel.Text = reporte.Descripcion;
+        EmisorLabel.Text = reporte.EmisorReporte;
+        FotoImage.Source = string.IsNullOrEmpty(reporte.Foto) ? null : ImageSource.FromUri(new Uri(reporte.Foto));
 
-    private void OnEnProgresoTapped(object sender, TappedEventArgs e)
-    {
-        _estadoSeleccionado = EstadoReporte.EnProgreso;
-        ActualizarIndicadores();
-    }
+        var (texto, colorKey) = reporte.Estado switch
+        {
+            EstadoReporte.Pendiente => ("Pendiente", "StatusPending"),
+            EstadoReporte.EnProgreso => ("En progreso", "StatusUnderReview"),
+            EstadoReporte.Resuelto => ("Resuelto", "StatusSolved"),
+            _ => ("Pendiente", "StatusPending"),
+        };
 
-    private void OnPendienteTapped(object sender, TappedEventArgs e)
-    {
-        _estadoSeleccionado = EstadoReporte.Pendiente;
-        ActualizarIndicadores();
-    }
-
-    private void ActualizarIndicadores()
-    {
-        var solved = (Color)Application.Current!.Resources["StatusSolved"];
-        var review = (Color)Application.Current!.Resources["StatusUnderReview"];
-        var pending = (Color)Application.Current!.Resources["StatusPending"];
-
-        SetIndicador(IndicadorEnRevision, DotEnRevision, solved,
-            _estadoSeleccionado == EstadoReporte.EnRevision);
-        SetIndicador(IndicadorEnProgreso, DotEnProgreso, review,
-            _estadoSeleccionado == EstadoReporte.EnProgreso);
-        SetIndicador(IndicadorPendiente, DotPendiente, pending,
-            _estadoSeleccionado == EstadoReporte.Pendiente);
-    }
-
-    private static void SetIndicador(Border indicador, BoxView dot, Color color, bool seleccionado)
-    {
-        indicador.Stroke = new SolidColorBrush(color);
-        indicador.BackgroundColor = seleccionado ? color : Colors.Transparent;
-        dot.BackgroundColor = seleccionado ? Colors.White : Colors.Transparent;
+        EstadoLabel.Text = texto;
+        EstadoBadge.BackgroundColor = (Color)Application.Current!.Resources[colorKey];
+        AvanzarEstadoButton.IsEnabled = reporte.Estado != EstadoReporte.Resuelto;
     }
 
     private void OnActualizarEstadoTapped(object sender, EventArgs e)
     {
-        ActualizarEstadoClicked?.Invoke(this, _estadoSeleccionado);
+        ActualizarEstadoClicked?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OnPenalizarTapped(object sender, EventArgs e)
+    {
+        PenalizarClicked?.Invoke(this, EventArgs.Empty);
     }
 
     private void OnVolverTapped(object sender, EventArgs e)

@@ -55,6 +55,7 @@ public partial class ReportsUserView : ContentView
 
         if (_formViewModel.Enviado)
         {
+            _formViewModel?.CancelarCommand.Execute(null);
             FormSection.LimpiarFormulario();
             _viewModel?.VolverAListaCommand.Execute(null);
             if (_viewModel != null)

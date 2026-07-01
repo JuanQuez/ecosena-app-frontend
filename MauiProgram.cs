@@ -3,6 +3,7 @@ using CommunityToolkit.Maui;
 using EcosenaApp.Services.Auth;
 using EcosenaApp.Services.Blog;
 using EcosenaApp.Services.Profile;
+using EcosenaApp.Services.Report;
 using EcosenaApp.Services.Session;
 using EcosenaApp.ViewModels.Auth;
 using EcosenaApp.ViewModels.Blog;
@@ -41,6 +42,7 @@ namespace EcosenaApp
             builder.Services.AddSingleton<IAuthService, AuthService>();
             builder.Services.AddSingleton<IBlogService, BlogService>();
             builder.Services.AddSingleton<IProfileService, ProfileService>();
+            builder.Services.AddSingleton<IReportService, ReportService>();
             builder.Services.AddSingleton<IUserSession, UserSession>();
 
             // ViewModels

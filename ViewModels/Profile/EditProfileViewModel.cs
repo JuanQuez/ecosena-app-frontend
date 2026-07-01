@@ -102,6 +102,12 @@ public partial class EditProfileViewModel : ObservableObject
             Guardado = await _profileService.UpdateProfileAsync(
                 Email, DateOnly.FromDateTime(FechaNacimiento), contraseña, confirmacion, FotoStream, FotoFileName);
 
+            if (Guardado)
+            {
+                FotoStream = null;
+                FotoFileName = null;
+            }
+
             await Toast.Make(Guardado ? "Perfil actualizado." : "No se pudo actualizar el perfil.").Show();
         }
         finally

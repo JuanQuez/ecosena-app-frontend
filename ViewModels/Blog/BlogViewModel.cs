@@ -11,12 +11,16 @@ namespace EcosenaApp.ViewModels.Blog;
 public partial class BlogViewModel : ObservableObject
 {
     private readonly IBlogService _blogService;
+    private List<BlogListResDto> _todasLasEntradas = new();
 
     [ObservableProperty]
     private bool isBusy;
 
     [ObservableProperty]
     private bool isAdmin;
+
+    [ObservableProperty]
+    private string busqueda = string.Empty;
 
     public ObservableCollection<BlogListResDto> Entradas { get; } = new();
 
@@ -32,10 +36,8 @@ public partial class BlogViewModel : ObservableObject
         IsBusy = true;
         try
         {
-            var entradas = await _blogService.GetEntradasAsync();
-            Entradas.Clear();
-            foreach (var entrada in entradas)
-                Entradas.Add(entrada);
+            _todasLasEntradas = await _blogService.GetEntradasAsync();
+            AplicarFiltro();
         }
         catch (Exception)
         {
@@ -45,5 +47,18 @@ public partial class BlogViewModel : ObservableObject
         {
             IsBusy = false;
         }
+    }
+
+    partial void OnBusquedaChanged(string value) => AplicarFiltro();
+
+    private void AplicarFiltro()
+    {
+        var filtradas = string.IsNullOrWhiteSpace(Busqueda)
+            ? _todasLasEntradas
+            : _todasLasEntradas.Where(e => e.Titulo.Contains(Busqueda, StringComparison.OrdinalIgnoreCase)).ToList();
+
+        Entradas.Clear();
+        foreach (var entrada in filtradas)
+            Entradas.Add(entrada);
     }
 }

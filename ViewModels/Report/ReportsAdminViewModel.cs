@@ -14,10 +14,14 @@ public partial class ReportsAdminViewModel : ObservableObject
     public ObservableCollection<ReportListResDto> Reportes { get; } = new();
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsNotBusy))]
+    [NotifyCanExecuteChangedFor(nameof(ExportarExcelCommand))]
     private bool isBusy;
 
     [ObservableProperty]
     private StatsReportDto? estadisticas;
+
+    public bool IsNotBusy => !IsBusy;
 
     public ReportsAdminViewModel(IReportService reportService)
     {
@@ -51,6 +55,39 @@ public partial class ReportsAdminViewModel : ObservableObject
                 // Las estadísticas son secundarias a la lista de reportes: si fallan, no se
                 // bloquea la vista con un segundo toast, los labels simplemente quedan en su último valor.
             }
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
+
+    [RelayCommand(CanExecute = nameof(IsNotBusy))]
+    private async Task ExportarExcelAsync()
+    {
+        IsBusy = true;
+        try
+        {
+            var resultado = await _reportService.ExportarExcelAsync();
+            if (resultado is null)
+            {
+                await Toast.Make("No se pudo exportar el Excel.").Show();
+                return;
+            }
+
+            var (bytes, fileName) = resultado.Value;
+            var path = Path.Combine(FileSystem.CacheDirectory, fileName);
+            await File.WriteAllBytesAsync(path, bytes);
+
+            await Share.Default.RequestAsync(new ShareFileRequest
+            {
+                Title = "Reportes",
+                File = new ShareFile(path)
+            });
+        }
+        catch (Exception)
+        {
+            await Toast.Make("No se pudo exportar el Excel.").Show();
         }
         finally
         {

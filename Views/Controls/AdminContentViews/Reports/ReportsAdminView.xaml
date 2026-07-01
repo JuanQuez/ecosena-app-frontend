@@ -5,7 +5,7 @@
              xmlns:models="clr-namespace:EcosenaApp.Models.Report"
              x:Class="EcosenaApp.Views.Controls.ReportsAdminView">
 
-    <Grid RowDefinitions="Auto, Auto, *" RowSpacing="10">
+    <Grid RowDefinitions="Auto, Auto, Auto, *" RowSpacing="10">
 
         <!-- Estadísticas 2x2 -->
         <Grid Grid.Row="0"
@@ -105,8 +105,16 @@
 
         </Grid>
 
+        <!-- Exportar a Excel -->
+        <Button Grid.Row="1"
+                Text="Exportar Excel"
+                Style="{StaticResource SecondaryButton}"
+                HeightRequest="44"
+                Command="{Binding ExportarExcelCommand}"
+                IsEnabled="{Binding IsNotBusy}"/>
+
         <!-- Header "Gestión de reportes" -->
-        <Border Grid.Row="1"
+        <Border Grid.Row="2"
                 StrokeThickness="0"
                 StrokeShape="RoundRectangle 10"
                 BackgroundColor="{StaticResource Summer}"
@@ -142,7 +150,7 @@
         </Border>
 
         <!-- Lista de reportes -->
-        <CollectionView Grid.Row="2"
+        <CollectionView Grid.Row="3"
                          x:Name="ReportesCollection"
                          SelectionMode="Single"
                          SelectionChanged="OnReporteSelected">

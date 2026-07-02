@@ -8,19 +8,42 @@ public partial class HostPage : ContentPage
     private readonly Dictionary<string, View> _cache = new();
     private readonly Stack<string> _history = new();
     private readonly IUserSession? _userSession;
+    private string? _lastRole;
 
     public HostPage()
     {
         InitializeComponent();
 
         _userSession = IPlatformApplication.Current?.Services.GetService<IUserSession>();
-        MainFootBar.SetReportTabVisible(_userSession?.Role != "Invitado");
 
         // Wire up the footer selection
         MainFootBar.SelectedIndexChanged += OnFooterSelectionChanged;
 
-        // Set initial view
+        ApplyRole();
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        var role = _userSession?.Role ?? "Invitado";
+        if (role != _lastRole)
+        {
+            ApplyRole();
+        }
+    }
+
+    private void ApplyRole()
+    {
+        var role = _userSession?.Role ?? "Invitado";
+
+        MainFootBar.SetReportTabVisible(role != "Invitado");
+        _cache.Clear();
+        _history.Clear();
+
         ShowSection("Home");
+
+        _lastRole = role;
     }
 
     private void OnFooterSelectionChanged(object? sender, int selectedIndex)

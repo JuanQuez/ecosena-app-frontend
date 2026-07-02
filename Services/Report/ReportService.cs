@@ -107,13 +107,17 @@ public class ReportService : IReportService
         try
         {
             var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
-            var url = $"{BaseUrl}?Titulo={Uri.EscapeDataString(titulo)}&Descripcion={Uri.EscapeDataString(descripcion)}&IdAmbiente={idAmbiente}";
 
-            using var content = new MultipartFormDataContent();
+            using var content = new MultipartFormDataContent
+            {
+                { new StringContent(titulo), "Titulo" },
+                { new StringContent(descripcion), "Descripcion" },
+                { new StringContent(idAmbiente.ToString()), "IdAmbiente" },
+            };
             if (foto != null)
                 content.Add(new StreamContent(foto), "Foto", fileName ?? "foto.jpg");
 
-            var response = await client.PostAsync(url, content);
+            var response = await client.PostAsync(BaseUrl, content);
             if (!response.IsSuccessStatusCode)
                 return null;
 

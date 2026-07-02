@@ -26,6 +26,8 @@ public partial class HostPage : ContentPage
     {
         base.OnAppearing();
 
+        _ = MainTopBar.RefreshProfilePhotoAsync();
+
         var role = _userSession?.Role ?? "Invitado";
         if (role != _lastRole)
         {

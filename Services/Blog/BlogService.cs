@@ -68,10 +68,9 @@ public class BlogService : IBlogService
         try
         {
             var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
-            var url = $"{BaseUrl}?Titulo={Uri.EscapeDataString(titulo)}&Contenido={Uri.EscapeDataString(contenido)}";
 
-            using var content = BuildPortadaContent(portada, fileName);
-            var response = await client.PostAsync(url, content);
+            using var content = BuildEntradaContent(titulo, contenido, portada, fileName);
+            var response = await client.PostAsync(BaseUrl, content);
             if (!response.IsSuccessStatusCode)
                 return null;
 
@@ -91,10 +90,9 @@ public class BlogService : IBlogService
         try
         {
             var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
-            var url = $"{BaseUrl}/{id}?Titulo={Uri.EscapeDataString(titulo)}&Contenido={Uri.EscapeDataString(contenido)}";
 
-            using var content = BuildPortadaContent(portada, fileName);
-            var response = await client.PutAsync(url, content);
+            using var content = BuildEntradaContent(titulo, contenido, portada, fileName);
+            var response = await client.PutAsync($"{BaseUrl}/{id}", content);
             return response.IsSuccessStatusCode;
         }
         catch (Exception ex)
@@ -119,9 +117,13 @@ public class BlogService : IBlogService
         }
     }
 
-    private static MultipartFormDataContent BuildPortadaContent(Stream? portada, string? fileName)
+    private static MultipartFormDataContent BuildEntradaContent(string titulo, string contenido, Stream? portada, string? fileName)
     {
-        var content = new MultipartFormDataContent();
+        var content = new MultipartFormDataContent
+        {
+            { new StringContent(titulo), "Titulo" },
+            { new StringContent(contenido), "Contenido" },
+        };
         if (portada != null)
             content.Add(new StreamContent(portada), "Portada", fileName ?? "portada.jpg");
         return content;

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="EcosenaApp.Views.Controls.TopBarView">
 
     <Border VerticalOptions="Start"
@@ -33,14 +32,17 @@
 
             <Border Grid.Column="2"
                     HorizontalOptions="End"
-                    VerticalOptions="Center">
-                <Image Source="icon_profile.svg"
-                       WidthRequest="35"
-                       HorizontalOptions="Center"
-                       VerticalOptions="Center">
-                    <Image.Behaviors>
-                        <toolkit:IconTintColorBehavior TintColor="{StaticResource WhiteBase}" />
-                    </Image.Behaviors>
+                    VerticalOptions="Center"
+                    WidthRequest="35"
+                    HeightRequest="35"
+                    StrokeThickness="0"
+                    BackgroundColor="{StaticResource WhiteBase}">
+                <Border.StrokeShape>
+                    <Ellipse/>
+                </Border.StrokeShape>
+                <Image x:Name="ProfileImage"
+                       Source="icon_profile.svg"
+                       Aspect="AspectFill">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnProfileTapped"/>
                     </Image.GestureRecognizers>

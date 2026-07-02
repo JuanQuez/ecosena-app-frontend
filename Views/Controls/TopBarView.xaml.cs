@@ -1,4 +1,5 @@
 using CommunityToolkit.Maui.Alerts;
+using EcosenaApp.Services.Profile;
 using EcosenaApp.Services.Session;
 
 namespace EcosenaApp.Views.Controls;
@@ -8,6 +9,23 @@ public partial class TopBarView : ContentView
     public TopBarView()
     {
         InitializeComponent();
+    }
+
+    public async Task RefreshProfilePhotoAsync()
+    {
+        var userSession = IPlatformApplication.Current?.Services.GetService<IUserSession>();
+        if (userSession == null || !userSession.IsAuthenticated)
+        {
+            ProfileImage.Source = "icon_profile.svg";
+            return;
+        }
+
+        var profileService = IPlatformApplication.Current?.Services.GetService<IProfileService>();
+        var profile = profileService != null ? await profileService.GetProfileAsync() : null;
+
+        ProfileImage.Source = !string.IsNullOrEmpty(profile?.FotoPerfil)
+            ? ImageSource.FromUri(new Uri(profile.FotoPerfil))
+            : "icon_profile.svg";
     }
 
     private async void OnProfileTapped(object sender, EventArgs e)

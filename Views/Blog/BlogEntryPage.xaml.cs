@@ -30,6 +30,7 @@ public partial class BlogEntryPage : ContentPage
         BodyLabel.Text = entrada.Contenido;
         AuthorLabel.Text = entrada.NombreRedactor;
         MainImage.Source = string.IsNullOrEmpty(entrada.Portada) ? "bkg_blog_cta.png" : entrada.Portada;
+        AvatarImage.Source = string.IsNullOrEmpty(entrada.RedactorFoto) ? "avatar_autor.png" : entrada.RedactorFoto;
 
         AdminActions.IsVisible = _viewModel.IsAdmin;
     }

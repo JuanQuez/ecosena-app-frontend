@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcosenaApp.Views.Controls.NewsTickerView">
+
+    <Border StrokeThickness="0"
+            StrokeShape="Rectangle"
+            HeightRequest="44"
+            BackgroundColor="{StaticResource GrayMedium}"
+            HorizontalOptions="Fill">
+        <HorizontalStackLayout x:Name="TickerContent"
+                               VerticalOptions="Center"
+                               Spacing="24"/>
+    </Border>
+
+</ContentView>

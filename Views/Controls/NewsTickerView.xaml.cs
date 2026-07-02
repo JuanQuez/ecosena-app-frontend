@@ -56,11 +56,15 @@ public partial class NewsTickerView : ContentView
 
     private void OnTickerContentSizeChanged(object? sender, EventArgs e)
     {
-        if (_animationStarted || TickerContent.Width <= 0)
+        if (_animationStarted || TickerContent.Children.Count < Titulares.Length * 4)
+            return;
+
+        var segundaSecuencia = (VisualElement)TickerContent.Children[Titulares.Length * 2];
+        if (segundaSecuencia.X <= 0)
             return;
 
         _animationStarted = true;
-        RunScrollAnimation(TickerContent.Width / 2);
+        RunScrollAnimation(segundaSecuencia.X);
     }
 
     private void RunScrollAnimation(double segmentWidth)

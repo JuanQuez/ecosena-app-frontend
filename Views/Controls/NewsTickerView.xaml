@@ -9,6 +9,7 @@
             BackgroundColor="{StaticResource GrayMedium}"
             HorizontalOptions="Fill">
         <HorizontalStackLayout x:Name="TickerContent"
+                               HorizontalOptions="Start"
                                VerticalOptions="Center"
                                Spacing="24"/>
     </Border>

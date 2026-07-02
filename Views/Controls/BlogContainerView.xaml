@@ -4,7 +4,7 @@
              xmlns:models="clr-namespace:EcosenaApp.Models.Blog"
              x:Class="EcosenaApp.Views.Controls.BlogContainerView">
 
-    <Grid RowDefinitions="Auto,Auto,*" VerticalOptions="Center" Margin="0, 10" RowSpacing="20">
+    <Grid RowDefinitions="Auto,Auto,*" VerticalOptions="Fill" Margin="0, 10" RowSpacing="20">
 
         <!-- ====| HEADER CARD (Fixed) |==== -->
         <Border Grid.Row="0"

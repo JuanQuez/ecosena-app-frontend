@@ -52,7 +52,7 @@
                                 </HorizontalStackLayout>
                             </Border>
                         </VerticalStackLayout>
-                        <Image Grid.Column="1" Source="bkg_blog_cta.png" Aspect="AspectFill" WidthRequest="130" VerticalOptions="Fill"/>
+                        <Image x:Name="PortadaImage" Grid.Column="1" Source="bkg_blog_cta.png" Aspect="AspectFill" WidthRequest="130" VerticalOptions="Fill"/>
                     </Grid>
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnEntradaTapped" />

@@ -41,17 +41,21 @@ public class ProfileService : IProfileService
         {
             var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
 
-            var query = $"Email={Uri.EscapeDataString(email)}";
+            using var content = new MultipartFormDataContent
+            {
+                { new StringContent(email), "Email" },
+            };
             if (fechaNacimiento.HasValue)
-                query += $"&FechaNacimiento={fechaNacimiento.Value:yyyy-MM-dd}";
+                content.Add(new StringContent(fechaNacimiento.Value.ToString("yyyy-MM-dd")), "FechaNacimiento");
             if (!string.IsNullOrEmpty(contraseña))
-                query += $"&Contraseña={Uri.EscapeDataString(contraseña)}&ConfirmacionContraseña={Uri.EscapeDataString(confirmacion ?? string.Empty)}";
-
-            using var content = new MultipartFormDataContent();
+            {
+                content.Add(new StringContent(contraseña), "Contraseña");
+                content.Add(new StringContent(confirmacion ?? string.Empty), "ConfirmacionContraseña");
+            }
             if (foto != null)
                 content.Add(new StreamContent(foto), "FotoPerfil", fileName ?? "foto.jpg");
 
-            var response = await client.PutAsync($"{Url}?{query}", content);
+            var response = await client.PutAsync(Url, content);
             return response.IsSuccessStatusCode;
         }
         catch (Exception ex)

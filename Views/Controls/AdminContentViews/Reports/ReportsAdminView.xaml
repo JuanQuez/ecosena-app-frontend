@@ -106,12 +106,27 @@
         </Grid>
 
         <!-- Exportar a Excel -->
-        <Button Grid.Row="1"
-                Text="Exportar datos"
-                Style="{StaticResource SecondaryButton}"
-                HeightRequest="44"
-                Command="{Binding ExportarExcelCommand}"
-                IsEnabled="{Binding IsNotExporting}"/>
+        <Grid Grid.Row="1">
+            <Button Text="Exportar datos"
+                    Style="{StaticResource SecondaryButton}"
+                    HeightRequest="44"
+                    Command="{Binding ExportarExcelCommand}"
+                    IsVisible="{Binding IsNotExporting}"/>
+            <Border BackgroundColor="{StaticResource GrayLight}"
+                    Stroke="{StaticResource Primary}"
+                    StrokeThickness="1.5"
+                    HeightRequest="44"
+                    HorizontalOptions="Fill"
+                    IsVisible="{Binding IsExporting}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="50"/>
+                </Border.StrokeShape>
+                <ActivityIndicator IsRunning="True"
+                                    Color="{StaticResource Primary}"
+                                    HeightRequest="24"
+                                    HorizontalOptions="Center"/>
+            </Border>
+        </Grid>
 
         <!-- Header "Gestión de reportes" -->
         <Border Grid.Row="2"

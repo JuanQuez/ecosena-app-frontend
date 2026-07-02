@@ -1,25 +1,24 @@
 using EcosenaApp.Models.Blog;
-using EcosenaApp.Services.Auth;
-using System.Net.Http.Headers;
+using EcosenaApp.Services.Http;
 using System.Text.Json;
 
 namespace EcosenaApp.Services.Blog;
 
 public class BlogService : IBlogService
 {
-    private readonly IAuthService _authService;
+    private readonly IHttpClientFactory _httpClientFactory;
     private const string BaseUrl = "https://ecosena-api.onrender.com/api/Blog";
 
-    public BlogService(IAuthService authService)
+    public BlogService(IHttpClientFactory httpClientFactory)
     {
-        _authService = authService;
+        _httpClientFactory = httpClientFactory;
     }
 
     public async Task<List<BlogListResDto>> GetEntradasAsync(string? titulo = null)
     {
         try
         {
-            using var client = await CreateClientAsync();
+            var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
             var response = await client.GetAsync(BaseUrl);
             if (!response.IsSuccessStatusCode)
                 return new List<BlogListResDto>();
@@ -48,7 +47,7 @@ public class BlogService : IBlogService
     {
         try
         {
-            using var client = await CreateClientAsync();
+            var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
             var response = await client.GetAsync($"{BaseUrl}/{id}");
             if (!response.IsSuccessStatusCode)
                 return null;
@@ -68,11 +67,10 @@ public class BlogService : IBlogService
     {
         try
         {
-            using var client = await CreateClientAsync();
-            var url = $"{BaseUrl}?Titulo={Uri.EscapeDataString(titulo)}&Contenido={Uri.EscapeDataString(contenido)}";
+            var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
 
-            using var content = BuildPortadaContent(portada, fileName);
-            var response = await client.PostAsync(url, content);
+            using var content = BuildEntradaContent(titulo, contenido, portada, fileName);
+            var response = await client.PostAsync(BaseUrl, content);
             if (!response.IsSuccessStatusCode)
                 return null;
 
@@ -91,11 +89,10 @@ public class BlogService : IBlogService
     {
         try
         {
-            using var client = await CreateClientAsync();
-            var url = $"{BaseUrl}/{id}?Titulo={Uri.EscapeDataString(titulo)}&Contenido={Uri.EscapeDataString(contenido)}";
+            var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
 
-            using var content = BuildPortadaContent(portada, fileName);
-            var response = await client.PutAsync(url, content);
+            using var content = BuildEntradaContent(titulo, contenido, portada, fileName);
+            var response = await client.PutAsync($"{BaseUrl}/{id}", content);
             return response.IsSuccessStatusCode;
         }
         catch (Exception ex)
@@ -109,7 +106,7 @@ public class BlogService : IBlogService
     {
         try
         {
-            using var client = await CreateClientAsync();
+            var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
             var response = await client.DeleteAsync($"{BaseUrl}/{id}");
             return response.IsSuccessStatusCode;
         }
@@ -120,20 +117,15 @@ public class BlogService : IBlogService
         }
     }
 
-    private static MultipartFormDataContent BuildPortadaContent(Stream? portada, string? fileName)
+    private static MultipartFormDataContent BuildEntradaContent(string titulo, string contenido, Stream? portada, string? fileName)
     {
-        var content = new MultipartFormDataContent();
+        var content = new MultipartFormDataContent
+        {
+            { new StringContent(titulo), "Titulo" },
+            { new StringContent(contenido), "Contenido" },
+        };
         if (portada != null)
             content.Add(new StreamContent(portada), "Portada", fileName ?? "portada.jpg");
         return content;
-    }
-
-    private async Task<HttpClient> CreateClientAsync()
-    {
-        var client = new HttpClient();
-        var token = await _authService.GetTokenAsync();
-        if (!string.IsNullOrEmpty(token))
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        return client;
     }
 }

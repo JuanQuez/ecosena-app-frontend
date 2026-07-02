@@ -5,7 +5,8 @@
              x:Class="EcosenaApp.Views.Controls.CreateBlogEntryAdminView">
 
     <Border StrokeThickness="0"
-            StrokeShape="RoundRectangle 15">
+            StrokeShape="RoundRectangle 15"
+            Margin="0, 10">
 
         <Grid>
             <Image Source="bkg_blog_entry_create.png"

@@ -19,7 +19,7 @@ public partial class EditBlogEntryViewModel : ObservableObject
     [ObservableProperty]
     private ImageSource? portadaPreview;
 
-    public Stream? PortadaStream { get; private set; }
+    public byte[]? PortadaBytes { get; private set; }
     public string? PortadaFileName { get; private set; }
 
     public bool Guardado { get; private set; }
@@ -67,9 +67,13 @@ public partial class EditBlogEntryViewModel : ObservableObject
         if (resultado == null)
             return;
 
-        PortadaStream = await resultado.OpenReadAsync();
+        using var stream = await resultado.OpenReadAsync();
+        using var memoria = new MemoryStream();
+        await stream.CopyToAsync(memoria);
+
+        PortadaBytes = memoria.ToArray();
         PortadaFileName = resultado.FileName;
-        PortadaPreview = ImageSource.FromStream(() => PortadaStream);
+        PortadaPreview = ImageSource.FromStream(() => new MemoryStream(PortadaBytes));
     }
 
     [RelayCommand]
@@ -82,17 +86,18 @@ public partial class EditBlogEntryViewModel : ObservableObject
         }
 
         IsBusy = true;
-        var fotoAdjunta = PortadaStream != null;
+        var fotoAdjunta = PortadaBytes != null;
         try
         {
-            Guardado = await _blogService.PutEntradaAsync(EntradaId, Titulo, Contenido, PortadaStream, PortadaFileName);
+            using var portadaParaEnviar = PortadaBytes != null ? new MemoryStream(PortadaBytes) : null;
+            Guardado = await _blogService.PutEntradaAsync(EntradaId, Titulo, Contenido, portadaParaEnviar, PortadaFileName);
             await Toast.Make(Guardado ? "Cambios guardados." : "No se pudo guardar.").Show();
         }
         finally
         {
             if (fotoAdjunta)
             {
-                PortadaStream = null;
+                PortadaBytes = null;
                 PortadaFileName = null;
                 PortadaPreview = null;
             }

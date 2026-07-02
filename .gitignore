@@ -18,6 +18,9 @@ skills-lock.json
 # claude agent working directory
 .agents/
 
+# superpowers specs/plans (viven en Projects/EcosenaApp/docs/superpowers, fuera del repo)
+docs/superpowers/
+
 # github workflows (empty, add when CI/CD is configured)
 .github/
 

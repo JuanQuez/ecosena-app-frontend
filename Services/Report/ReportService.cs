@@ -1,18 +1,19 @@
 using EcosenaApp.Models.Report;
-using EcosenaApp.Services.Auth;
-using System.Net.Http.Headers;
+using EcosenaApp.Services.Http;
 using System.Text.Json;
 
 namespace EcosenaApp.Services.Report;
 
 public class ReportService : IReportService
 {
-    private readonly IAuthService _authService;
+    private readonly IHttpClientFactory _httpClientFactory;
     private const string BaseUrl = "https://ecosena-api.onrender.com/api/Report";
+    private const string StatsUrl = "https://ecosena-api.onrender.com/Estadisticas";
+    private const string ExcelUrl = "https://ecosena-api.onrender.com/ReportsExcel";
 
-    public ReportService(IAuthService authService)
+    public ReportService(IHttpClientFactory httpClientFactory)
     {
-        _authService = authService;
+        _httpClientFactory = httpClientFactory;
     }
 
     public Task<List<ReportListResDto>> GetAllReportsAsync() => GetListAsync($"{BaseUrl}/AllReports");
@@ -23,7 +24,7 @@ public class ReportService : IReportService
     {
         try
         {
-            using var client = await CreateClientAsync();
+            var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
             var response = await client.GetAsync(url);
             if (!response.IsSuccessStatusCode)
                 return new List<ReportListResDto>();
@@ -39,11 +40,53 @@ public class ReportService : IReportService
         }
     }
 
+    public async Task<StatsReportDto?> GetEstadisticasAsync()
+    {
+        try
+        {
+            var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
+            var response = await client.GetAsync(StatsUrl);
+            if (!response.IsSuccessStatusCode)
+                return null;
+
+            var json = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<StatsReportDto>(json,
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"ReportService.GetEstadisticasAsync error: {ex.Message}");
+            return null;
+        }
+    }
+
+    public async Task<(byte[] Bytes, string FileName)?> ExportarExcelAsync()
+    {
+        try
+        {
+            var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
+            var response = await client.GetAsync(ExcelUrl);
+            if (!response.IsSuccessStatusCode)
+                return null;
+
+            var bytes = await response.Content.ReadAsByteArrayAsync();
+            var fileName = response.Content.Headers.ContentDisposition?.FileName?.Trim('"')
+                ?? $"reportes_{DateTime.Now:yyyy_MM}.xlsx";
+
+            return (bytes, fileName);
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"ReportService.ExportarExcelAsync error: {ex.Message}");
+            return null;
+        }
+    }
+
     public async Task<ReportResDto?> GetReportAsync(int id)
     {
         try
         {
-            using var client = await CreateClientAsync();
+            var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
             var response = await client.GetAsync($"{BaseUrl}/{id}");
             if (!response.IsSuccessStatusCode)
                 return null;
@@ -63,14 +106,18 @@ public class ReportService : IReportService
     {
         try
         {
-            using var client = await CreateClientAsync();
-            var url = $"{BaseUrl}?Titulo={Uri.EscapeDataString(titulo)}&Descripcion={Uri.EscapeDataString(descripcion)}&IdAmbiente={idAmbiente}";
+            var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
 
-            using var content = new MultipartFormDataContent();
+            using var content = new MultipartFormDataContent
+            {
+                { new StringContent(titulo), "Titulo" },
+                { new StringContent(descripcion), "Descripcion" },
+                { new StringContent(idAmbiente.ToString()), "IdAmbiente" },
+            };
             if (foto != null)
                 content.Add(new StreamContent(foto), "Foto", fileName ?? "foto.jpg");
 
-            var response = await client.PostAsync(url, content);
+            var response = await client.PostAsync(BaseUrl, content);
             if (!response.IsSuccessStatusCode)
                 return null;
 
@@ -89,7 +136,7 @@ public class ReportService : IReportService
     {
         try
         {
-            using var client = await CreateClientAsync();
+            var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
             var response = await client.PutAsync($"{BaseUrl}/{id}", null);
             return response.IsSuccessStatusCode;
         }
@@ -104,7 +151,7 @@ public class ReportService : IReportService
     {
         try
         {
-            using var client = await CreateClientAsync();
+            var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
             var response = await client.DeleteAsync($"{BaseUrl}/{reporteId}/penalizar");
             return response.IsSuccessStatusCode;
         }
@@ -113,14 +160,5 @@ public class ReportService : IReportService
             System.Diagnostics.Debug.WriteLine($"ReportService.PenalizarAsync error: {ex.Message}");
             return false;
         }
-    }
-
-    private async Task<HttpClient> CreateClientAsync()
-    {
-        var client = new HttpClient();
-        var token = await _authService.GetTokenAsync();
-        if (!string.IsNullOrEmpty(token))
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        return client;
     }
 }

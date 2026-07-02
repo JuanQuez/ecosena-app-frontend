@@ -8,7 +8,7 @@
     
     <Grid RowDefinitions="Auto, *, Auto" Margin="20, 10">
         <!-- Persistent TopBar -->
-        <controls:TopBarView Grid.Row="0" />
+        <controls:TopBarView x:Name="MainTopBar" Grid.Row="0" />
 
         <!-- Dynamic content region -->
         <ContentView x:Name="ContentRegion" Grid.Row="1" />

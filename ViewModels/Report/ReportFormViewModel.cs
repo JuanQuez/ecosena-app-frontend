@@ -17,7 +17,7 @@ public partial class ReportFormViewModel : ObservableObject
     public string Descripcion { get; set; } = string.Empty;
     public int AmbienteIndex { get; set; } = -1;
 
-    public Stream? FotoStream { get; private set; }
+    public byte[]? FotoBytes { get; private set; }
     public string? FotoFileName { get; private set; }
 
     [ObservableProperty]
@@ -55,9 +55,13 @@ public partial class ReportFormViewModel : ObservableObject
         if (resultado == null)
             return;
 
-        FotoStream = await resultado.OpenReadAsync();
+        using var stream = await resultado.OpenReadAsync();
+        using var memoria = new MemoryStream();
+        await stream.CopyToAsync(memoria);
+
+        FotoBytes = memoria.ToArray();
         FotoFileName = resultado.FileName;
-        FotoPreview = ImageSource.FromStream(() => FotoStream);
+        FotoPreview = ImageSource.FromStream(() => new MemoryStream(FotoBytes));
     }
 
     [RelayCommand]
@@ -78,11 +82,12 @@ public partial class ReportFormViewModel : ObservableObject
         }
 
         IsBusy = true;
-        var fotoAdjunta = FotoStream != null;
+        var fotoAdjunta = FotoBytes != null;
         try
         {
             var idAmbiente = Ambientes[AmbienteIndex].Id;
-            var reporte = await _reportService.PostReportAsync(Titulo, Descripcion, idAmbiente, FotoStream, FotoFileName);
+            using var fotoParaEnviar = FotoBytes != null ? new MemoryStream(FotoBytes) : null;
+            var reporte = await _reportService.PostReportAsync(Titulo, Descripcion, idAmbiente, fotoParaEnviar, FotoFileName);
             Enviado = reporte != null;
             await Toast.Make(Enviado ? "Reporte enviado." : "No se pudo enviar el reporte.").Show();
         }
@@ -90,7 +95,7 @@ public partial class ReportFormViewModel : ObservableObject
         {
             if (fotoAdjunta)
             {
-                FotoStream = null;
+                FotoBytes = null;
                 FotoFileName = null;
                 FotoPreview = null;
             }
@@ -101,7 +106,7 @@ public partial class ReportFormViewModel : ObservableObject
     [RelayCommand]
     private void Cancelar()
     {
-        FotoStream = null;
+        FotoBytes = null;
         FotoFileName = null;
         FotoPreview = null;
         Titulo = string.Empty;

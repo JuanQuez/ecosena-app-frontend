@@ -6,7 +6,7 @@
              xmlns:models="clr-namespace:EcosenaApp.Models.Report"
              x:Class="EcosenaApp.Views.Controls.ReportsUserView">
 
-    <Grid>
+    <Grid Margin="0, 10">
 
         <VerticalStackLayout x:Name="ListSection" Spacing="10">
 

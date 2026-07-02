@@ -27,12 +27,20 @@
 
             <!-- Content -->
             <VerticalStackLayout Grid.Row="1" VerticalOptions="Fill">
-                <Border StrokeThickness="1" StrokeShape="RoundRectangle 15" BackgroundColor="{StaticResource Primary}">
+
+                <Label x:Name="SinEntradasLabel"
+                       Text="Aún no hay entradas publicadas en el blog."
+                       Style="{StaticResource TextRegular}"
+                       TextColor="{StaticResource WhiteBase}"
+                       IsVisible="False"/>
+
+                <Border x:Name="EntradaCard"
+                        StrokeThickness="1" StrokeShape="RoundRectangle 15" BackgroundColor="{StaticResource Primary}">
                     <Grid ColumnDefinitions="*, Auto" HeightRequest="160">
                         <VerticalStackLayout Grid.Column="0" Padding="15, 10, 0, 10" Spacing="10">
-                            <Label Text="CTMA" Style="{StaticResource TextSecondary}" TextColor="{StaticResource GrayLight}" />
-                            <Label Text="Titulo de entrada" Style="{StaticResource H2}" TextColor="{StaticResource WhiteBase}" />
-                            <Label Text="fecha de publicación" FontSize="14" Style="{StaticResource TextSecondary}" TextColor="{StaticResource GrayLight}" />
+                            <Label x:Name="AutorLabel" Style="{StaticResource TextSecondary}" TextColor="{StaticResource GrayLight}" />
+                            <Label x:Name="TituloLabel" Style="{StaticResource H2}" TextColor="{StaticResource WhiteBase}" LineBreakMode="TailTruncation"/>
+                            <Label x:Name="FechaLabel" FontSize="14" Style="{StaticResource TextSecondary}" TextColor="{StaticResource GrayLight}" />
                             <Border Style="{StaticResource ActionChip}" Margin="0,6,0,0">
                                 <HorizontalStackLayout Spacing="10">
                                     <Label Text="Leer artículo" Style="{StaticResource TextMedium}" TextColor="{StaticResource Primary}" FontSize="14" FontAttributes="Bold" />
@@ -46,6 +54,9 @@
                         </VerticalStackLayout>
                         <Image Grid.Column="1" Source="bkg_blog_cta.png" Aspect="AspectFill" WidthRequest="130" VerticalOptions="Fill"/>
                     </Grid>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnEntradaTapped" />
+                    </Border.GestureRecognizers>
                 </Border>
             </VerticalStackLayout>
         </Grid>

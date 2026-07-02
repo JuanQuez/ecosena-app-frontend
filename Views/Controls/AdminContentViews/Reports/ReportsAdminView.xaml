@@ -5,7 +5,7 @@
              xmlns:models="clr-namespace:EcosenaApp.Models.Report"
              x:Class="EcosenaApp.Views.Controls.ReportsAdminView">
 
-    <Grid RowDefinitions="Auto, Auto, *" RowSpacing="10">
+    <Grid RowDefinitions="Auto, Auto, Auto, *" RowSpacing="10" Margin="0, 10">
 
         <!-- Estadísticas 2x2 -->
         <Grid Grid.Row="0"
@@ -30,7 +30,7 @@
                            TextColor="{StaticResource GrayMidnight}"
                            LineBreakMode="WordWrap"/>
                     <Label x:Name="StatTotalLabel"
-                           Text="50"
+                           Text="0"
                            FontFamily="InterSemiBold"
                            FontSize="32"
                            TextColor="{StaticResource GrayDark}"/>
@@ -52,7 +52,7 @@
                            FontSize="12"
                            TextColor="{StaticResource GrayMidnight}"/>
                     <Label x:Name="StatPendingLabel"
-                           Text="10"
+                           Text="0"
                            FontFamily="InterSemiBold"
                            FontSize="32"
                            TextColor="{StaticResource GrayDark}"/>
@@ -74,7 +74,7 @@
                            FontSize="12"
                            TextColor="{StaticResource GrayMidnight}"/>
                     <Label x:Name="StatInProgressLabel"
-                           Text="20"
+                           Text="0"
                            FontFamily="InterSemiBold"
                            FontSize="32"
                            TextColor="{StaticResource GrayDark}"/>
@@ -96,7 +96,7 @@
                            FontSize="12"
                            TextColor="{StaticResource GrayMidnight}"/>
                     <Label x:Name="StatSolvedLabel"
-                           Text="30"
+                           Text="0"
                            FontFamily="InterSemiBold"
                            FontSize="32"
                            TextColor="{StaticResource GrayDark}"/>
@@ -105,8 +105,16 @@
 
         </Grid>
 
+        <!-- Exportar a Excel -->
+        <Button Grid.Row="1"
+                Text="Exportar Excel"
+                Style="{StaticResource SecondaryButton}"
+                HeightRequest="44"
+                Command="{Binding ExportarExcelCommand}"
+                IsEnabled="{Binding IsNotExporting}"/>
+
         <!-- Header "Gestión de reportes" -->
-        <Border Grid.Row="1"
+        <Border Grid.Row="2"
                 StrokeThickness="0"
                 StrokeShape="RoundRectangle 10"
                 BackgroundColor="{StaticResource Summer}"
@@ -142,7 +150,7 @@
         </Border>
 
         <!-- Lista de reportes -->
-        <CollectionView Grid.Row="2"
+        <CollectionView Grid.Row="3"
                          x:Name="ReportesCollection"
                          SelectionMode="Single"
                          SelectionChanged="OnReporteSelected">

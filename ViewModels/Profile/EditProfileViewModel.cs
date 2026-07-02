@@ -27,7 +27,7 @@ public partial class EditProfileViewModel : ObservableObject
     [ObservableProperty]
     private bool isBusy;
 
-    public Stream? FotoStream { get; private set; }
+    public byte[]? FotoBytes { get; private set; }
     public string? FotoFileName { get; private set; }
 
     public bool Guardado { get; private set; }
@@ -73,9 +73,13 @@ public partial class EditProfileViewModel : ObservableObject
         if (resultado == null)
             return;
 
-        FotoStream = await resultado.OpenReadAsync();
+        using var stream = await resultado.OpenReadAsync();
+        using var memoria = new MemoryStream();
+        await stream.CopyToAsync(memoria);
+
+        FotoBytes = memoria.ToArray();
         FotoFileName = resultado.FileName;
-        FotoPreview = ImageSource.FromStream(() => FotoStream);
+        FotoPreview = ImageSource.FromStream(() => new MemoryStream(FotoBytes));
     }
 
     [RelayCommand]
@@ -94,14 +98,15 @@ public partial class EditProfileViewModel : ObservableObject
         }
 
         IsBusy = true;
-        var fotoAdjunta = FotoStream != null;
+        var fotoAdjunta = FotoBytes != null;
         try
         {
             var contraseña = string.IsNullOrEmpty(NuevaContraseña) ? null : NuevaContraseña;
             var confirmacion = string.IsNullOrEmpty(NuevaContraseña) ? null : ConfirmacionContraseña;
+            using var fotoParaEnviar = FotoBytes != null ? new MemoryStream(FotoBytes) : null;
 
             Guardado = await _profileService.UpdateProfileAsync(
-                Email, DateOnly.FromDateTime(FechaNacimiento), contraseña, confirmacion, FotoStream, FotoFileName);
+                Email, DateOnly.FromDateTime(FechaNacimiento), contraseña, confirmacion, fotoParaEnviar, FotoFileName);
 
             await Toast.Make(Guardado ? "Perfil actualizado." : "No se pudo actualizar el perfil.").Show();
         }
@@ -109,7 +114,7 @@ public partial class EditProfileViewModel : ObservableObject
         {
             if (fotoAdjunta)
             {
-                FotoStream = null;
+                FotoBytes = null;
                 FotoFileName = null;
                 FotoPreview = null;
             }

@@ -48,5 +48,11 @@ namespace EcosenaApp.Views.Controls
             hero.HeroCtaClicked += async (s, e) => await Shell.Current.GoToAsync("//LoginPage");
             return hero;
         }
+
+        public void Refresh()
+        {
+            BuildHero();
+            RecentBlogPanel.Refresh();
+        }
     }
 }

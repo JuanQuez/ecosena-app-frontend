@@ -1,32 +1,24 @@
 using EcosenaApp.Models.Profile;
-using EcosenaApp.Services.Auth;
-using System.Net.Http.Headers;
+using EcosenaApp.Services.Http;
 using System.Text.Json;
 
 namespace EcosenaApp.Services.Profile;
 
 public class ProfileService : IProfileService
 {
-    private readonly IAuthService _authService;
+    private readonly IHttpClientFactory _httpClientFactory;
     private const string Url = "https://ecosena-api.onrender.com/api/Profile";
 
-    public ProfileService(IAuthService authService)
+    public ProfileService(IHttpClientFactory httpClientFactory)
     {
-        _authService = authService;
+        _httpClientFactory = httpClientFactory;
     }
 
     public async Task<ProfileResDto?> GetProfileAsync()
     {
         try
         {
-            var token = await _authService.GetTokenAsync();
-            if (string.IsNullOrEmpty(token))
-                return null;
-
-            using var client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue("Bearer", token);
-
+            var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
             var response = await client.GetAsync(Url);
             if (!response.IsSuccessStatusCode)
                 return null;
@@ -47,25 +39,23 @@ public class ProfileService : IProfileService
     {
         try
         {
-            var token = await _authService.GetTokenAsync();
-            if (string.IsNullOrEmpty(token))
-                return false;
+            var client = _httpClientFactory.CreateClient(HttpClientNames.Authenticated);
 
-            using var client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue("Bearer", token);
-
-            var query = $"Email={Uri.EscapeDataString(email)}";
+            using var content = new MultipartFormDataContent
+            {
+                { new StringContent(email), "Email" },
+            };
             if (fechaNacimiento.HasValue)
-                query += $"&FechaNacimiento={fechaNacimiento.Value:yyyy-MM-dd}";
+                content.Add(new StringContent(fechaNacimiento.Value.ToString("yyyy-MM-dd")), "FechaNacimiento");
             if (!string.IsNullOrEmpty(contraseña))
-                query += $"&Contraseña={Uri.EscapeDataString(contraseña)}&ConfirmacionContraseña={Uri.EscapeDataString(confirmacion ?? string.Empty)}";
-
-            using var content = new MultipartFormDataContent();
+            {
+                content.Add(new StringContent(contraseña), "Contraseña");
+                content.Add(new StringContent(confirmacion ?? string.Empty), "ConfirmacionContraseña");
+            }
             if (foto != null)
                 content.Add(new StreamContent(foto), "FotoPerfil", fileName ?? "foto.jpg");
 
-            var response = await client.PutAsync($"{Url}?{query}", content);
+            var response = await client.PutAsync(Url, content);
             return response.IsSuccessStatusCode;
         }
         catch (Exception ex)

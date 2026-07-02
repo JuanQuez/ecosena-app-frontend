@@ -18,7 +18,7 @@ public partial class CreateBlogEntryViewModel : ObservableObject
     [ObservableProperty]
     private ImageSource? portadaPreview;
 
-    public Stream? PortadaStream { get; private set; }
+    public byte[]? PortadaBytes { get; private set; }
     public string? PortadaFileName { get; private set; }
 
     public bool Publicado { get; private set; }
@@ -42,9 +42,13 @@ public partial class CreateBlogEntryViewModel : ObservableObject
         if (resultado == null)
             return;
 
-        PortadaStream = await resultado.OpenReadAsync();
+        using var stream = await resultado.OpenReadAsync();
+        using var memoria = new MemoryStream();
+        await stream.CopyToAsync(memoria);
+
+        PortadaBytes = memoria.ToArray();
         PortadaFileName = resultado.FileName;
-        PortadaPreview = ImageSource.FromStream(() => PortadaStream);
+        PortadaPreview = ImageSource.FromStream(() => new MemoryStream(PortadaBytes));
     }
 
     [RelayCommand]
@@ -57,10 +61,11 @@ public partial class CreateBlogEntryViewModel : ObservableObject
         }
 
         IsBusy = true;
-        var fotoAdjunta = PortadaStream != null;
+        var fotoAdjunta = PortadaBytes != null;
         try
         {
-            var entrada = await _blogService.PostEntradaAsync(Titulo, Contenido, PortadaStream, PortadaFileName);
+            using var portadaParaEnviar = PortadaBytes != null ? new MemoryStream(PortadaBytes) : null;
+            var entrada = await _blogService.PostEntradaAsync(Titulo, Contenido, portadaParaEnviar, PortadaFileName);
             Publicado = entrada != null;
             await Toast.Make(Publicado ? "Entrada publicada." : "No se pudo publicar la entrada.").Show();
         }
@@ -68,7 +73,7 @@ public partial class CreateBlogEntryViewModel : ObservableObject
         {
             if (fotoAdjunta)
             {
-                PortadaStream = null;
+                PortadaBytes = null;
                 PortadaFileName = null;
                 PortadaPreview = null;
             }

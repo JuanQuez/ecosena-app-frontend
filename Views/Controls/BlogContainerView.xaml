@@ -37,7 +37,8 @@
                        PlaceholderColor="{StaticResource GrayLight}"
                        TextColor="{StaticResource WhiteBase}"
                        BackgroundColor="Transparent"
-                       VerticalOptions="Center"/>
+                       VerticalOptions="Center"
+                       Text="{Binding Busqueda, Mode=TwoWay}"/>
                 <Image Grid.Column="1"
                        Source="icon_search.png"
                        WidthRequest="24"

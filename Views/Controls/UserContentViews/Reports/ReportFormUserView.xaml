@@ -15,10 +15,9 @@
 
             <Grid RowDefinitions="*, Auto">
 
-                <VerticalStackLayout Grid.Row="0"
-                                     Spacing="16"
-                                     Padding="16,12,16,6"
-                                     VerticalOptions="Center">
+                <ScrollView Grid.Row="0">
+                <VerticalStackLayout Spacing="16"
+                                     Padding="16,12,16,6">
 
                     <Label Text="Crear Reporte"
                            FontFamily="InterExtraBold"
@@ -51,7 +50,7 @@
                             Stroke="Transparent"
                             StrokeShape="RoundRectangle 8"
                             BackgroundColor="{StaticResource WhiteBase}"
-                            HeightRequest="140"
+                            MinimumHeightRequest="120"
                             Padding="12,8">
                         <Border.Shadow>
                             <Shadow Brush="{StaticResource BlackBase}" Offset="0,1" Radius="5" Opacity="0.25"/>
@@ -59,7 +58,7 @@
                         <Editor x:Name="DescripcionEditor"
                                 Placeholder="Descripción..."
                                 FontFamily="InterRegular"
-                                HeightRequest="130"
+                                AutoSize="TextChanges"
                                 FontSize="15"
                                 TextColor="{StaticResource BlackBase}"
                                 PlaceholderColor="{StaticResource GrayMedium}"
@@ -157,6 +156,7 @@
                     </HorizontalStackLayout>
 
                 </VerticalStackLayout>
+                </ScrollView>
 
                 <VerticalStackLayout Grid.Row="1"
                                      Spacing="8"

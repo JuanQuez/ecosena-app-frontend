@@ -15,6 +15,9 @@
 
         <!-- Persistent Footer -->
         <controls:FootBarView x:Name="MainFootBar" Grid.Row="2" />
+
+        <!-- Overlay de carga a pantalla completa (cubre TopBar+contenido+FootBar) -->
+        <controls:LoadingOverlayView x:Name="HostLoadingOverlay" Grid.Row="0" Grid.RowSpan="3" IsBusy="False"/>
     </Grid>
 
 </ContentPage>

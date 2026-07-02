@@ -96,15 +96,26 @@ public partial class HostPage : ContentPage
         {
             "Home" => CreateHomeView(),
             "Blog" => new BlogContainerView(),
-            "Report" => role switch
-            {
-                "Administrador" => new ReportsAdminView(),
-                "Aprendiz" => new ReportsUserView(),
-                "Penalizado" => BuildPenalizadoView(),
-                _ => new ContentView(),
-            },
+            "Report" => CreateReportView(role),
             _ => new ContentView(),
         };
+    }
+
+    private View CreateReportView(string role)
+    {
+        switch (role)
+        {
+            case "Administrador":
+                return new ReportsAdminView();
+            case "Aprendiz":
+                var reportsUserView = new ReportsUserView();
+                reportsUserView.BusyChanged += (s, busy) => HostLoadingOverlay.IsBusy = busy;
+                return reportsUserView;
+            case "Penalizado":
+                return BuildPenalizadoView();
+            default:
+                return new ContentView();
+        }
     }
 
     private View CreateHomeView()

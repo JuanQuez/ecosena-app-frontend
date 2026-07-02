@@ -8,6 +8,8 @@ public partial class ReportsUserView : ContentView
     private readonly ReportsUserViewModel? _viewModel;
     private readonly ReportFormViewModel? _formViewModel;
 
+    public event EventHandler<bool>? BusyChanged;
+
     public ReportsUserView()
     {
         InitializeComponent();
@@ -45,7 +47,7 @@ public partial class ReportsUserView : ContentView
         if (e.PropertyName != nameof(ReportFormViewModel.IsBusy) || _formViewModel == null)
             return;
 
-        FormLoadingOverlay.IsBusy = _formViewModel.IsBusy;
+        BusyChanged?.Invoke(this, _formViewModel.IsBusy);
     }
 
     private void OnReportarTapped(object sender, EventArgs e)

@@ -49,6 +49,10 @@ namespace EcosenaApp.Views.Controls
             return hero;
         }
 
-        public void Refresh() => RecentBlogPanel.Refresh();
+        public void Refresh()
+        {
+            BuildHero();
+            RecentBlogPanel.Refresh();
+        }
     }
 }

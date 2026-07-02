@@ -28,14 +28,19 @@ public partial class ForgotPassViewModel : ObservableObject
     private bool enSegundoPaso;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsNotBusy))]
+    [NotifyCanExecuteChangedFor(nameof(SolicitarCommand))]
+    [NotifyCanExecuteChangedFor(nameof(ReestablecerCommand))]
     private bool isBusy;
+
+    public bool IsNotBusy => !IsBusy;
 
     public ForgotPassViewModel(IRecoveryService recoveryService)
     {
         _recoveryService = recoveryService;
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(IsNotBusy))]
     private async Task SolicitarAsync()
     {
         if (string.IsNullOrWhiteSpace(Documento) || string.IsNullOrWhiteSpace(Email))
@@ -64,7 +69,7 @@ public partial class ForgotPassViewModel : ObservableObject
         }
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(IsNotBusy))]
     private async Task ReestablecerAsync()
     {
         if (string.IsNullOrWhiteSpace(Codigo) || string.IsNullOrWhiteSpace(NuevaContraseña))

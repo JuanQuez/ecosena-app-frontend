@@ -161,12 +161,28 @@
                 <VerticalStackLayout Grid.Row="1"
                                      Spacing="8"
                                      Padding="16,8,16,14">
-                    <Button x:Name="GenerarReporteButton"
-                            Text="Generar reporte"
-                            Style="{StaticResource PrimaryButton}"
-                            Padding="0"
-                            HeightRequest="44"
-                            Clicked="OnGenerarReporteTapped"/>
+                    <Grid>
+                        <Button x:Name="GenerarReporteButton"
+                                Text="Generar reporte"
+                                Style="{StaticResource PrimaryButton}"
+                                Padding="0"
+                                HeightRequest="44"
+                                IsVisible="{Binding IsNotBusy}"
+                                Clicked="OnGenerarReporteTapped"/>
+                        <Border Background="{StaticResource PrimaryGradient}"
+                                StrokeThickness="0"
+                                HeightRequest="44"
+                                HorizontalOptions="Fill"
+                                IsVisible="{Binding IsBusy}">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="50"/>
+                            </Border.StrokeShape>
+                            <ActivityIndicator IsRunning="True"
+                                               Color="{StaticResource WhiteBase}"
+                                               HeightRequest="24"
+                                               HorizontalOptions="Center"/>
+                        </Border>
+                    </Grid>
                     <Button Text="Cancelar"
                             Style="{StaticResource DangerButton}"
                             Padding="0"

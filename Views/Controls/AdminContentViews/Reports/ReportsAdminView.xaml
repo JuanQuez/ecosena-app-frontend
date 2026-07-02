@@ -14,7 +14,7 @@
               ColumnSpacing="16"
               RowSpacing="16">
 
-            <!-- Generados este mes -->
+            <!-- Reportes totales -->
             <Border Grid.Row="0" Grid.Column="0"
                     BackgroundColor="{StaticResource GrayLight}"
                     StrokeThickness="0"
@@ -24,7 +24,7 @@
                     <Shadow Brush="{StaticResource BlackBase}" Offset="0,0" Radius="8" Opacity="0.25"/>
                 </Border.Shadow>
                 <VerticalStackLayout VerticalOptions="Center" Spacing="8">
-                    <Label Text="Generados este mes"
+                    <Label Text="Reportes totales"
                            FontFamily="InterMedium"
                            FontSize="12"
                            TextColor="{StaticResource GrayMidnight}"
@@ -81,7 +81,7 @@
                 </VerticalStackLayout>
             </Border>
 
-            <!-- Resueltos este mes -->
+            <!-- Resueltos -->
             <Border Grid.Row="1" Grid.Column="1"
                     BackgroundColor="{StaticResource GrayLight}"
                     StrokeThickness="0"
@@ -91,7 +91,7 @@
                     <Shadow Brush="{StaticResource BlackBase}" Offset="0,0" Radius="8" Opacity="0.25"/>
                 </Border.Shadow>
                 <VerticalStackLayout VerticalOptions="Center" Spacing="8">
-                    <Label Text="Resueltos este mes"
+                    <Label Text="Resueltos"
                            FontFamily="InterMedium"
                            FontSize="12"
                            TextColor="{StaticResource GrayMidnight}"/>
@@ -107,7 +107,7 @@
 
         <!-- Exportar a Excel -->
         <Button Grid.Row="1"
-                Text="Exportar Excel"
+                Text="Exportar datos"
                 Style="{StaticResource SecondaryButton}"
                 HeightRequest="44"
                 Command="{Binding ExportarExcelCommand}"
@@ -150,10 +150,14 @@
         </Border>
 
         <!-- Lista de reportes -->
-        <CollectionView Grid.Row="3"
-                         x:Name="ReportesCollection"
-                         SelectionMode="Single"
-                         SelectionChanged="OnReporteSelected">
+        <Border Grid.Row="3"
+                StrokeThickness="0">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="8"/>
+            </Border.StrokeShape>
+            <CollectionView x:Name="ReportesCollection"
+                             SelectionMode="Single"
+                             SelectionChanged="OnReporteSelected">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
             </CollectionView.ItemsLayout>
@@ -162,28 +166,100 @@
                     <Border BackgroundColor="{StaticResource GrayLight}"
                             StrokeThickness="0"
                             StrokeShape="RoundRectangle 8">
-                        <Grid ColumnDefinitions="8, *, Auto" Padding="10">
-                            <BoxView Grid.Column="0" BackgroundColor="{StaticResource StatusUnderReview}"/>
-                            <VerticalStackLayout Grid.Column="1" Spacing="3">
-                                <Label Text="{Binding Ubicacion}"
-                                       FontFamily="InterRegular"
-                                       FontSize="16"
-                                       TextColor="{StaticResource GrayDark}"/>
-                                <Label Text="{Binding FechaEmision, StringFormat='{0:d MMM yyyy}'}"
-                                       FontFamily="InterRegular"
-                                       FontSize="12"
-                                       TextColor="{StaticResource GrayMidnight}"/>
-                            </VerticalStackLayout>
-                            <Label Grid.Column="2" Text="{Binding Estado}"
-                                   FontFamily="InterBold"
-                                   FontSize="12"
-                                   VerticalOptions="Center"
-                                   TextColor="{StaticResource Primary}"/>
+                        <Border.Shadow>
+                            <Shadow Brush="{StaticResource BlackBase}" Offset="0,1" Radius="5" Opacity="0.25"/>
+                        </Border.Shadow>
+                        <Grid ColumnDefinitions="8, *">
+                            <BoxView Grid.Column="0" BackgroundColor="{StaticResource StatusPending}">
+                                <BoxView.Triggers>
+                                    <DataTrigger TargetType="BoxView" Binding="{Binding Estado}" Value="Pendiente">
+                                        <Setter Property="BackgroundColor" Value="{StaticResource StatusPending}"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="BoxView" Binding="{Binding Estado}" Value="EnProgreso">
+                                        <Setter Property="BackgroundColor" Value="{StaticResource StatusUnderReview}"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="BoxView" Binding="{Binding Estado}" Value="Resuelto">
+                                        <Setter Property="BackgroundColor" Value="{StaticResource StatusSolved}"/>
+                                    </DataTrigger>
+                                </BoxView.Triggers>
+                            </BoxView>
+                            <Grid Grid.Column="1" ColumnDefinitions="Auto, *, Auto" ColumnSpacing="20" Padding="10">
+                                <!-- Subcard de fecha -->
+                                <Border Grid.Column="0"
+                                        WidthRequest="40"
+                                        BackgroundColor="{StaticResource WhiteBase}"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 5">
+                                    <Border.Shadow>
+                                        <Shadow Brush="{StaticResource BlackBase}" Offset="0,0" Radius="2" Opacity="0.25"/>
+                                    </Border.Shadow>
+                                    <VerticalStackLayout Spacing="0">
+                                        <BoxView HeightRequest="10" BackgroundColor="{StaticResource StatusPending}">
+                                            <BoxView.Triggers>
+                                                <DataTrigger TargetType="BoxView" Binding="{Binding Estado}" Value="Pendiente">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource StatusPending}"/>
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="BoxView" Binding="{Binding Estado}" Value="EnProgreso">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource StatusUnderReview}"/>
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="BoxView" Binding="{Binding Estado}" Value="Resuelto">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource StatusSolved}"/>
+                                                </DataTrigger>
+                                            </BoxView.Triggers>
+                                        </BoxView>
+                                        <VerticalStackLayout Padding="5" Spacing="1" HorizontalOptions="Center">
+                                            <Label Text="{Binding FechaEmision, StringFormat='{0:MMMM}'}"
+                                                   FontFamily="InterExtraLight"
+                                                   FontSize="8"
+                                                   HorizontalTextAlignment="Center"
+                                                   TextColor="{StaticResource GrayDark}"/>
+                                            <Label Text="{Binding FechaEmision, StringFormat='{0:dd}'}"
+                                                   FontFamily="InterBold"
+                                                   FontSize="18"
+                                                   HorizontalTextAlignment="Center"
+                                                   TextColor="{StaticResource GrayDark}"/>
+                                            <Label Text="{Binding FechaEmision, StringFormat='{0:yyyy}'}"
+                                                   FontFamily="InterExtraLight"
+                                                   FontSize="8"
+                                                   HorizontalTextAlignment="Center"
+                                                   TextColor="{StaticResource GrayDark}"/>
+                                        </VerticalStackLayout>
+                                    </VerticalStackLayout>
+                                </Border>
+                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="3">
+                                    <Label Text="{Binding Ubicacion}"
+                                           FontFamily="InterRegular"
+                                           FontSize="16"
+                                           TextColor="{StaticResource GrayDark}"/>
+                                    <Label Text="{Binding FechaEmision, StringFormat='{0:d MMM yyyy}'}"
+                                           FontFamily="InterRegular"
+                                           FontSize="12"
+                                           TextColor="{StaticResource GrayMidnight}"/>
+                                </VerticalStackLayout>
+                                <Image Grid.Column="2"
+                                       WidthRequest="24"
+                                       HeightRequest="24"
+                                       VerticalOptions="Center"
+                                       Source="icon_detail_pending_report.svg">
+                                    <Image.Triggers>
+                                        <DataTrigger TargetType="Image" Binding="{Binding Estado}" Value="Pendiente">
+                                            <Setter Property="Source" Value="icon_detail_pending_report.svg"/>
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Image" Binding="{Binding Estado}" Value="EnProgreso">
+                                            <Setter Property="Source" Value="icon_detail_inprogress_report.svg"/>
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Image" Binding="{Binding Estado}" Value="Resuelto">
+                                            <Setter Property="Source" Value="icon_detail_solved_report.svg"/>
+                                        </DataTrigger>
+                                    </Image.Triggers>
+                                </Image>
+                            </Grid>
                         </Grid>
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
-        </CollectionView>
+            </CollectionView>
+        </Border>
 
     </Grid>
 </ContentView>

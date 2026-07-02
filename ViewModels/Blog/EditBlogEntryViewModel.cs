@@ -14,10 +14,19 @@ public partial class EditBlogEntryViewModel : ObservableObject
     public string Contenido { get; set; } = string.Empty;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(EstaProcesando))]
     private bool isBusy;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsNotGuardando))]
+    [NotifyPropertyChangedFor(nameof(EstaProcesando))]
+    private bool isGuardando;
+
+    [ObservableProperty]
     private ImageSource? portadaPreview;
+
+    public bool IsNotGuardando => !IsGuardando;
+    public bool EstaProcesando => IsBusy || IsGuardando;
 
     public byte[]? PortadaBytes { get; private set; }
     public string? PortadaFileName { get; private set; }
@@ -85,7 +94,7 @@ public partial class EditBlogEntryViewModel : ObservableObject
             return;
         }
 
-        IsBusy = true;
+        IsGuardando = true;
         var fotoAdjunta = PortadaBytes != null;
         try
         {
@@ -101,7 +110,7 @@ public partial class EditBlogEntryViewModel : ObservableObject
                 PortadaFileName = null;
                 PortadaPreview = null;
             }
-            IsBusy = false;
+            IsGuardando = false;
         }
     }
 }

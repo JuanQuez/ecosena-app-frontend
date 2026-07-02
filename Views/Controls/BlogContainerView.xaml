@@ -4,7 +4,7 @@
              xmlns:models="clr-namespace:EcosenaApp.Models.Blog"
              x:Class="EcosenaApp.Views.Controls.BlogContainerView">
 
-    <Grid RowDefinitions="Auto,Auto,Auto,*" VerticalOptions="Center" Margin="0, 10" RowSpacing="20">
+    <Grid RowDefinitions="Auto,Auto,*" VerticalOptions="Center" Margin="0, 10" RowSpacing="20">
 
         <!-- ====| HEADER CARD (Fixed) |==== -->
         <Border Grid.Row="0"
@@ -47,17 +47,8 @@
             </Grid>
         </Border>
 
-        <!-- ====| ADMIN: NUEVA ENTRADA |==== -->
-        <Button Grid.Row="2"
-                x:Name="NuevaEntradaButton"
-                Text="Nueva entrada"
-                Style="{StaticResource PrimaryButton}"
-                HeightRequest="44"
-                IsVisible="False"
-                Clicked="OnNuevaEntradaTapped"/>
-
         <!-- ====| BLOG POST CARDS (Scrollable) |==== -->
-        <Border Grid.Row="3"
+        <Border Grid.Row="2"
                 StrokeThickness="0">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="30"/>
@@ -86,6 +77,20 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </Border>
+
+        <!-- ====| ADMIN: NUEVA ENTRADA (botón flotante) |==== -->
+        <ImageButton Grid.Row="2"
+                     x:Name="NuevaEntradaButton"
+                     Source="btn_short_float.svg"
+                     WidthRequest="52"
+                     HeightRequest="52"
+                     Padding="0"
+                     BackgroundColor="Transparent"
+                     HorizontalOptions="End"
+                     VerticalOptions="End"
+                     Margin="0,0,12,12"
+                     IsVisible="False"
+                     Clicked="OnNuevaEntradaTapped"/>
 
     </Grid>
 

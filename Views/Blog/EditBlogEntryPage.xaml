@@ -30,6 +30,8 @@
                                           CambiarPortadaClicked="OnCambiarPortadaTapped"
                                           CancelarClicked="OnCancelarTapped"/>
 
+        <controls:LoadingOverlayView Grid.Row="0" Grid.RowSpan="2" IsBusy="{Binding EstaProcesando}"/>
+
     </Grid>
 
 </ContentPage>

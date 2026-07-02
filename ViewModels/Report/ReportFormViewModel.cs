@@ -24,7 +24,10 @@ public partial class ReportFormViewModel : ObservableObject
     private ImageSource? fotoPreview;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsNotBusy))]
     private bool isBusy;
+
+    public bool IsNotBusy => !IsBusy;
 
     public bool EsPenalizado { get; }
 

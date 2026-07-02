@@ -13,10 +13,13 @@ public partial class CreateBlogEntryViewModel : ObservableObject
     public string Contenido { get; set; } = string.Empty;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsNotBusy))]
     private bool isBusy;
 
     [ObservableProperty]
     private ImageSource? portadaPreview;
+
+    public bool IsNotBusy => !IsBusy;
 
     public byte[]? PortadaBytes { get; private set; }
     public string? PortadaFileName { get; private set; }

@@ -28,7 +28,7 @@ public partial class ReportManagementPage : ContentPage
 
     private async void OnActualizarEstadoTapped(object? sender, EventArgs e)
     {
-        if (_viewModel == null)
+        if (_viewModel == null || _viewModel.IsAvanzando)
             return;
 
         await _viewModel.AvanzarEstadoCommand.ExecuteAsync(null);
@@ -38,7 +38,7 @@ public partial class ReportManagementPage : ContentPage
 
     private async void OnPenalizarTapped(object? sender, EventArgs e)
     {
-        if (_viewModel == null)
+        if (_viewModel == null || _viewModel.IsPenalizando)
             return;
 
         bool confirm = await DisplayAlert("Confirmar", "¿Penalizar al emisor de este reporte?", "Sí", "No");

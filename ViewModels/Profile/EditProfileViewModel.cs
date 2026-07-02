@@ -25,7 +25,17 @@ public partial class EditProfileViewModel : ObservableObject
     private ImageSource? fotoPreview;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(EstaProcesando))]
     private bool isBusy;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsNotGuardando))]
+    [NotifyPropertyChangedFor(nameof(EstaProcesando))]
+    [NotifyCanExecuteChangedFor(nameof(GuardarCommand))]
+    private bool isGuardando;
+
+    public bool IsNotGuardando => !IsGuardando;
+    public bool EstaProcesando => IsBusy || IsGuardando;
 
     public byte[]? FotoBytes { get; private set; }
     public string? FotoFileName { get; private set; }
@@ -82,7 +92,7 @@ public partial class EditProfileViewModel : ObservableObject
         FotoPreview = ImageSource.FromStream(() => new MemoryStream(FotoBytes));
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(IsNotGuardando))]
     private async Task GuardarAsync()
     {
         if (string.IsNullOrWhiteSpace(Email))
@@ -97,7 +107,7 @@ public partial class EditProfileViewModel : ObservableObject
             return;
         }
 
-        IsBusy = true;
+        IsGuardando = true;
         var fotoAdjunta = FotoBytes != null;
         try
         {
@@ -118,7 +128,7 @@ public partial class EditProfileViewModel : ObservableObject
                 FotoFileName = null;
                 FotoPreview = null;
             }
-            IsBusy = false;
+            IsGuardando = false;
         }
     }
 }

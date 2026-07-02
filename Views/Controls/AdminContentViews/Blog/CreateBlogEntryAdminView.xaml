@@ -111,11 +111,27 @@
                 <VerticalStackLayout Grid.Row="1"
                                      Spacing="8"
                                      Padding="24,8,24,14">
-                    <Button Text="Publicar entrada"
-                            Style="{StaticResource PrimaryButton}"
-                            Padding="0"
-                            HeightRequest="44"
-                            Clicked="OnPublicarTapped"/>
+                    <Grid>
+                        <Button Text="Publicar entrada"
+                                Style="{StaticResource PrimaryButton}"
+                                Padding="0"
+                                HeightRequest="44"
+                                IsVisible="{Binding IsNotBusy}"
+                                Clicked="OnPublicarTapped"/>
+                        <Border Background="{StaticResource PrimaryGradient}"
+                                StrokeThickness="0"
+                                HeightRequest="44"
+                                HorizontalOptions="Fill"
+                                IsVisible="{Binding IsBusy}">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="50"/>
+                            </Border.StrokeShape>
+                            <ActivityIndicator IsRunning="True"
+                                               Color="{StaticResource WhiteBase}"
+                                               HeightRequest="24"
+                                               HorizontalOptions="Center"/>
+                        </Border>
+                    </Grid>
                     <Button Text="Cancelar"
                             Style="{StaticResource DangerButton}"
                             Padding="0"

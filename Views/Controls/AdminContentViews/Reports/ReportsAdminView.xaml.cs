@@ -29,10 +29,10 @@ public partial class ReportsAdminView : ContentView
         if (e.PropertyName != nameof(ReportsAdminViewModel.Estadisticas) || _viewModel?.Estadisticas is not StatsReportDto stats)
             return;
 
-        StatTotalLabel.Text = stats.ReportesHechosMes.ToString();
-        StatPendingLabel.Text = stats.ReportesPendientes.ToString();
-        StatInProgressLabel.Text = stats.ReportesEnProgreso.ToString();
-        StatSolvedLabel.Text = stats.ReportesResueltosMes.ToString();
+        StatTotalLabel.Text = stats.ReportesHechos.ToString();
+        StatPendingLabel.Text = $"{stats.ReportesPendientes:0}%";
+        StatInProgressLabel.Text = $"{stats.ReportesEnProgreso:0}%";
+        StatSolvedLabel.Text = $"{stats.ReportesResueltos:0}%";
     }
 
     private async void OnReporteSelected(object sender, SelectionChangedEventArgs e)

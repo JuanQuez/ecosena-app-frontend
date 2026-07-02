@@ -110,11 +110,27 @@
                 <VerticalStackLayout Grid.Row="1"
                                      Spacing="8"
                                      Padding="22,8,28,14">
-                    <Button Text="Actualizar entrada"
-                            Style="{StaticResource PrimaryButton}"
-                            Padding="0"
-                            HeightRequest="44"
-                            Clicked="OnActualizarTapped"/>
+                    <Grid>
+                        <Button Text="Actualizar entrada"
+                                Style="{StaticResource PrimaryButton}"
+                                Padding="0"
+                                HeightRequest="44"
+                                IsVisible="{Binding IsNotGuardando}"
+                                Clicked="OnActualizarTapped"/>
+                        <Border Background="{StaticResource PrimaryGradient}"
+                                StrokeThickness="0"
+                                HeightRequest="44"
+                                HorizontalOptions="Fill"
+                                IsVisible="{Binding IsGuardando}">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="50"/>
+                            </Border.StrokeShape>
+                            <ActivityIndicator IsRunning="True"
+                                               Color="{StaticResource WhiteBase}"
+                                               HeightRequest="24"
+                                               HorizontalOptions="Center"/>
+                        </Border>
+                    </Grid>
                     <Button Text="Cancelar"
                             Style="{StaticResource DangerButton}"
                             Padding="0"

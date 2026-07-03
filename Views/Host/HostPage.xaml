@@ -13,6 +13,9 @@
         <!-- Dynamic content region -->
         <ContentView x:Name="ContentRegion" Grid.Row="1" />
 
+        <!-- Banner flotante de "sin conexión" (misma celda que ContentRegion, ancla arriba, no empuja nada) -->
+        <controls:OfflineBannerView Grid.Row="1" VerticalOptions="Start" />
+
         <!-- Persistent Footer -->
         <controls:FootBarView x:Name="MainFootBar" Grid.Row="2" />
 

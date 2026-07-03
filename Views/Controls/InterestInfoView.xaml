@@ -57,7 +57,7 @@
                     VerticalOptions="Start">
                 <Grid ColumnDefinitions="Auto, *" HeightRequest="90">
                     <Image Grid.Column="0"
-                           Source="bkg_ecosena_auth.png"
+                           Source="bkg_instructive_app.png"
                            Aspect="AspectFill"
                            WidthRequest="100"
                            HeightRequest="90" />
@@ -69,6 +69,9 @@
                                FontAttributes="Bold"
                                LineBreakMode="WordWrap" />
                         <Border Style="{StaticResource ActionChipPrimary}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnVerInstructivoTapped" />
+                            </Border.GestureRecognizers>
                             <HorizontalStackLayout Spacing="10">
                                 <Label Text="Ver instructivo"
                                        Style="{StaticResource TextRegular}"

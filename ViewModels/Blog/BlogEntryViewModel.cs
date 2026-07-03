@@ -17,10 +17,17 @@ public partial class BlogEntryViewModel : ObservableObject
     private EntradaResDto? entrada;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(EstaProcesando))]
     private bool isBusy;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(EstaProcesando))]
+    private bool isEliminando;
+
+    [ObservableProperty]
     private bool isAdmin;
+
+    public bool EstaProcesando => IsBusy || IsEliminando;
 
     public bool Eliminado { get; private set; }
 
@@ -49,7 +56,7 @@ public partial class BlogEntryViewModel : ObservableObject
     [RelayCommand]
     private async Task DeleteEntradaAsync()
     {
-        IsBusy = true;
+        IsEliminando = true;
         try
         {
             Eliminado = await _blogService.DeleteEntradaAsync(EntradaId);
@@ -57,7 +64,7 @@ public partial class BlogEntryViewModel : ObservableObject
         }
         finally
         {
-            IsBusy = false;
+            IsEliminando = false;
         }
     }
 }

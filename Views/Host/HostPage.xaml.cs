@@ -33,6 +33,10 @@ public partial class HostPage : ContentPage
         {
             ApplyRole();
         }
+        else if (ContentRegion.Content is View currentView)
+        {
+            RefreshIfSupported(currentView);
+        }
     }
 
     private void ApplyRole()

@@ -30,6 +30,9 @@ namespace EcosenaApp.Views.Controls
                 return;
             }
 
+            EntradaCard.IsVisible = true;
+            SinEntradasLabel.IsVisible = false;
+
             AutorLabel.Text = _entradaReciente.NombreRedactor;
             TituloLabel.Text = _entradaReciente.Titulo;
             FechaLabel.Text = _entradaReciente.FechaPublicacion.ToString("d MMM yyyy");

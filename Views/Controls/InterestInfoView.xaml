@@ -15,59 +15,39 @@
                            TextColor="{StaticResource WhiteBase}" />
                 </Grid>
 
-                <HorizontalStackLayout Spacing="10">
-                    <Border Style="{StaticResource ContentChip}">
-                        <HorizontalStackLayout Spacing="6">
-                            <Image Source="icon_sena_logo.svg" HeightRequest="16" WidthRequest="16">
-                                <Image.Behaviors>
-                                    <toolkit:IconTintColorBehavior TintColor="{StaticResource WhiteBase}" />
-                                </Image.Behaviors>
-                            </Image>
-                            <Label Text="SENA"
-                                   Style="{StaticResource TextRegular}"
-                                   TextColor="{StaticResource WhiteBase}"
-                                   FontSize="12" />
-                        </HorizontalStackLayout>
-                    </Border>
-                </HorizontalStackLayout>
+                <CollectionView x:Name="NoticiasCollection"
+                                 SelectionMode="Single"
+                                 SelectionChanged="OnNoticiaSelected"
+                                 HeightRequest="48"
+                                 HorizontalScrollBarVisibility="Never">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Style="{StaticResource ContentChip}">
+                                <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                                    <Image Source="icon_sena_logo.svg"
+                                           HeightRequest="16"
+                                           WidthRequest="16"
+                                           VerticalOptions="Center">
+                                        <Image.Behaviors>
+                                            <toolkit:IconTintColorBehavior TintColor="{StaticResource WhiteBase}" />
+                                        </Image.Behaviors>
+                                    </Image>
+                                    <Label Text="{Binding Titulo}"
+                                           Style="{StaticResource TextRegular}"
+                                           TextColor="{StaticResource WhiteBase}"
+                                           FontSize="12"
+                                           LineBreakMode="NoWrap"
+                                           VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </VerticalStackLayout>
         </Border>
-
-        <!-- ====| ACTUALIDAD SENA (cards con scroll horizontal) |==== -->
-        <VerticalStackLayout Spacing="10">
-            <Label Text="ACTUALIDAD SENA"
-                   Style="{StaticResource TextRegular}"
-                   TextColor="{StaticResource WhiteBase}"
-                   FontSize="12"
-                   FontAttributes="Bold" />
-
-            <CollectionView x:Name="NoticiasCollection"
-                             SelectionMode="Single"
-                             SelectionChanged="OnNoticiaSelected"
-                             HeightRequest="48">
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Border Style="{StaticResource ContentChip}">
-                            <HorizontalStackLayout Spacing="6">
-                                <Image Source="icon_sena_logo.svg" HeightRequest="16" WidthRequest="16">
-                                    <Image.Behaviors>
-                                        <toolkit:IconTintColorBehavior TintColor="{StaticResource WhiteBase}" />
-                                    </Image.Behaviors>
-                                </Image>
-                                <Label Text="{Binding Titulo}"
-                                       Style="{StaticResource TextRegular}"
-                                       TextColor="{StaticResource WhiteBase}"
-                                       FontSize="12"
-                                       LineBreakMode="NoWrap" />
-                            </HorizontalStackLayout>
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </VerticalStackLayout>
 
         <!-- ====| CARDS |==== -->
         <VerticalStackLayout Spacing="12" VerticalOptions="Start" HorizontalOptions="Fill">

@@ -69,9 +69,23 @@ public partial class EditBlogEntryViewModel : ObservableObject
         if (accion is not "Galería" and not "Cámara")
             return;
 
-        var resultado = accion == "Galería"
-            ? await MediaPicker.PickPhotoAsync()
-            : await MediaPicker.CapturePhotoAsync();
+        FileResult? resultado;
+        try
+        {
+            resultado = accion == "Galería"
+                ? await MediaPicker.PickPhotoAsync()
+                : await MediaPicker.CapturePhotoAsync();
+        }
+        catch (PermissionException)
+        {
+            await Toast.Make("Debes conceder permiso de cámara para tomar una foto.").Show();
+            return;
+        }
+        catch (FeatureNotSupportedException)
+        {
+            await Toast.Make("Este dispositivo no tiene cámara disponible.").Show();
+            return;
+        }
 
         if (resultado == null)
             return;

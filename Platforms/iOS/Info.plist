@@ -4,6 +4,8 @@
 <dict>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>EcoSENA necesita acceder a la cámara para tomar fotos de reportes, entradas de blog y foto de perfil.</string>
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>

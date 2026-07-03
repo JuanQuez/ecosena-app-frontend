@@ -5,7 +5,13 @@
              x:Class="EcosenaApp.Views.Controls.OfflineBannerView"
              IsVisible="False">
 
-    <Border BackgroundColor="{StaticResource ActionDelete}" StrokeThickness="0" Padding="16,8">
+    <Border BackgroundColor="{StaticResource ActionDelete}"
+            StrokeThickness="0"
+            Padding="16,10"
+            Margin="0,8,0,0">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="12" />
+        </Border.StrokeShape>
         <HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
             <Image Source="icon_no_wifi.svg" HeightRequest="16" WidthRequest="16">
                 <Image.Behaviors>

@@ -19,6 +19,13 @@ public partial class HostPage : ContentPage
         // Wire up the footer selection
         MainFootBar.SelectedIndexChanged += OnFooterSelectionChanged;
 
+        // Al recuperar conexión, refresca la sección activa (mismo mecanismo que RefreshIfSupported usa al volver de background)
+        OfflineBanner.ConnectivityRestored += (s, e) =>
+        {
+            if (ContentRegion.Content is View currentView)
+                RefreshIfSupported(currentView);
+        };
+
         ApplyRole();
     }
 

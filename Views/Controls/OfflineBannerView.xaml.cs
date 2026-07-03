@@ -4,6 +4,8 @@ namespace EcosenaApp.Views.Controls;
 
 public partial class OfflineBannerView : ContentView
 {
+    public event EventHandler? ConnectivityRestored;
+
     public OfflineBannerView()
     {
         InitializeComponent();
@@ -21,6 +23,7 @@ public partial class OfflineBannerView : ContentView
             if (!sinInternet && IsVisible)
             {
                 IsVisible = false;
+                ConnectivityRestored?.Invoke(this, EventArgs.Empty);
                 await Toast.Make("Conexión restablecida.").Show();
                 return;
             }

@@ -6,6 +6,11 @@
 # dotenv files
 .env
 
+# Android signing keystore (private key, never commit)
+*.keystore
+*.jks
+keystore/
+
 # db endpoints Dtos
 Data/
 

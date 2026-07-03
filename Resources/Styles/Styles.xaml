@@ -184,7 +184,7 @@
     <!-- ====| BLOG PAGE STYLES |==== -->
     <Style x:Key="PostCardBorder" TargetType="Border">
         <Setter Property="BackgroundColor" Value="{StaticResource GrayLight}"/>
-        <Setter Property="HeightRequest" Value="200"/>
+        <Setter Property="HeightRequest" Value="220"/>
         <Setter Property="StrokeThickness" Value="0"/>
         <Setter Property="StrokeShape" Value="RoundRectangle 30"/>
         <Setter Property="Shadow">
@@ -207,7 +207,8 @@
         <Setter Property="FontFamily" Value="InterExtraBold"/>
         <Setter Property="FontSize" Value="20"/>
         <Setter Property="TextColor" Value="{StaticResource GrayDark}"/>
-        <Setter Property="LineBreakMode" Value="TailTruncation"/>
+        <Setter Property="LineBreakMode" Value="WordWrap"/>
+        <Setter Property="MaxLines" Value="2"/>
     </Style>
 
     <Style x:Key="PostDescLabel" TargetType="Label">

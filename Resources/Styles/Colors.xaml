@@ -10,7 +10,7 @@
     <Color x:Key="Secondary">#1F6E5A</Color>
     <Color x:Key="Tertiary">#2E8B72</Color>
 
-    
+
     <!-- ====| ACCENT COLORS |==== -->
     <Color x:Key="Fantasy">#7BD7AB</Color>
     <Color x:Key="Seaplant">#43C492</Color>
@@ -19,7 +19,7 @@
     <Color x:Key="ActionDeleteVariant">#A53632</Color>
     <Color x:Key="WhiteGradient">#99E0E0E0</Color>
     <Color x:Key="WhiteBlur">#33F0F0F0</Color>
-    
+
     <!-- ====| NEUTRAL |==== -->
     <Color x:Key="WhiteBase">#F0F0F0</Color>
     <Color x:Key="BlackBase">#1E1E1E</Color>
@@ -50,7 +50,7 @@
         <GradientStop Color="{StaticResource Primary}" Offset="0.25" />
         <GradientStop Color="{StaticResource Primary}" Offset="1.0" />
     </LinearGradientBrush>
-    
+
     <LinearGradientBrush x:Key="InnerShadowBtn" StartPoint="0,0" EndPoint="0,1.0">
         <GradientStop Color="{StaticResource GrayMidnight}" Offset="0.0" />
         <GradientStop Color="{StaticResource Primary}" Offset="0.1" />
@@ -78,5 +78,5 @@
     <SolidColorBrush x:Key="StatusUnderReviewBrush" Color="{StaticResource StatusUnderReview}"/>
     <SolidColorBrush x:Key="ActionEditBrush" Color="{StaticResource ActionEdit}"/>
     <SolidColorBrush x:Key="ActionDeleteBrush" Color="{StaticResource ActionDelete}"/>
-    
+
 </ResourceDictionary>

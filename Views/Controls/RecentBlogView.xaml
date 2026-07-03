@@ -36,10 +36,10 @@
 
                 <Border x:Name="EntradaCard"
                         StrokeThickness="1" StrokeShape="RoundRectangle 15" BackgroundColor="{StaticResource Primary}">
-                    <Grid ColumnDefinitions="*, Auto" HeightRequest="160">
+                    <Grid ColumnDefinitions="*, Auto" HeightRequest="180">
                         <VerticalStackLayout Grid.Column="0" Padding="15, 10, 0, 10" Spacing="10">
                             <Label x:Name="AutorLabel" Style="{StaticResource TextSecondary}" TextColor="{StaticResource GrayLight}" />
-                            <Label x:Name="TituloLabel" Style="{StaticResource H2}" TextColor="{StaticResource WhiteBase}" LineBreakMode="TailTruncation"/>
+                            <Label x:Name="TituloLabel" Style="{StaticResource H2}" TextColor="{StaticResource WhiteBase}" LineBreakMode="WordWrap" MaxLines="2"/>
                             <Label x:Name="FechaLabel" FontSize="14" Style="{StaticResource TextSecondary}" TextColor="{StaticResource GrayLight}" />
                             <Border Style="{StaticResource ActionChip}" Margin="0,6,0,0">
                                 <HorizontalStackLayout Spacing="10">
@@ -52,7 +52,7 @@
                                 </HorizontalStackLayout>
                             </Border>
                         </VerticalStackLayout>
-                        <Image Grid.Column="1" Source="bkg_blog_cta.png" Aspect="AspectFill" WidthRequest="130" VerticalOptions="Fill"/>
+                        <Image x:Name="PortadaImage" Grid.Column="1" Source="bkg_blog_cta.png" Aspect="AspectFill" WidthRequest="130" VerticalOptions="Fill"/>
                     </Grid>
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnEntradaTapped" />

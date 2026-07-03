@@ -4,21 +4,23 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="EcosenaApp.Views.Controls.ReportFormUserView">
 
+    <ScrollView VerticalScrollBarVisibility="Never">
     <Border StrokeThickness="0"
-            StrokeShape="RoundRectangle 15">
+            StrokeShape="RoundRectangle 15"
+            VerticalOptions="Center">
 
-        <Grid>
-            <Image Source="bkg_report_form.png"
+        <AbsoluteLayout>
+            <Image Source="bkg_ecosena_managment.png"
                    Aspect="AspectFill"
-                   HorizontalOptions="Fill"
-                   VerticalOptions="Fill"/>
+                   AbsoluteLayout.LayoutBounds="0,0,1,1"
+                   AbsoluteLayout.LayoutFlags="All"/>
 
-            <Grid RowDefinitions="*, Auto">
+            <VerticalStackLayout Spacing="0"
+                                  AbsoluteLayout.LayoutBounds="0,0,1,-1"
+                                  AbsoluteLayout.LayoutFlags="WidthProportional">
 
-                <VerticalStackLayout Grid.Row="0"
-                                     Spacing="16"
-                                     Padding="16,12,16,6"
-                                     VerticalOptions="Center">
+                <VerticalStackLayout Spacing="16"
+                                     Padding="16,12,16,6">
 
                     <Label Text="Crear Reporte"
                            FontFamily="InterExtraBold"
@@ -51,7 +53,7 @@
                             Stroke="Transparent"
                             StrokeShape="RoundRectangle 8"
                             BackgroundColor="{StaticResource WhiteBase}"
-                            HeightRequest="140"
+                            MinimumHeightRequest="120"
                             Padding="12,8">
                         <Border.Shadow>
                             <Shadow Brush="{StaticResource BlackBase}" Offset="0,1" Radius="5" Opacity="0.25"/>
@@ -59,7 +61,7 @@
                         <Editor x:Name="DescripcionEditor"
                                 Placeholder="Descripción..."
                                 FontFamily="InterRegular"
-                                HeightRequest="130"
+                                AutoSize="TextChanges"
                                 FontSize="15"
                                 TextColor="{StaticResource BlackBase}"
                                 PlaceholderColor="{StaticResource GrayMedium}"
@@ -158,15 +160,30 @@
 
                 </VerticalStackLayout>
 
-                <VerticalStackLayout Grid.Row="1"
-                                     Spacing="8"
+                <VerticalStackLayout Spacing="8"
                                      Padding="16,8,16,14">
-                    <Button x:Name="GenerarReporteButton"
-                            Text="Generar reporte"
-                            Style="{StaticResource PrimaryButton}"
-                            Padding="0"
-                            HeightRequest="44"
-                            Clicked="OnGenerarReporteTapped"/>
+                    <Grid>
+                        <Button x:Name="GenerarReporteButton"
+                                Text="Generar reporte"
+                                Style="{StaticResource PrimaryButton}"
+                                Padding="0"
+                                HeightRequest="44"
+                                IsVisible="{Binding IsNotBusy}"
+                                Clicked="OnGenerarReporteTapped"/>
+                        <Border Background="{StaticResource PrimaryGradient}"
+                                StrokeThickness="0"
+                                HeightRequest="44"
+                                HorizontalOptions="Fill"
+                                IsVisible="{Binding IsBusy}">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="50"/>
+                            </Border.StrokeShape>
+                            <ActivityIndicator IsRunning="True"
+                                               Color="{StaticResource WhiteBase}"
+                                               HeightRequest="24"
+                                               HorizontalOptions="Center"/>
+                        </Border>
+                    </Grid>
                     <Button Text="Cancelar"
                             Style="{StaticResource DangerButton}"
                             Padding="0"
@@ -174,7 +191,8 @@
                             Clicked="OnCancelarTapped"/>
                 </VerticalStackLayout>
 
-            </Grid>
-        </Grid>
+            </VerticalStackLayout>
+        </AbsoluteLayout>
     </Border>
+    </ScrollView>
 </ContentView>

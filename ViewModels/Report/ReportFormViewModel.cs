@@ -24,7 +24,10 @@ public partial class ReportFormViewModel : ObservableObject
     private ImageSource? fotoPreview;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsNotBusy))]
     private bool isBusy;
+
+    public bool IsNotBusy => !IsBusy;
 
     public bool EsPenalizado { get; }
 
@@ -46,7 +49,22 @@ public partial class ReportFormViewModel : ObservableObject
     [RelayCommand]
     private async Task AbrirCamaraAsync()
     {
-        var resultado = await MediaPicker.CapturePhotoAsync();
+        FileResult? resultado;
+        try
+        {
+            resultado = await MediaPicker.CapturePhotoAsync();
+        }
+        catch (PermissionException)
+        {
+            await Toast.Make("Debes conceder permiso de cámara para tomar una foto.").Show();
+            return;
+        }
+        catch (FeatureNotSupportedException)
+        {
+            await Toast.Make("Este dispositivo no tiene cámara disponible.").Show();
+            return;
+        }
+
         await AplicarFotoAsync(resultado);
     }
 

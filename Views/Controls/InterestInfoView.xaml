@@ -15,21 +15,37 @@
                            TextColor="{StaticResource WhiteBase}" />
                 </Grid>
 
-                <HorizontalStackLayout Spacing="10">
-                    <Border Style="{StaticResource ContentChip}">
-                        <HorizontalStackLayout Spacing="6">
-                            <Image Source="icon_sena_logo.svg" HeightRequest="16" WidthRequest="16">
-                                <Image.Behaviors>
-                                    <toolkit:IconTintColorBehavior TintColor="{StaticResource WhiteBase}" />
-                                </Image.Behaviors>
-                            </Image>
-                            <Label Text="SENA"
-                                   Style="{StaticResource TextRegular}"
-                                   TextColor="{StaticResource WhiteBase}"
-                                   FontSize="12" />
-                        </HorizontalStackLayout>
-                    </Border>
-                </HorizontalStackLayout>
+                <CollectionView x:Name="NoticiasCollection"
+                                 SelectionMode="Single"
+                                 SelectionChanged="OnNoticiaSelected"
+                                 HeightRequest="48"
+                                 HorizontalScrollBarVisibility="Never">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Style="{StaticResource ContentChip}">
+                                <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                                    <Image Source="icon_sena_logo.svg"
+                                           HeightRequest="16"
+                                           WidthRequest="16"
+                                           VerticalOptions="Center">
+                                        <Image.Behaviors>
+                                            <toolkit:IconTintColorBehavior TintColor="{StaticResource WhiteBase}" />
+                                        </Image.Behaviors>
+                                    </Image>
+                                    <Label Text="{Binding Titulo}"
+                                           Style="{StaticResource TextRegular}"
+                                           TextColor="{StaticResource WhiteBase}"
+                                           FontSize="12"
+                                           LineBreakMode="NoWrap"
+                                           VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </VerticalStackLayout>
         </Border>
 
@@ -41,7 +57,7 @@
                     VerticalOptions="Start">
                 <Grid ColumnDefinitions="Auto, *" HeightRequest="90">
                     <Image Grid.Column="0"
-                           Source="bkg_ecosena_auth.png"
+                           Source="bkg_instructive_app.png"
                            Aspect="AspectFill"
                            WidthRequest="100"
                            HeightRequest="90" />
@@ -53,6 +69,9 @@
                                FontAttributes="Bold"
                                LineBreakMode="WordWrap" />
                         <Border Style="{StaticResource ActionChipPrimary}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnVerInstructivoTapped" />
+                            </Border.GestureRecognizers>
                             <HorizontalStackLayout Spacing="10">
                                 <Label Text="Ver instructivo"
                                        Style="{StaticResource TextRegular}"

@@ -19,6 +19,13 @@ public partial class HostPage : ContentPage
         // Wire up the footer selection
         MainFootBar.SelectedIndexChanged += OnFooterSelectionChanged;
 
+        // Al recuperar conexión, refresca la sección activa (mismo mecanismo que RefreshIfSupported usa al volver de background)
+        OfflineBanner.ConnectivityRestored += (s, e) =>
+        {
+            if (ContentRegion.Content is View currentView)
+                RefreshIfSupported(currentView);
+        };
+
         ApplyRole();
     }
 
@@ -32,6 +39,10 @@ public partial class HostPage : ContentPage
         if (role != _lastRole)
         {
             ApplyRole();
+        }
+        else if (ContentRegion.Content is View currentView)
+        {
+            RefreshIfSupported(currentView);
         }
     }
 
@@ -96,15 +107,26 @@ public partial class HostPage : ContentPage
         {
             "Home" => CreateHomeView(),
             "Blog" => new BlogContainerView(),
-            "Report" => role switch
-            {
-                "Administrador" => new ReportsAdminView(),
-                "Aprendiz" => new ReportsUserView(),
-                "Penalizado" => BuildPenalizadoView(),
-                _ => new ContentView(),
-            },
+            "Report" => CreateReportView(role),
             _ => new ContentView(),
         };
+    }
+
+    private View CreateReportView(string role)
+    {
+        switch (role)
+        {
+            case "Administrador":
+                return new ReportsAdminView();
+            case "Aprendiz":
+                var reportsUserView = new ReportsUserView();
+                reportsUserView.BusyChanged += (s, busy) => HostLoadingOverlay.IsBusy = busy;
+                return reportsUserView;
+            case "Penalizado":
+                return BuildPenalizadoView();
+            default:
+                return new ContentView();
+        }
     }
 
     private View CreateHomeView()

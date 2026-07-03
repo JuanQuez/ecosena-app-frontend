@@ -16,7 +16,22 @@ public partial class ReportManagementViewModel : ObservableObject
     private ReportResDto? reporte;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(EstaProcesando))]
     private bool isBusy;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsNotAvanzando))]
+    [NotifyPropertyChangedFor(nameof(EstaProcesando))]
+    private bool isAvanzando;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsNotPenalizando))]
+    [NotifyPropertyChangedFor(nameof(EstaProcesando))]
+    private bool isPenalizando;
+
+    public bool IsNotAvanzando => !IsAvanzando;
+    public bool IsNotPenalizando => !IsPenalizando;
+    public bool EstaProcesando => IsBusy || IsAvanzando || IsPenalizando;
 
     public bool Penalizado { get; private set; }
 
@@ -42,7 +57,7 @@ public partial class ReportManagementViewModel : ObservableObject
     [RelayCommand]
     private async Task AvanzarEstadoAsync()
     {
-        IsBusy = true;
+        IsAvanzando = true;
         try
         {
             var ok = await _reportService.UpdateEstadoAsync(ReporteId);
@@ -53,14 +68,14 @@ public partial class ReportManagementViewModel : ObservableObject
         }
         finally
         {
-            IsBusy = false;
+            IsAvanzando = false;
         }
     }
 
     [RelayCommand]
     private async Task PenalizarAsync()
     {
-        IsBusy = true;
+        IsPenalizando = true;
         try
         {
             Penalizado = await _reportService.PenalizarAsync(ReporteId);
@@ -68,7 +83,7 @@ public partial class ReportManagementViewModel : ObservableObject
         }
         finally
         {
-            IsBusy = false;
+            IsPenalizando = false;
         }
     }
 }

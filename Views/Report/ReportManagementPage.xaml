@@ -7,10 +7,14 @@
     Shell.NavBarIsVisible="False"
     BackgroundImageSource="bkg_ecosena_sections.png">
 
-    <controls:ReportManagementAdminView x:Name="ManagementView"
-                                         ActualizarEstadoClicked="OnActualizarEstadoTapped"
-                                         PenalizarClicked="OnPenalizarTapped"
-                                         VolverClicked="OnVolverTapped"
-                                         Margin="20,10"/>
+    <Grid>
+        <controls:ReportManagementAdminView x:Name="ManagementView"
+                                             ActualizarEstadoClicked="OnActualizarEstadoTapped"
+                                             PenalizarClicked="OnPenalizarTapped"
+                                             VolverClicked="OnVolverTapped"
+                                             Margin="20,10"/>
+
+        <controls:LoadingOverlayView IsBusy="{Binding EstaProcesando}"/>
+    </Grid>
 
 </ContentPage>

@@ -8,6 +8,8 @@ public partial class ReportsUserView : ContentView
     private readonly ReportsUserViewModel? _viewModel;
     private readonly ReportFormViewModel? _formViewModel;
 
+    public event EventHandler<bool>? BusyChanged;
+
     public ReportsUserView()
     {
         InitializeComponent();
@@ -26,6 +28,9 @@ public partial class ReportsUserView : ContentView
             _viewModel.PropertyChanged += OnViewModelPropertyChanged;
             _viewModel.LoadCommand.Execute(null);
         }
+
+        if (_formViewModel != null)
+            _formViewModel.PropertyChanged += OnFormViewModelPropertyChanged;
     }
 
     private void OnViewModelPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -37,6 +42,14 @@ public partial class ReportsUserView : ContentView
         FormSection.IsVisible = _viewModel.MostrarFormulario;
     }
 
+    private void OnFormViewModelPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName != nameof(ReportFormViewModel.IsBusy) || _formViewModel == null)
+            return;
+
+        BusyChanged?.Invoke(this, _formViewModel.IsBusy);
+    }
+
     private void OnReportarTapped(object sender, EventArgs e)
     {
         _viewModel?.AbrirFormularioCommand.Execute(null);
@@ -44,7 +57,7 @@ public partial class ReportsUserView : ContentView
 
     private async void OnGenerarReporteTapped(object? sender, EventArgs e)
     {
-        if (_formViewModel == null)
+        if (_formViewModel == null || _formViewModel.IsBusy)
             return;
 
         _formViewModel.Titulo = FormSection.Titulo;

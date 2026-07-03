@@ -13,10 +13,13 @@ public partial class CreateBlogEntryViewModel : ObservableObject
     public string Contenido { get; set; } = string.Empty;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsNotBusy))]
     private bool isBusy;
 
     [ObservableProperty]
     private ImageSource? portadaPreview;
+
+    public bool IsNotBusy => !IsBusy;
 
     public byte[]? PortadaBytes { get; private set; }
     public string? PortadaFileName { get; private set; }
@@ -35,9 +38,23 @@ public partial class CreateBlogEntryViewModel : ObservableObject
         if (accion is not "Galería" and not "Cámara")
             return;
 
-        var resultado = accion == "Galería"
-            ? await MediaPicker.PickPhotoAsync()
-            : await MediaPicker.CapturePhotoAsync();
+        FileResult? resultado;
+        try
+        {
+            resultado = accion == "Galería"
+                ? await MediaPicker.PickPhotoAsync()
+                : await MediaPicker.CapturePhotoAsync();
+        }
+        catch (PermissionException)
+        {
+            await Toast.Make("Debes conceder permiso de cámara para tomar una foto.").Show();
+            return;
+        }
+        catch (FeatureNotSupportedException)
+        {
+            await Toast.Make("Este dispositivo no tiene cámara disponible.").Show();
+            return;
+        }
 
         if (resultado == null)
             return;

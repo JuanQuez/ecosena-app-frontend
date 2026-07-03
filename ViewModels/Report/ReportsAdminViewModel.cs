@@ -1,6 +1,7 @@
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using EcosenaApp.Helpers;
 using EcosenaApp.Models.Report;
 using EcosenaApp.Services.Report;
 using System.Collections.ObjectModel;
@@ -79,6 +80,13 @@ public partial class ReportsAdminViewModel : ObservableObject
             }
 
             var (bytes, fileName) = resultado.Value;
+
+            if (await ExcelDownloadHelper.TrySaveToDownloadsAsync(bytes, fileName))
+            {
+                await Toast.Make("Archivo descargado.").Show();
+                return;
+            }
+
             var path = Path.Combine(FileSystem.CacheDirectory, fileName);
             await File.WriteAllBytesAsync(path, bytes);
 

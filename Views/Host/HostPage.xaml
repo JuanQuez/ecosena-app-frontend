@@ -13,8 +13,14 @@
         <!-- Dynamic content region -->
         <ContentView x:Name="ContentRegion" Grid.Row="1" />
 
+        <!-- Banner flotante de "sin conexión" (misma celda que ContentRegion, ancla arriba, no empuja nada) -->
+        <controls:OfflineBannerView x:Name="OfflineBanner" Grid.Row="1" VerticalOptions="Start" />
+
         <!-- Persistent Footer -->
         <controls:FootBarView x:Name="MainFootBar" Grid.Row="2" />
+
+        <!-- Overlay de carga a pantalla completa (cubre TopBar+contenido+FootBar) -->
+        <controls:LoadingOverlayView x:Name="HostLoadingOverlay" Grid.Row="0" Grid.RowSpan="3" IsBusy="False"/>
     </Grid>
 
 </ContentPage>

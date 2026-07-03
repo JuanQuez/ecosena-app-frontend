@@ -25,7 +25,7 @@ public partial class CreateBlogEntryPage : ContentPage
 
     private async void OnPublicarTapped(object? sender, EventArgs e)
     {
-        if (_viewModel == null)
+        if (_viewModel == null || _viewModel.IsBusy)
             return;
 
         _viewModel.Titulo = CreateView.Titulo;

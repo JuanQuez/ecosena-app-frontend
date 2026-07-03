@@ -37,7 +37,7 @@ public partial class EditBlogEntryPage : ContentPage
 
     private async void OnGuardarTapped(object? sender, EventArgs e)
     {
-        if (_viewModel == null)
+        if (_viewModel == null || _viewModel.IsGuardando)
             return;
 
         _viewModel.Titulo = EditView.Titulo;

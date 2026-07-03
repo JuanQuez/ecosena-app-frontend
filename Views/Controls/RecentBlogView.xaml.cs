@@ -30,9 +30,15 @@ namespace EcosenaApp.Views.Controls
                 return;
             }
 
+            EntradaCard.IsVisible = true;
+            SinEntradasLabel.IsVisible = false;
+
             AutorLabel.Text = _entradaReciente.NombreRedactor;
             TituloLabel.Text = _entradaReciente.Titulo;
             FechaLabel.Text = _entradaReciente.FechaPublicacion.ToString("d MMM yyyy");
+            PortadaImage.Source = string.IsNullOrEmpty(_entradaReciente.Portada)
+                ? "bkg_blog_cta.png"
+                : _entradaReciente.Portada;
         }
 
         private async void OnEntradaTapped(object sender, TappedEventArgs e)

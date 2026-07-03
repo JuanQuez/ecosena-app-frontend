@@ -40,19 +40,29 @@
         </Grid>
 
         <!-- Content area (fills rest of screen) -->
-        <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never">
+        <Border Grid.Row="1" StrokeThickness="0">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="30"/>
+            </Border.StrokeShape>
+            <ScrollView VerticalScrollBarVisibility="Never">
             <VerticalStackLayout VerticalOptions="Center">
 
                 <!-- Card container (rounded) -->
-                <Border Background="{StaticResource WhiteBase}"
-                        StrokeThickness="0"
-                        Padding="30, 20"
-                        >
+                <Border StrokeThickness="0">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="30"/>
                     </Border.StrokeShape>
 
-                    <VerticalStackLayout Spacing="20">
+                    <AbsoluteLayout>
+                        <Image Source="bkg_ecosena_managment.png"
+                               Aspect="AspectFill"
+                               AbsoluteLayout.LayoutBounds="0,0,1,1"
+                               AbsoluteLayout.LayoutFlags="All"/>
+
+                        <VerticalStackLayout Spacing="20"
+                                              Padding="30, 20"
+                                              AbsoluteLayout.LayoutBounds="0,0,1,-1"
+                                              AbsoluteLayout.LayoutFlags="WidthProportional">
 
                         <!-- Title -->
                         <Label x:Name="TitleLabel"
@@ -94,11 +104,13 @@
                         </Grid>
 
                     </VerticalStackLayout>
+                    </AbsoluteLayout>
 
                 </Border>
 
             </VerticalStackLayout>
-        </ScrollView>
+            </ScrollView>
+        </Border>
 
         <controls:LoadingOverlayView Grid.Row="0" Grid.RowSpan="2" IsBusy="{Binding EstaProcesando}"/>
 

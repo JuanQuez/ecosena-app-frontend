@@ -8,7 +8,7 @@
             StrokeShape="RoundRectangle 15">
 
         <Grid>
-            <Image Source="bkg_report_form.png"
+            <Image Source="bkg_ecosena_managment.png"
                    Aspect="AspectFill"
                    HorizontalOptions="Fill"
                    VerticalOptions="Fill"/>

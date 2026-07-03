@@ -9,7 +9,7 @@
             Margin="0, 10">
 
         <Grid>
-            <Image Source="bkg_report_management.png"
+            <Image Source="bkg_ecosena_managment.png"
                    Aspect="AspectFill"
                    HorizontalOptions="Fill"
                    VerticalOptions="Fill"/>

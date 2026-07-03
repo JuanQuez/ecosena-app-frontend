@@ -4,18 +4,21 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="EcosenaApp.Views.Controls.ReportFormUserView">
 
+    <ScrollView VerticalScrollBarVisibility="Never">
     <Border StrokeThickness="0"
-            StrokeShape="RoundRectangle 15">
+            StrokeShape="RoundRectangle 15"
+            VerticalOptions="Center">
 
-        <Grid>
+        <AbsoluteLayout>
             <Image Source="bkg_ecosena_managment.png"
                    Aspect="AspectFill"
-                   HorizontalOptions="Fill"
-                   VerticalOptions="Fill"/>
+                   AbsoluteLayout.LayoutBounds="0,0,1,1"
+                   AbsoluteLayout.LayoutFlags="All"/>
 
-            <Grid RowDefinitions="*, Auto">
+            <VerticalStackLayout Spacing="0"
+                                  AbsoluteLayout.LayoutBounds="0,0,1,-1"
+                                  AbsoluteLayout.LayoutFlags="WidthProportional">
 
-                <ScrollView Grid.Row="0">
                 <VerticalStackLayout Spacing="16"
                                      Padding="16,12,16,6">
 
@@ -156,10 +159,8 @@
                     </HorizontalStackLayout>
 
                 </VerticalStackLayout>
-                </ScrollView>
 
-                <VerticalStackLayout Grid.Row="1"
-                                     Spacing="8"
+                <VerticalStackLayout Spacing="8"
                                      Padding="16,8,16,14">
                     <Grid>
                         <Button x:Name="GenerarReporteButton"
@@ -190,7 +191,8 @@
                             Clicked="OnCancelarTapped"/>
                 </VerticalStackLayout>
 
-            </Grid>
-        </Grid>
+            </VerticalStackLayout>
+        </AbsoluteLayout>
     </Border>
+    </ScrollView>
 </ContentView>
